@@ -4,7 +4,7 @@ import Layout from "./src/components/Layout";
 function App() {
   return (
     <Layout>
-      <Text>LAYOUTTTTT</Text>
+      <Text style={{ color: "white" }}>LAYOUTTTTT</Text>
     </Layout>
   );
 }
