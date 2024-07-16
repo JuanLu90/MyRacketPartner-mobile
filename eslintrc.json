@@ -1,6 +1,28 @@
 {
-  "extends": ["react-app", "plugin:prettier/recommended"],
-  "plugins": ["prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-native/all",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["react", "react-native", "prettier"],
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "react-native/react-native": true
+  },
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module",
+    "requireConfigFile": false,
+    "babelOptions": {
+      "presets": ["module:metro-react-native-babel-preset"]
+    }
+  },
   "rules": {
     "prettier/prettier": [
       "error",
@@ -9,6 +31,18 @@
         "semi": true
       }
     ],
-    "quotes": ["error", "double", { "avoidEscape": true }]
+    "quotes": ["error", "double", { "avoidEscape": true }],
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react-native/no-unused-styles": "warn",
+    "react-native/split-platform-components": "warn",
+    "react-native/no-inline-styles": "warn",
+    "react-native/no-color-literals": "warn",
+    "react-native/no-raw-text": "warn"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

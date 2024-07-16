@@ -1,15 +1,23 @@
 import React from "react";
-import { View, StyleSheet, SafeAreaView } from "react-native";
+import { View, StyleSheet } from "react-native";
+import Header from "./Header";
 import { colors } from "../utils/stylesUtil.js";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Layout = (props) => {
+  const insets = useSafeAreaInsets();
+
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.wrapper}>
-        <View style={styles.main}>{props.children}</View>
-        <View style={styles.bottomBlock} />
-      </View>
-    </SafeAreaView>
+    <View
+      style={[
+        styles.wrapper,
+        { paddingTop: insets.top, paddingBottom: insets.bottom },
+      ]}
+    >
+      <Header />
+      <View style={styles.main}>{props.children}</View>
+      <View style={styles.bottomBlock} />
+    </View>
   );
 };
 
