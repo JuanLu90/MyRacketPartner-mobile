@@ -1,8 +1,11 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import Header from "./Header";
+import Footer from "./Footer";
 import { colors } from "../utils/stylesUtil.js";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+const { height: screenHeight } = Dimensions.get("window");
 
 const Layout = (props) => {
   const insets = useSafeAreaInsets();
@@ -19,6 +22,7 @@ const Layout = (props) => {
         {props.children}
         <View style={styles.bottomBlock} />
       </View>
+      <Footer />
     </View>
   );
 };
@@ -42,7 +46,7 @@ const styles = StyleSheet.create({
     position: "relative",
     flexDirection: "column",
     justifyContent: "space-between",
-    minHeight: "calc(100vh - 60px)",
+    minHeight: screenHeight - 100, // Altura mínima para cubrir toda la pantalla menos 60px
     borderWidth: 2,
     borderColor: colors.green,
     borderTopWidth: 0,
