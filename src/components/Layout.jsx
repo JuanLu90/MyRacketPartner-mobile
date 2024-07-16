@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import Header from "./Header";
 import { colors } from "../utils/stylesUtil.js";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -15,8 +15,10 @@ const Layout = (props) => {
       ]}
     >
       <Header />
-      <View style={styles.main}>{props.children}</View>
-      <View style={styles.bottomBlock} />
+      <View style={styles.main}>
+        {props.children}
+        <View style={styles.bottomBlock} />
+      </View>
     </View>
   );
 };
@@ -36,8 +38,8 @@ const styles = StyleSheet.create({
     // margin: "auto",
   },
   main: {
+    flex: 1,
     position: "relative",
-    display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
     minHeight: "calc(100vh - 60px)",
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
   },
   bottomBlock: {
-    // height: 60,
+    height: 60,
     borderTopWidth: 1,
     borderTopColor: colors.green,
   },
