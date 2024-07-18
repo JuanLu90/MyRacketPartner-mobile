@@ -4,6 +4,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { Provider } from "react-redux";
 import { store } from "./src/redux/store";
+import Home from "./src/components/Home";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <SafeAreaProvider>
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
           <Layout>
-            <Text style={{ color: "white" }}>LAYOUTTT</Text>
+            <Home />
           </Layout>
         </ScrollView>
       </SafeAreaProvider>
