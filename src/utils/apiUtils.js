@@ -91,11 +91,15 @@ export const getTokenLocalStorage = () => console.log("token");
 
 export const getRequestOptions = (method, body) => ({
   method: method,
+  // headers: {
+  //   "Content-Type": "application/json; charset=UTF-8",
+  //   Authorization: getTokenLocalStorage()
+  //     ? `Bearer ${getTokenLocalStorage()}`
+  //     : undefined,
+  // },
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
-    Authorization: getTokenLocalStorage()
-      ? `Bearer ${getTokenLocalStorage()}`
-      : undefined,
+    Authorization: undefined,
   },
   body: body ? JSON.stringify(body) : undefined,
 });
