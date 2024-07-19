@@ -43,7 +43,7 @@ const Header = () => {
       <View style={styles.wrapperLogo}>
         {/* <LogoIconIcon onClick={() => navigate("/")} /> */}
         {/* <LogoIconImg onClick={() => console.log("LogoIconIcon")} /> */}
-        <LogoIcon width={60} height={60} pathFill={colors.green} />
+        <LogoIcon width={40} height={40} pathFill={colors.green} />
       </View>
       <View style={styles.rightContent}>
         {/* {id && (
@@ -54,12 +54,12 @@ const Header = () => {
             )} */}
 
         <TouchableOpacity onPress={() => console.log("UserDefaultIcon")}>
-          <Image source={UserDefaultImg} style={{ width: 50, height: 50 }} />
+          <Image source={UserDefaultImg} style={{ width: 40, height: 40 }} />
         </TouchableOpacity>
         <View style={styles.wrapperMenu}>
           <View style={styles.wrapperMenuIcon}>
             <TouchableOpacity onPress={() => console.log("UserDefaultIcon")}>
-              <MenuIcon width={50} height={50} pathFill={colors.green} />
+              <MenuIcon width={40} height={40} pathFill={colors.green} />
             </TouchableOpacity>
           </View>
         </View>

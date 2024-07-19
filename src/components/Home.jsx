@@ -1,7 +1,10 @@
 import { useEffect } from "react";
+import { View, Text, StyleSheet } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { matches } from "../redux/slices/matchesSlice";
 import Match from "./Match";
+import Friendly from "../images/svg-components/Friendly";
+import { colors } from "../utils/stylesUtil";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -73,11 +76,32 @@ const Home = () => {
 
   return (
     <>
+      <View style={styles.wrapperTitle}>
+        <Friendly
+          width={40}
+          height={30}
+          marginHorizontal={23}
+          pathFill={colors.greyLight}
+        />
+        <Text style={styles.title}>Friendy Matches</Text>
+      </View>
       {matchesGrouped.map((match, i) => (
         <Match match={match} key={i} />
       ))}
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  wrapperTitle: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  title: {
+    color: colors.white,
+    fontSize: 17,
+    fontWeight: "bold",
+  },
+});
 
 export default Home;
