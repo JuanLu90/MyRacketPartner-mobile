@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { colors } from "../utils/stylesUtil";
 import EditMatchImg from "../images/edit.png";
 import { formatDate, formatHour } from "../utils/dateUtil";
+import UserDefaultImg from "../images/user-default.png";
 
 const Match = (props) => {
   const {
@@ -49,22 +50,29 @@ const Match = (props) => {
           </View>
           <View style={styles.separator} />
           <View style={styles.playersWrapper}>
-            <Text
-              style={[
-                styles.playerStyled,
-                matchWinner === player1ID && styles.winner,
-              ]}
-            >
-              {player1Name}
-            </Text>
-            <Text
-              style={[
-                styles.playerStyled,
-                matchWinner === player2ID && styles.winner,
-              ]}
-            >
-              {player2Name}
-            </Text>
+            <View style={styles.playersInfo}>
+              <Image source={UserDefaultImg} style={styles.playerIcon} />
+              <Text
+                style={[
+                  styles.playerStyled,
+                  matchWinner === player1ID && styles.winner,
+                ]}
+              >
+                {player1Name}
+              </Text>
+            </View>
+            <View style={styles.playersInfo}>
+              <Image source={UserDefaultImg} style={styles.playerIcon} />
+
+              <Text
+                style={[
+                  styles.playerStyled,
+                  matchWinner === player2ID && styles.winner,
+                ]}
+              >
+                {player2Name}
+              </Text>
+            </View>
           </View>
         </View>
         <View style={styles.result}>
@@ -144,15 +152,16 @@ const styles = StyleSheet.create({
   },
   playersWrapper: {
     flexDirection: "column",
-    justifyContent: "center",
-    overflow: "hidden",
+  },
+  playersInfo: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   playerStyled: {
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
     color: colors.white,
-    paddingLeft: 15,
   },
   resultStyled: {
     fontWeight: "normal",
@@ -167,6 +176,7 @@ const styles = StyleSheet.create({
     height: 36,
     opacity: 0.6,
     width: 1,
+    marginRight: 10,
   },
   wrapperEdit: {
     alignItems: "center",
@@ -175,6 +185,11 @@ const styles = StyleSheet.create({
   editIcon: {
     width: 17,
     height: 17, // Added height for better scaling
+  },
+  playerIcon: {
+    width: 18,
+    height: 18,
+    marginRight: 10,
   },
 });
 

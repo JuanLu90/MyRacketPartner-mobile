@@ -195,12 +195,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
   },
-  separator: {
-    height: 1,
-    width: "80%",
-    backgroundColor: "#ccc",
-    marginVertical: 10,
-  },
 });
 
 export default Header;
