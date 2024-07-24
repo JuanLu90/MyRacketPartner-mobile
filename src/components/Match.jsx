@@ -1,9 +1,17 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Pressable,
+} from "react-native";
 
 import { colors } from "../utils/stylesUtil";
 import EditMatchImg from "../images/edit.png";
 import { formatDate, formatHour } from "../utils/dateUtil";
 import UserDefaultImg from "../images/user-default.png";
+import { Link } from "expo-router";
 
 const Match = (props) => {
   const {
@@ -41,63 +49,66 @@ const Match = (props) => {
   };
 
   return (
-    <View style={styles.wrapper}>
-      <View style={styles.innerWrapper}>
-        <View style={styles.firstBlock}>
-          <View style={styles.date}>
-            <Text style={styles.dateText}>{formatDate(matchDate)}</Text>
-            <Text style={styles.dateText}>{formatHour(matchDate)}</Text>
-          </View>
-          <View style={styles.separator} />
-          <View style={styles.playersWrapper}>
-            <View style={styles.playersInfo}>
-              <Image source={UserDefaultImg} style={styles.playerIcon} />
-              <Text
-                style={[
-                  styles.playerStyled,
-                  matchWinner === player1ID && styles.winner,
-                ]}
-              >
-                {player1Name}
-              </Text>
-            </View>
-            <View style={styles.playersInfo}>
-              <Image source={UserDefaultImg} style={styles.playerIcon} />
+    // <Link href={`/${match.matchID}`} asChild>
+    <Link href={`/${match.matchID}`} asChild>
+      <Pressable>
+        <View style={styles.wrapper}>
+          <View style={styles.innerWrapper}>
+            <View style={styles.firstBlock}>
+              <View style={styles.date}>
+                <Text style={styles.dateText}>{formatDate(matchDate)}</Text>
+                <Text style={styles.dateText}>{formatHour(matchDate)}</Text>
+              </View>
+              <View style={styles.separator} />
+              <View style={styles.playersWrapper}>
+                <View style={styles.playersInfo}>
+                  <Image source={UserDefaultImg} style={styles.playerIcon} />
+                  <Text
+                    style={[
+                      styles.playerStyled,
+                      matchWinner === player1ID && styles.winner,
+                    ]}
+                  >
+                    {player1Name}
+                  </Text>
+                </View>
+                <View style={styles.playersInfo}>
+                  <Image source={UserDefaultImg} style={styles.playerIcon} />
 
-              <Text
-                style={[
-                  styles.playerStyled,
-                  matchWinner === player2ID && styles.winner,
-                ]}
-              >
-                {player2Name}
-              </Text>
+                  <Text
+                    style={[
+                      styles.playerStyled,
+                      matchWinner === player2ID && styles.winner,
+                    ]}
+                  >
+                    {player2Name}
+                  </Text>
+                </View>
+              </View>
             </View>
-          </View>
-        </View>
-        <View style={styles.result}>
-          {sets.map((set, i) => (
-            <View key={i} style={styles.resultInner}>
-              <Text
-                style={[
-                  styles.resultStyled,
-                  set.player1Score > set.player2Score && styles.winner,
-                ]}
-              >
-                {set.player1Score}
-              </Text>
-              <Text
-                style={[
-                  styles.resultStyled,
-                  set.player1Score < set.player2Score && styles.winner,
-                ]}
-              >
-                {set.player2Score}
-              </Text>
+            <View style={styles.result}>
+              {sets.map((set, i) => (
+                <View key={i} style={styles.resultInner}>
+                  <Text
+                    style={[
+                      styles.resultStyled,
+                      set.player1Score > set.player2Score && styles.winner,
+                    ]}
+                  >
+                    {set.player1Score}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.resultStyled,
+                      set.player1Score < set.player2Score && styles.winner,
+                    ]}
+                  >
+                    {set.player2Score}
+                  </Text>
+                </View>
+              ))}
             </View>
-          ))}
-        </View>
-        {/* {displayEditButton() && (
+            {/* {displayEditButton() && (
           <>
             <View style={styles.separator} />
             <View style={styles.wrapperEdit}>
@@ -112,8 +123,10 @@ const Match = (props) => {
             </View>
           </>
         )} */}
-      </View>
-    </View>
+          </View>
+        </View>
+      </Pressable>
+    </Link>
   );
 };
 

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { matches } from "../redux/slices/matchesSlice";
 import Match from "./Match";
@@ -75,7 +75,7 @@ const Home = () => {
   const matchesGrouped = Object.values(grouped);
 
   return (
-    <>
+    <ScrollView>
       <View style={styles.wrapperTitle}>
         <Friendly
           width={40}
@@ -88,7 +88,7 @@ const Home = () => {
       {matchesGrouped.map((match, i) => (
         <Match match={match} key={i} />
       ))}
-    </>
+    </ScrollView>
   );
 };
 
