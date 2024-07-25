@@ -17,8 +17,18 @@ async function matches() {
   );
 }
 
+async function matchDetails(matchId) {
+  const requestOptions = getRequestOptions("GET");
+
+  return await fetch(`${API_URL}/matchDetails/${matchId}`, requestOptions).then(
+    handleResponse,
+    handleError,
+  );
+}
+
 const matchesService = {
   matches,
+  matchDetails,
 };
 
 export default matchesService;

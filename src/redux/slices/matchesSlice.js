@@ -461,13 +461,31 @@ export const matches = createAsyncThunk(
   },
 );
 
+export const matchDetailsAction = createAsyncThunk(
+  "matches/matchDetails",
+  async (matchId, thunkAPI) => {
+    try {
+      const data = await MatchesService.matchDetails(matchId);
+
+      return { matchDetails: data };
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue();
+    }
+  },
+);
+
 const matchesSlice = createSlice({
   name: "matches",
   initialState,
   extraReducers: (builder) => {
-    builder.addCase(matches.fulfilled, (state, action) => {
-      state.matches = action.payload.matches;
-    });
+    builder
+      .addCase(matches.fulfilled, (state, action) => {
+        state.matches = action.payload.matches;
+      })
+      .addCase(matchDetailsAction.fulfilled, (state, action) => {
+        state.matchDetails = action.payload.matchDetails;
+      });
   },
 });
 
