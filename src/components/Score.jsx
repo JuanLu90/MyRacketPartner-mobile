@@ -2,33 +2,31 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { colors } from "../utils/stylesUtil";
 
-const Score = (props) => {
-  const {
-    matchDetails: { winnerId, player1, player2, sets },
-  } = props;
-
+const Score = ({ matchDetails }) => {
   return (
     <View style={styles.wrapperScore}>
       <View style={styles.playersWrapper}>
         <Text
           style={[
             styles.playerStyled,
-            winnerId === player1?.id && styles.winner,
+            matchDetails?.winnerId === matchDetails?.player1?.id &&
+              styles.winner,
           ]}
         >
-          {player1?.name}
+          {matchDetails?.player1?.name}
         </Text>
         <Text
           style={[
             styles.playerStyled,
-            winnerId === player2?.id && styles.winner,
+            matchDetails?.winnerId === matchDetails?.player2?.id &&
+              styles.winner,
           ]}
         >
-          {player2?.name}
+          {matchDetails?.player2?.name}
         </Text>
       </View>
       <View style={styles.resultScore}>
-        {sets?.map((set, i) => (
+        {matchDetails?.sets?.map((set, i) => (
           <View key={i} style={styles.setWrapper}>
             <Text
               style={[

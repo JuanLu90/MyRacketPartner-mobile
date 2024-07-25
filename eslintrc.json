@@ -16,8 +16,8 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 12,
     "sourceType": "module",
+    "ecmaVersion": 2020,
     "requireConfigFile": false,
     "babelOptions": {
       "presets": ["module:metro-react-native-babel-preset"]
