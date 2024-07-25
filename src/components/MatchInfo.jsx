@@ -3,19 +3,21 @@ import { Image, StyleSheet, Text, Pressable, View } from "react-native";
 import Screen from "./Screen";
 import { colors } from "../utils/stylesUtil";
 import UserDefaultImg from "../images/user-default.png";
+import Score from "./Score";
+import HeadToHead from "./HeadToHead";
 
 const MatchInfo = ({ matchDetails }) => {
   const [currentOptionSelected, setCurrentOptionSelected] =
     useState("Marcador");
 
-  //   const options = {
-  //     Marcador: <Score matchDetails={matchDetails} />,
-  //     H2H: <HeadToHead player1={player1} player2={player2} />,
-  //   };
-
   const options = {
-    Marcador: <Text> Marcador </Text>,
-    H2H: <Text> H2H </Text>,
+    Marcador: <Score matchDetails={matchDetails} />,
+    H2H: (
+      <HeadToHead
+        player1={matchDetails?.player1}
+        player2={matchDetails?.player2}
+      />
+    ),
   };
 
   return (
@@ -108,13 +110,11 @@ const MatchInfo = ({ matchDetails }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.greyDarkSemiTransparent,
   },
   wrapperHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingVertical: 20,
-    paddingHorizontal: 35,
+    padding: 35,
   },
   wrapperPlayer: {
     flexDirection: "column",
@@ -142,7 +142,6 @@ const styles = StyleSheet.create({
   wrapperOptions: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginVertical: 20,
   },
   option: {
     flex: 1,
@@ -155,6 +154,7 @@ const styles = StyleSheet.create({
   optionText: {
     color: colors.white,
     fontWeight: "bold",
+    fontSize: 16,
   },
   optionSelectedText: {
     color: colors.primary,

@@ -26,9 +26,19 @@ async function matchDetails(matchId) {
   );
 }
 
+async function matchDetailsHeadToHead(data) {
+  const requestOptions = getRequestOptions("GET");
+
+  return await fetch(
+    `${API_URL}/matchDetails/headtohead/${data.player1Id}/${data.player2Id}`,
+    requestOptions,
+  ).then(handleResponse, handleError);
+}
+
 const matchesService = {
   matches,
   matchDetails,
+  matchDetailsHeadToHead,
 };
 
 export default matchesService;

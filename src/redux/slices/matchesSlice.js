@@ -475,6 +475,19 @@ export const matchDetailsAction = createAsyncThunk(
   },
 );
 
+export const matchDetailsHeadToHeadAction = createAsyncThunk(
+  "matches/matchDetailsHeadToHead",
+  async (players, thunkAPI) => {
+    try {
+      const data = await MatchesService.matchDetailsHeadToHead(players);
+      return { matchDetailsHeadToHead: data };
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue();
+    }
+  },
+);
+
 const matchesSlice = createSlice({
   name: "matches",
   initialState,
@@ -485,6 +498,9 @@ const matchesSlice = createSlice({
       })
       .addCase(matchDetailsAction.fulfilled, (state, action) => {
         state.matchDetails = action.payload.matchDetails;
+      })
+      .addCase(matchDetailsHeadToHeadAction.fulfilled, (state, action) => {
+        state.matchDetailsHeadToHead = action.payload.matchDetailsHeadToHead;
       });
   },
 });
