@@ -27,6 +27,7 @@
     "expo-linking": "~6.3.1",
     "expo-router": "~3.5.18",
     "expo-status-bar": "~1.12.1",
+    "myracketpartner-commons": "git+https://github.com/JuanLu90/MyRacketPartner-commons.git",
     "react": "18.2.0",
     "react-native": "0.74.3",
     "react-native-dotenv": "^3.4.11",
