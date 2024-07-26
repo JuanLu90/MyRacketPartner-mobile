@@ -10,8 +10,6 @@ export const matches = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const data = await MatchesService.matches();
-
-      // const data = [
       //   {
       //     matchID: 1,
       //     matchDate: "2023-09-05 00:00:00",
