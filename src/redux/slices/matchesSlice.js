@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { matchesService } from "myracketpartner-commons";
+import matchesService from "../../services/matches.service";
 
 const initialState = {
   matches: [],
