@@ -5,5 +5,10 @@ import pluginReactConfig from "eslint-plugin-react/configs/recommended.js";
 export default [
   { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
-  pluginReactConfig,
+  {
+    ...pluginReactConfig,
+    rules: {
+      "react/react-in-jsx-scope": "off",
+    },
+  },
 ];
