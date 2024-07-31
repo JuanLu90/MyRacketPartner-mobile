@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { matches } from "../redux/slices/matchesSlice";
 import Match from "./Match";
 import Friendly from "../images/svg-components/Friendly";
-import { colors } from "../utils/stylesUtil";
+import { colors } from "myracketpartner-commons";
 
 const Home = () => {
   const dispatch = useDispatch();

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { matchDetailsHeadToHeadAction } from "../redux/slices/matchesSlice";
 import { formatDate } from "../utils/dateUtil";
-import { colors } from "../utils/stylesUtil";
+import { colors } from "myracketpartner-commons";
 
 const HeadToHead = (props) => {
   const { player1, player2 } = props;

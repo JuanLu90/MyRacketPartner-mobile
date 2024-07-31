@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { colors } from "../utils/stylesUtil";
+import { colors } from "myracketpartner-commons";
 
 const Score = ({ matchDetails }) => {
   return (

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Image, StyleSheet, Text, Pressable, View } from "react-native";
 import Screen from "./Screen";
-import { colors } from "../utils/stylesUtil";
+import { colors } from "myracketpartner-commons";
 import UserDefaultImg from "../images/user-default.png";
 import Score from "./Score";
 import HeadToHead from "./HeadToHead";

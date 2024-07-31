@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { colors } from "../utils/stylesUtil";
+import { colors } from "myracketpartner-commons";
 
 import { LogoIcon } from "../images/svg-components/LogoIcon";
 import { MenuIcon } from "../images/svg-components/MenuIcon";

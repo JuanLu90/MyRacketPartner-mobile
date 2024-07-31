@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import { colors } from "../utils/stylesUtil";
+import { colors } from "myracketpartner-commons";
 
 const Screen = ({ children }) => {
   return (

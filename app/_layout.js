@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
-import { colors } from "../src/utils/stylesUtil";
+import { colors } from "myracketpartner-commons";
 import { LogoIcon } from "../src/images/svg-components/LogoIcon";
 import { MenuIcon } from "../src/images/svg-components/MenuIcon";
 import UserDefaultImg from "../src/images/user-default.png";

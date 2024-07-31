@@ -12,7 +12,7 @@ import {
 import FBIcon from "../images/facebook.png";
 import IGIcon from "../images/instagram.png";
 import PaypalIcon from "../images/donate-paypal.png";
-import { colors } from "../utils/stylesUtil";
+import { colors } from "myracketpartner-commons";
 
 const Footer = () => {
   return (

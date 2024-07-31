@@ -7,7 +7,7 @@ import {
   Pressable,
 } from "react-native";
 
-import { colors } from "../utils/stylesUtil";
+import { colors } from "myracketpartner-commons";
 import EditMatchImg from "../images/edit.png";
 import { formatDate, formatHour } from "../utils/dateUtil";
 import UserDefaultImg from "../images/user-default.png";
