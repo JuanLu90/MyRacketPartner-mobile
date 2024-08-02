@@ -36,6 +36,12 @@ export default function Layout() {
     }
   };
 
+  const handleOutsidePress = () => {
+    if (menuVisible) {
+      toggleMenu();
+    }
+  };
+
   const {
     user: { id, profileImage },
   } = useSelector((state) => state.auth);
@@ -47,11 +53,11 @@ export default function Layout() {
           headerTitle: "",
           headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
-            <View>
-              <TouchableOpacity onPress={() => console.log("LogoIconLeft")}>
+            <Link href="/" asChild>
+              <Pressable style={styles.menuItem}>
                 <LogoIcon width={35} height={35} pathFill={colors.green} />
-              </TouchableOpacity>
-            </View>
+              </Pressable>
+            </Link>
           ),
           headerRight: () => (
             <View>
@@ -76,20 +82,22 @@ export default function Layout() {
         }}
       />
       {menuVisible && (
-        <Animated.View
-          style={[styles.menu, { transform: [{ translateX: slideAnim }] }]}
-        >
-          <Link href="/login" onPress={toggleMenu} asChild>
-            <Pressable style={styles.menuItem}>
-              <Text style={styles.menuText}>Login</Text>
-            </Pressable>
-          </Link>
-          <Link href="/register" onPress={toggleMenu} asChild>
-            <Pressable style={styles.menuItem}>
-              <Text style={styles.menuText}>Register</Text>
-            </Pressable>
-          </Link>
-        </Animated.View>
+        <Pressable onPress={handleOutsidePress} style={StyleSheet.absoluteFill}>
+          <Animated.View
+            style={[styles.menu, { transform: [{ translateX: slideAnim }] }]}
+          >
+            <Link href="/login" onPress={toggleMenu} asChild>
+              <Pressable style={styles.menuItem}>
+                <Text style={styles.menuText}>Login</Text>
+              </Pressable>
+            </Link>
+            <Link href="/register" onPress={toggleMenu} asChild>
+              <Pressable style={styles.menuItem}>
+                <Text style={styles.menuText}>Register</Text>
+              </Pressable>
+            </Link>
+          </Animated.View>
+        </Pressable>
       )}
     </View>
   );
