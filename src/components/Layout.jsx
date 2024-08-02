@@ -1,5 +1,14 @@
-import { Stack } from "expo-router";
-import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
+import { useState } from "react";
+import { Stack, Link } from "expo-router";
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Image,
+  Animated,
+  Text,
+  Pressable,
+} from "react-native";
 import { colors } from "myracketpartner-commons";
 import { LogoIcon } from "../images/svg-components/LogoIcon";
 import { MenuIcon } from "../images/svg-components/MenuIcon";
@@ -7,6 +16,26 @@ import UserDefaultImg from "../images/user-default.png";
 import { useSelector } from "react-redux";
 
 export default function Layout() {
+  const [menuVisible, setMenuVisible] = useState(false);
+  const slideAnim = useState(new Animated.Value(250))[0];
+
+  const toggleMenu = () => {
+    if (menuVisible) {
+      Animated.timing(slideAnim, {
+        toValue: 250,
+        duration: 300,
+        useNativeDriver: true,
+      }).start(() => setMenuVisible(false));
+    } else {
+      setMenuVisible(true);
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
+  };
+
   const {
     user: { id, profileImage },
   } = useSelector((state) => state.auth);
@@ -18,35 +47,50 @@ export default function Layout() {
           headerTitle: "",
           headerStyle: { backgroundColor: colors.primary },
           headerLeft: () => (
-            <View style={styles.wrapperLogo}>
-              <LogoIcon width={30} height={30} pathFill={colors.green} />
+            <View>
+              <TouchableOpacity onPress={() => console.log("LogoIconLeft")}>
+                <LogoIcon width={35} height={35} pathFill={colors.green} />
+              </TouchableOpacity>
             </View>
           ),
           headerRight: () => (
-            <View style={styles.rightContent}>
+            <View>
               {id && (
                 <TouchableOpacity
                   onPress={() => console.log("UserDefaultIcon")}
                 >
                   <Image
                     source={profileImage ?? UserDefaultImg}
-                    style={{ width: 40, height: 40 }}
+                    style={{ width: 35, height: 35, marginRight: 15 }}
                   />
                 </TouchableOpacity>
               )}
-              <View style={styles.wrapperMenu}>
-                <View style={styles.wrapperMenuIcon}>
-                  <TouchableOpacity
-                    onPress={() => console.log("UserDefaultIcon")}
-                  >
-                    <MenuIcon width={40} height={40} pathFill={colors.green} />
-                  </TouchableOpacity>
-                </View>
+
+              <View>
+                <TouchableOpacity onPress={toggleMenu}>
+                  <MenuIcon width={40} height={40} pathFill={colors.green} />
+                </TouchableOpacity>
               </View>
             </View>
           ),
         }}
       />
+      {menuVisible && (
+        <Animated.View
+          style={[styles.menu, { transform: [{ translateX: slideAnim }] }]}
+        >
+          <Link href="/login" onPress={toggleMenu} asChild>
+            <Pressable style={styles.menuItem}>
+              <Text style={styles.menuText}>Login</Text>
+            </Pressable>
+          </Link>
+          <Link href="/register" onPress={toggleMenu} asChild>
+            <Pressable style={styles.menuItem}>
+              <Text style={styles.menuText}>Register</Text>
+            </Pressable>
+          </Link>
+        </Animated.View>
+      )}
     </View>
   );
 }
@@ -65,10 +109,6 @@ const styles = StyleSheet.create({
     height: 40, // 2.5rem aproximadamente
     cursor: "pointer",
     fill: colors.green, // Necesitarás ajustar el SVG manualmente
-  },
-  wrapperLogo: {
-    flex: 1,
-    padding: 10,
   },
   userDefaultIcon: {
     height: 40,
@@ -111,10 +151,6 @@ const styles = StyleSheet.create({
     borderTopWidth: 2,
     borderTopColor: colors.greyDark,
   },
-  rightContent: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
   wrapperSelectLanguage: {
     flexDirection: "row",
     justifyContent: "center",
@@ -152,6 +188,33 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     fontSize: 16,
+    textAlign: "center",
+  },
+  rightContent: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  menu: {
+    position: "absolute",
+    top: 90,
+    right: 0,
+    width: 250,
+    height: "100%",
+    backgroundColor: colors.green,
+    padding: 20,
+    zIndex: 10,
+  },
+  menuItem: {
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: colors.primary,
+  },
+  menuText: {
+    padding: 10,
+    color: colors.primary,
+    fontSize: 18,
+    borderWidth: 1,
+    borderColor: colors.primary,
     textAlign: "center",
   },
 });

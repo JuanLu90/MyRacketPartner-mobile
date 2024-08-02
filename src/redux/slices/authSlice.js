@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 // import { toastAction } from "./alertSlice";
 import AuthService from "../../services/auth.service";
 
@@ -145,7 +145,7 @@ const authSlice = createSlice({
       .addCase(loginAction.fulfilled, (state, action) => {
         state.isLoggedIn = true;
         state.token = action.payload.token;
-        // state.user = jwt_decode(action.payload.token);
+        state.user = jwtDecode(action.payload.token);
       })
       .addCase(loginAction.rejected, (state) => {
         state.isLoggedIn = false;
@@ -161,7 +161,7 @@ const authSlice = createSlice({
         try {
           state.isLoggedIn = true;
           state.token = action.payload.token;
-          // state.user = jwt_decode(action.payload.token);
+          state.user = jwtDecode(action.payload.token);
         } catch (e) {
           console.error(e);
           return initialState;
