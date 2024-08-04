@@ -21,6 +21,7 @@
     }
   },
   "dependencies": {
+    "@react-native-google-signin/google-signin": "^12.2.1",
     "@reduxjs/toolkit": "^2.2.6",
     "expo": "~51.0.21",
     "expo-constants": "~16.0.2",
