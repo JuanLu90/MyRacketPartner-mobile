@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { jwtDecode } from "jwt-decode";
 // import { toastAction } from "./alertSlice";
@@ -49,7 +50,7 @@ export const authGoogleAction = createAsyncThunk(
     try {
       const response = await AuthService.authGoogle({ token: tokenGoogle });
 
-      localStorage.setItem("token", response.token);
+      await AsyncStorage.setItem("token", response.token);
       return { message: response.message, token: tokenGoogle };
     } catch (error) {
       return thunkAPI.rejectWithValue({

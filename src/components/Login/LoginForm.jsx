@@ -1,9 +1,10 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
+import GoogleAuthButton from "../GoogleAuthButton";
 
 const LoginForm = () => {
   return (
     <View>
-      <Text> Login form </Text>
+      <GoogleAuthButton />
     </View>
   );
 };

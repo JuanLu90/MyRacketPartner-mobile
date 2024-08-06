@@ -1,42 +1,41 @@
-import { GoogleLogin } from "@react-oauth/google";
 import React from "react";
-// import { toastAction } from "../../../redux/slices/alertSlice";
+import { View, Button, Text } from "react-native";
+import {
+  GoogleSignin,
+  statusCodes,
+} from "@react-native-google-signin/google-signin";
 import { useDispatch } from "react-redux";
-import { authGoogleAction } from "../../redux/slices/authSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigation } from "@react-navigation/native";
+import { authGoogleAction } from "../redux/slices/authSlice";
 
-const GoogleAuthButton = () => {
+const LoginForm = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const navigation = useNavigation();
 
-  const onSubmit = async (data) => {
+  const signIn = async () => {
     try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      // Envía la credencial a la acción de Redux
       const response = await dispatch(
-        authGoogleAction(data?.credential),
+        authGoogleAction(userInfo.idToken),
       ).unwrap();
-
-      // await dispatch(
-      //   toastAction({ message: response.message, type: "SUCCESS" })
-      // ).unwrap();
-
-      navigate("/");
+      console.log("Usuario logueado:", response);
+      navigation.navigate("index"); // O navega a donde necesites
     } catch (error) {
-      console.log(error);
-      // await dispatch(
-      //   toastAction({ message: error.message, type: "ERROR" })
-      // ).unwrap();
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        console.log("Inicio de sesión cancelado");
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        console.log("Inicio de sesión en progreso");
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        console.log("Servicios de Google Play no disponibles");
+      } else {
+        console.log("Error desconocido", error);
+      }
     }
   };
 
-  return (
-    <GoogleLogin
-      onSuccess={onSubmit}
-      onError={() => {
-        console.log("Login Failed");
-      }}
-      useOneTap
-    />
-  );
+  return <Button title="Sign in with Google" onPress={signIn} />;
 };
 
-export default GoogleAuthButton;
+export default LoginForm;

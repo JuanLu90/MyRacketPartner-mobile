@@ -13,13 +13,20 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.erjuanlu90.myracketpartnermobile"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adapti+6352ve-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "backgroundColor": "#ffffff",
+        "infoPlist": {
+          "NSAppTransportSecurity": {
+            "NSAllowsArbitraryLoads": true
+          }
+        }
+      },
+      "package": "com.erjuanlu90.myracketpartnermobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -29,7 +36,7 @@
       [
         "@react-native-google-signin/google-signin",
         {
-          "iosUrlScheme": "com.googleusercontent.apps._some_id_here_"
+          "iosUrlScheme": "com.googleusercontent.apps.993763932380-chmaa6d2iu7qcf3nvpcco4u1jhb3n7uo"
         }
       ]
     ]

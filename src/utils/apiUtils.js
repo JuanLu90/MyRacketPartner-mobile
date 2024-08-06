@@ -1,4 +1,4 @@
-// UTILS
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // This methods is responsible for handling the API response
 export async function handleResponse(response) {
@@ -87,19 +87,15 @@ export function handleError(error) {
 }
 
 // export const getTokenLocalStorage = () => localStorage.getItem("token");
-export const getTokenLocalStorage = () => console.log("token");
+export const getTokenLocalStorage = () => AsyncStorage.getItem("token");
 
 export const getRequestOptions = (method, body) => ({
   method: method,
-  // headers: {
-  //   "Content-Type": "application/json; charset=UTF-8",
-  //   Authorization: getTokenLocalStorage()
-  //     ? `Bearer ${getTokenLocalStorage()}`
-  //     : undefined,
-  // },
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
-    Authorization: undefined,
+    Authorization: getTokenLocalStorage()
+      ? `Bearer ${getTokenLocalStorage()}`
+      : undefined,
   },
   body: body ? JSON.stringify(body) : undefined,
 });

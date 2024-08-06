@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Stack, Link } from "expo-router";
 import {
   StyleSheet,
@@ -13,9 +13,13 @@ import { colors } from "myracketpartner-commons";
 import { LogoIcon } from "../images/svg-components/LogoIcon";
 import { MenuIcon } from "../images/svg-components/MenuIcon";
 import UserDefaultImg from "../images/user-default.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getTokenLocalStorage } from "../utils/apiUtils";
+import { setUser } from "../redux/slices/authSlice";
 
 export default function Layout() {
+  const dispatch = useDispatch();
+
   const [menuVisible, setMenuVisible] = useState(false);
   const slideAnim = useState(new Animated.Value(250))[0];
 
@@ -43,8 +47,23 @@ export default function Layout() {
   };
 
   const {
-    user: { id, profileImage },
+    user: { id, profileImage, token },
   } = useSelector((state) => state.auth);
+
+  const tokenLocal = async () => {
+    const token = await getTokenLocalStorage();
+    return token;
+  };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (await tokenLocal()) {
+        await dispatch(setUser(await tokenLocal())).unwrap();
+      }
+    };
+
+    fetchUser();
+  }, [dispatch, token]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -60,14 +79,26 @@ export default function Layout() {
             </Link>
           ),
           headerRight: () => (
-            <View>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
               {id && (
                 <TouchableOpacity
                   onPress={() => console.log("UserDefaultIcon")}
                 >
                   <Image
-                    source={profileImage ?? UserDefaultImg}
-                    style={{ width: 35, height: 35, marginRight: 15 }}
+                    source={
+                      profileImage
+                        ? {
+                            uri: profileImage,
+                            cache: "reload",
+                          }
+                        : UserDefaultImg
+                    }
+                    style={{
+                      width: 35,
+                      height: 35,
+                      marginRight: 15,
+                      borderRadius: 20,
+                    }}
                   />
                 </TouchableOpacity>
               )}
@@ -117,13 +148,6 @@ const styles = StyleSheet.create({
     height: 40, // 2.5rem aproximadamente
     cursor: "pointer",
     fill: colors.green, // Necesitarás ajustar el SVG manualmente
-  },
-  userDefaultIcon: {
-    height: 40,
-    width: 40,
-    marginRight: 10,
-    borderRadius: 50,
-    cursor: "pointer",
   },
   wrapperMenuIcon: {
     flexDirection: "row",
@@ -204,7 +228,7 @@ const styles = StyleSheet.create({
   },
   menu: {
     position: "absolute",
-    top: 90,
+    top: 97,
     right: 0,
     width: 250,
     height: "100%",
