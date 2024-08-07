@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import LoginForm from "./LoginForm";
 import { colors } from "myracketpartner-commons";
 import GoogleAuthButton from "../GoogleAuthButton";
+import { Link } from "expo-router";
 
 const Login = () => {
   return (
@@ -16,7 +17,9 @@ const Login = () => {
       <LoginForm />
       <Text style={[styles.textColor, { fontSize: 18 }]}>
         Are you not registered yet?
-        <Text style={{ color: colors.green }}> Sign up</Text>
+        <Link href="/register" style={styles.forgotPassword}>
+          <Text style={{ color: colors.green }}> Sign up</Text>
+        </Link>
       </Text>
     </View>
   );
