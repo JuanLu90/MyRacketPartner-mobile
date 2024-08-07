@@ -1,6 +1,7 @@
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import LoginForm from "./LoginForm";
 import { colors } from "myracketpartner-commons";
+import GoogleAuthButton from "../GoogleAuthButton";
 
 const Login = () => {
   return (
@@ -9,6 +10,9 @@ const Login = () => {
       <Text style={[styles.textColor, styles.subtitle]}>
         Log into your account
       </Text>
+      <Text style={[styles.textColor, styles.LogIn]}>Log in with</Text>
+      <GoogleAuthButton />
+      <Text style={[styles.textColor, styles.LogIn]}>or</Text>
       <LoginForm />
       <Text style={[styles.textColor, { fontSize: 18 }]}>
         Are you not registered yet?
@@ -18,7 +22,7 @@ const Login = () => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   wrapper: { alignItems: "center" },
   textColor: {
     color: colors.white,
@@ -26,13 +30,17 @@ const styles = {
   title: {
     fontSize: 35,
     fontWeight: "bold",
-    marginBottom: 7,
+    marginBottom: 3,
   },
   subtitle: {
     fontSize: 15,
     fontWeight: "bold",
     color: colors.greyLight,
   },
-};
+  LogIn: {
+    fontSize: 18,
+    marginVertical: 30,
+  },
+});
 
 export default Login;

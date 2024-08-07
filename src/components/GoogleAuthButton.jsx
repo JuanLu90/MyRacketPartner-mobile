@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Button, Text } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import {
   GoogleSignin,
   statusCodes,
@@ -7,8 +7,9 @@ import {
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { authGoogleAction } from "../redux/slices/authSlice";
+import GoogleIcon from "../images/svg-components/GoogleIcon";
 
-const LoginForm = () => {
+const GoogleAuthButton = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -35,7 +36,38 @@ const LoginForm = () => {
     }
   };
 
-  return <Button title="Sign in with Google" onPress={signIn} />;
+  return (
+    <Pressable style={styles.button} onPress={signIn}>
+      <View style={styles.contentWrapper}>
+        <View style={styles.iconWrapper}>
+          <GoogleIcon />
+        </View>
+        <Text style={styles.contents}>Sign in with Google</Text>
+      </View>
+    </Pressable>
+  );
 };
 
-export default LoginForm;
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: "#f2f2f2",
+    borderRadius: 4,
+    height: 40,
+    paddingHorizontal: 12,
+    justifyContent: "center",
+  },
+  contentWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  iconWrapper: {
+    width: 20,
+    height: 20,
+    marginRight: 12,
+  },
+  contents: {
+    fontSize: 14,
+    fontWeight: "500",
+  },
+});
+export default GoogleAuthButton;

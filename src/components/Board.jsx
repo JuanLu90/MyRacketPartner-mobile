@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { matches } from "../redux/slices/matchesSlice";
 import Match from "./Match";
-import Friendly from "../images/svg-components/Friendly";
+import FriendlyIcon from "../images/svg-components/FriendlyIcon";
 import { colors } from "myracketpartner-commons";
 
 const Home = () => {
@@ -77,7 +77,7 @@ const Home = () => {
   return (
     <ScrollView>
       <View style={styles.wrapperTitle}>
-        <Friendly
+        <FriendlyIcon
           width={40}
           height={30}
           marginHorizontal={23}
