@@ -58,9 +58,8 @@ const LoginForm = () => {
       console.log("nativation!");
       navigation.navigate("index");
     } catch (error) {
-      // await dispatch(
-      //   toastAction({ message: error.message, type: "ERROR" })
-      // ).unwrap();
+      console.log(error);
+      alert(error.message);
     }
   };
 
