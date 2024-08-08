@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { Link } from "expo-router";
 import { colors } from "myracketpartner-commons";
-import { useState } from "react";
 import {
   Pressable,
   StyleSheet,
@@ -9,36 +9,110 @@ import {
   TextInput,
   Dimensions,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { validateEmail, validatePassword } from "../../utils/validationUtil";
+import { loginAction } from "../../redux/slices/authSlice";
 
 const LoginForm = () => {
-  const [text, onChangeText] = useState("");
-  const [number, onChangeNumber] = useState("");
+  const initialCredentials = {
+    email: "",
+    password: "",
+  };
+
+  const [credentials, setCredentials] = useState(initialCredentials);
+  const [errorState, setErrorState] = useState({});
+
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const validateLogin = () => {
+    const { email, password } = credentials;
+    const errors = {};
+
+    if (!email) errors.email = "Email is required.";
+    else if (!validateEmail(email))
+      errors.email = "Enter a valid email address.";
+
+    if (!password) errors.password = "Password is required";
+    else if (!validatePassword(password))
+      errors.password =
+        "Password must contain at least one lowercase letter, one uppercase letter, one digit, and between 6 and 12 characters.";
+
+    setErrorState(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleChange = (value, name) => {
+    setCredentials((prevUser) => ({
+      ...prevUser,
+      [name]: value,
+    }));
+  };
+
+  const onSubmit = async () => {
+    if (!validateLogin()) return;
+
+    try {
+      await dispatch(loginAction(credentials)).unwrap();
+      console.log("nativation!");
+      navigation.navigate("index");
+    } catch (error) {
+      // await dispatch(
+      //   toastAction({ message: error.message, type: "ERROR" })
+      // ).unwrap();
+    }
+  };
 
   const { width } = Dimensions.get("window");
+
+  const generalWidth = width - 65;
+
   return (
-    <View>
-      <TextInput
-        style={[styles.input, { width: width - 65, marginBottom: 27 }]}
-        onChangeText={onChangeText}
-        value={text}
-        placeholder="Email"
-        placeholderTextColor={colors.greyDark}
-      />
-      <TextInput
-        style={[styles.input, { width: width - 65, marginBottom: 15 }]}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="Password"
-        placeholderTextColor={colors.greyDark}
-        secureTextEntry={true}
-      />
+    <View style={{ maxWidth: generalWidth }}>
+      <View>
+        <TextInput
+          style={[
+            styles.input,
+            {
+              width: generalWidth,
+              borderColor: errorState.email ? colors.orange : colors.greyDark,
+            },
+          ]}
+          onChangeText={(value) => handleChange(value, "email")}
+          value={credentials.email}
+          placeholder="Email"
+          placeholderTextColor={colors.greyDark}
+        />
+        {errorState.email ? (
+          <Text style={styles.errorLabel}>{errorState.email}</Text>
+        ) : null}
+      </View>
+      <View style={{ marginTop: 20 }}>
+        <TextInput
+          style={[
+            styles.input,
+            {
+              width: generalWidth,
+              borderColor: errorState.password
+                ? colors.orange
+                : colors.greyDark,
+            },
+          ]}
+          onChangeText={(value) => handleChange(value, "password")}
+          value={credentials.password}
+          placeholder="Password"
+          placeholderTextColor={colors.greyDark}
+          secureTextEntry={true}
+        />
+        {errorState.password ? (
+          <Text style={styles.errorLabel}>{errorState.password}</Text>
+        ) : null}
+      </View>
       <Link href="/" style={styles.forgotPassword}>
         <Text style={styles.textForgotPassword}>I forgot my password</Text>
       </Link>
-      <Pressable
-        onPress={() => alert("Botón presionado")}
-        style={styles.sendButton}
-      >
+      <Pressable onPress={onSubmit} style={styles.sendButton}>
         <Text style={styles.textSenfButton}>Send</Text>
       </Pressable>
     </View>
@@ -49,9 +123,9 @@ const styles = StyleSheet.create({
   input: {
     width: 40,
     height: 45,
+    marginBottom: 6,
     paddingHorizontal: 10,
     color: colors.white,
-    borderColor: colors.greyDark,
     borderWidth: 1,
   },
   sendButton: {
@@ -70,11 +144,16 @@ const styles = StyleSheet.create({
   },
   forgotPassword: {
     marginLeft: "auto",
+    marginTop: 15,
   },
   textForgotPassword: {
     margin: "auto",
     fontSize: 18,
     color: colors.green,
+  },
+  errorLabel: {
+    fontSize: 17,
+    color: colors.orange,
   },
 });
 

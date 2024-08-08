@@ -22,7 +22,7 @@ const GoogleAuthButton = () => {
         authGoogleAction(userInfo.idToken),
       ).unwrap();
       console.log("Usuario logueado:", response);
-      navigation.navigate("index"); // O navega a donde necesites
+      navigation.navigate("index");
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log("Inicio de sesión cancelado");

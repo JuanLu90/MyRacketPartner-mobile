@@ -15,7 +15,7 @@ export const loginAction = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
       const token = await AuthService.login(user);
-      localStorage.setItem("token", token);
+      AsyncStorage.setItem("token", token);
       return { token };
     } catch (error) {
       return thunkAPI.rejectWithValue({
