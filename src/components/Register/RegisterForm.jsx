@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "expo-router";
 import { colors } from "myracketpartner-commons";
 import {
   Pressable,
@@ -12,23 +11,29 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { validateEmail, validatePassword } from "../../utils/validationUtil";
-import { loginAction } from "../../redux/slices/authSlice";
+import { loginAction, registerAction } from "../../redux/slices/authSlice";
 
-const LoginForm = () => {
-  const initialCredentials = {
+const RegisterForm = () => {
+  const initialRegisterInfo = {
+    userName: "",
     email: "",
+    // email: email ?? "",
     password: "",
+    confirmPassword: "",
+    userRole: "Admin",
   };
 
-  const [credentials, setCredentials] = useState(initialCredentials);
+  const [registerInfo, setRegisterInfo] = useState(initialRegisterInfo);
   const [errorState, setErrorState] = useState({});
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const validateLogin = () => {
-    const { email, password } = credentials;
+  const validateRegister = () => {
+    const { userName, email, password, confirmPassword } = registerInfo;
     const errors = {};
+
+    if (!userName) errors.userName = "Username is required";
 
     if (!email) errors.email = "Email is required.";
     else if (!validateEmail(email))
@@ -39,26 +44,51 @@ const LoginForm = () => {
       errors.password =
         "Password must contain at least one lowercase letter, one uppercase letter, one digit, and between 6 and 12 characters.";
 
+    if (!confirmPassword)
+      errors.confirmPassword = "Confirm password is required";
+    else if (confirmPassword !== password) {
+      errors.confirmPassword = "Passwords do not match";
+    }
+
     setErrorState(errors);
     return Object.keys(errors).length === 0;
   };
 
   const handleChange = (value, name) => {
-    setCredentials((prevUser) => ({
+    setRegisterInfo((prevUser) => ({
       ...prevUser,
       [name]: value,
     }));
   };
 
   const onSubmit = async () => {
-    if (!validateLogin()) return;
-
+    if (!validateRegister()) return;
     try {
+      const response = await dispatch(
+        registerAction({ user: registerInfo }),
+      ).unwrap();
+
+      // await dispatch(
+      //   toastAction({ message: response, type: "SUCCESS" })
+      // ).unwrap();
+
+      // if (tournamentUrl) {
+      //   navigate(`/tournament/${tournamentUrl}`);
+      // }
+      const credentials = {
+        email: registerInfo.email,
+        password: registerInfo.password,
+      };
       await dispatch(loginAction(credentials)).unwrap();
       navigation.navigate("index");
     } catch (error) {
       console.log(error);
-      alert(error.message);
+      if (error?.errorCode === "01") {
+        setErrorState({ email: "Email already exists" });
+      } else if (error?.errorCode === "02") {
+        setErrorState({ userName: "Username already exists" });
+      }
+      // await dispatch(toastAction(error)).unwrap();
     }
   };
 
@@ -77,8 +107,28 @@ const LoginForm = () => {
               borderColor: errorState.email ? colors.orange : colors.greyDark,
             },
           ]}
+          onChangeText={(value) => handleChange(value, "userName")}
+          value={registerInfo.userName}
+          placeholder="Username"
+          placeholderTextColor={colors.greyDark}
+        />
+        {errorState.userName ? (
+          <Text style={styles.errorLabel}>{errorState.userName}</Text>
+        ) : null}
+      </View>
+      <View style={{ marginTop: 20 }}>
+        <TextInput
+          style={[
+            styles.input,
+            {
+              width: generalWidth,
+              borderColor: errorState.password
+                ? colors.orange
+                : colors.greyDark,
+            },
+          ]}
           onChangeText={(value) => handleChange(value, "email")}
-          value={credentials.email}
+          value={registerInfo.email}
           placeholder="Email"
           placeholderTextColor={colors.greyDark}
         />
@@ -98,7 +148,7 @@ const LoginForm = () => {
             },
           ]}
           onChangeText={(value) => handleChange(value, "password")}
-          value={credentials.password}
+          value={registerInfo.password}
           placeholder="Password"
           placeholderTextColor={colors.greyDark}
           secureTextEntry={true}
@@ -107,9 +157,27 @@ const LoginForm = () => {
           <Text style={styles.errorLabel}>{errorState.password}</Text>
         ) : null}
       </View>
-      <Link href="/" style={styles.forgotPassword}>
-        <Text style={styles.textForgotPassword}>I forgot my password</Text>
-      </Link>
+      <View style={{ marginTop: 20 }}>
+        <TextInput
+          style={[
+            styles.input,
+            {
+              width: generalWidth,
+              borderColor: errorState.password
+                ? colors.orange
+                : colors.greyDark,
+            },
+          ]}
+          onChangeText={(value) => handleChange(value, "confirmPassword")}
+          value={registerInfo.confirmPassword}
+          placeholder="Confirm Password"
+          placeholderTextColor={colors.greyDark}
+          secureTextEntry={true}
+        />
+        {errorState.confirmPassword ? (
+          <Text style={styles.errorLabel}>{errorState.confirmPassword}</Text>
+        ) : null}
+      </View>
       <Pressable onPress={onSubmit} style={styles.sendButton}>
         <Text style={styles.textSenfButton}>Send</Text>
       </Pressable>
@@ -155,4 +223,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginForm;
+export default RegisterForm;

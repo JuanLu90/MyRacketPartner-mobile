@@ -1,10 +1,10 @@
-import { Text } from "react-native";
 import Screen from "../src/components/Screen";
+import RegisterComponent from "../src/components/Register/Register";
 
 const Register = () => {
   return (
     <Screen>
-      <Text style={{ color: "white" }}>Registerrr</Text>
+      <RegisterComponent />
     </Screen>
   );
 };
