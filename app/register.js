@@ -1,5 +1,5 @@
-import Screen from "../src/components/Screen";
-import RegisterComponent from "../src/components/Register/Register";
+import Screen from "../src/pages/Screen";
+import RegisterComponent from "../src/pages/Register";
 
 const Register = () => {
   return (

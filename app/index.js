@@ -1,5 +1,5 @@
-import Board from "../src/components/Board";
-import Screen from "../src/components/Screen";
+import Board from "../src/pages/Board";
+import Screen from "../src/pages/Screen";
 
 const Page = () => {
   return (

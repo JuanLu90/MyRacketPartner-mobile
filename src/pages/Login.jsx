@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import RegisterForm from "./RegisterForm";
+import LoginForm from "../components/LoginForm";
 import { colors } from "myracketpartner-commons";
-import GoogleAuthButton from "../GoogleAuthButton";
+import GoogleAuthButton from "../components/GoogleAuthButton";
 import { Link, Stack } from "expo-router";
 
-const Register = () => {
+const Login = () => {
   return (
     <ScrollView>
       <Stack.Screen
@@ -13,22 +13,22 @@ const Register = () => {
           headerTintColor: colors.primary,
           headerLeft: () => {},
           headerRight: () => {},
-          headerTitle: "Sign up",
+          headerTitle: "Log in",
         }}
       />
       <View style={styles.wrapper}>
-        <Text style={[styles.textColor, styles.title]}>Welcome</Text>
+        <Text style={[styles.textColor, styles.title]}>Welcome Back</Text>
         <Text style={[styles.textColor, styles.subtitle]}>
-          Insert your info
+          Log into your account
         </Text>
-        <Text style={[styles.textColor, styles.Register]}>Log in with</Text>
+        <Text style={[styles.textColor, styles.LogIn]}>Log in with</Text>
         <GoogleAuthButton />
-        <Text style={[styles.textColor, styles.Register]}>or</Text>
-        <RegisterForm />
+        <Text style={[styles.textColor, styles.LogIn]}>or</Text>
+        <LoginForm />
         <Text style={[styles.textColor, { fontSize: 18 }]}>
-          Do you already have an account?
-          <Link href="/login" style={styles.forgotPassword}>
-            <Text style={{ color: colors.green }}> Sign in</Text>
+          Are you not registered yet?
+          <Link href="/register" style={styles.forgotPassword}>
+            <Text style={{ color: colors.green }}> Sign up</Text>
           </Link>
         </Text>
       </View>
@@ -51,10 +51,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: colors.greyLight,
   },
-  Register: {
+  LogIn: {
     fontSize: 18,
     marginVertical: 30,
   },
 });
 
-export default Register;
+export default Login;

@@ -1,6 +1,5 @@
-import { Text } from "react-native";
-import Screen from "../src/components/Screen";
-import LoginComponent from "../src/components/Login/Login";
+import Screen from "../src/pages/Screen";
+import LoginComponent from "../src/pages/Login";
 
 const Login = () => {
   return (

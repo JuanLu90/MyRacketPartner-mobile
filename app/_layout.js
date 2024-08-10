@@ -7,7 +7,7 @@ import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 import { Provider } from "react-redux";
 import { store } from "../src/redux/store";
-import LayoutComponent from "../src/components/Layout";
+import LayoutComponent from "../src/pages/Layout";
 
 export default function Layout() {
   useEffect(() => {

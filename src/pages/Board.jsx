@@ -2,9 +2,10 @@ import { useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { matches } from "../redux/slices/matchesSlice";
-import Match from "./Match";
+import Match from "../components/Match";
 import FriendlyIcon from "../images/svg-components/FriendlyIcon";
 import { colors } from "myracketpartner-commons";
+import { groupMatches } from "../utils/groupMatches";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -31,48 +32,7 @@ const Home = () => {
 
   const matchesList = useSelector((state) => state.matches.matches);
 
-  const grouped = Object.values(matchesList).reduce((acc, matchs) => {
-    const matchID = matchs[0].matchID;
-
-    if (!acc[matchID]) {
-      acc[matchID] = {
-        matchID: matchID,
-        matchDate: matchs[0].matchDate,
-        player1ID: matchs[0].player1ID,
-        player1Name: matchs[0].player1Name,
-        player2ID: matchs[0].player2ID,
-        player2Name: matchs[0].player2Name,
-        sets: [],
-      };
-    }
-    matchs.forEach((set) => {
-      acc[matchID].sets.push({
-        setID: set.setID,
-        player1Score: set.player1Score,
-        player2Score: set.player2Score,
-        winnerID: set.winnerID,
-      });
-    });
-    return acc;
-  }, {});
-
-  Object.values(grouped).forEach((match) => {
-    const winnerCounter = {};
-    match.sets.forEach((set) => {
-      if (!winnerCounter[set.winnerID]) {
-        winnerCounter[set.winnerID] = 0;
-      }
-      winnerCounter[set.winnerID]++;
-    });
-    const matchWinner = Number(
-      Object.keys(winnerCounter).reduce((a, b) =>
-        winnerCounter[a] > winnerCounter[b] ? a : b,
-      ),
-    );
-    match.matchWinner = matchWinner;
-  });
-
-  const matchesGrouped = Object.values(grouped);
+  const matchesGrouped = groupMatches(matchesList);
 
   return (
     <ScrollView>

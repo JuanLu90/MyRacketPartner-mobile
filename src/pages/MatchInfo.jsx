@@ -3,8 +3,8 @@ import { Image, StyleSheet, Text, Pressable, View } from "react-native";
 import Screen from "./Screen";
 import { colors } from "myracketpartner-commons";
 import UserDefaultImg from "../images/user-default.png";
-import Score from "./Score";
-import HeadToHead from "./HeadToHead";
+import Score from "../components/Score";
+import HeadToHead from "../components/HeadToHead";
 
 const MatchInfo = ({ matchDetails }) => {
   const [currentOptionSelected, setCurrentOptionSelected] =

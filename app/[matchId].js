@@ -1,5 +1,5 @@
 import { Stack, useLocalSearchParams } from "expo-router";
-import MatchInfo from "../src/components/MatchInfo";
+import MatchInfo from "../src/pages/MatchInfo";
 import { colors } from "myracketpartner-commons";
 import { useEffect } from "react";
 import { matchDetailsAction } from "../src/redux/slices/matchesSlice";
