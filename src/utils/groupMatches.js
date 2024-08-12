@@ -6,18 +6,18 @@ export const groupMatches = (matchesList) => {
       acc[matchID] = {
         matchID: matchID,
         matchDate: matchs[0].matchDate,
-        player1ID: matchs[0].player1ID,
-        player1Name: matchs[0].player1Name,
-        player2ID: matchs[0].player2ID,
-        player2Name: matchs[0].player2Name,
+        user1ID: matchs[0].user1ID,
+        user1Name: matchs[0].user1Name,
+        user2ID: matchs[0].user2ID,
+        user2Name: matchs[0].user2Name,
         sets: [],
       };
     }
     matchs.forEach((set) => {
       acc[matchID].sets.push({
         setID: set.setID,
-        player1Score: set.player1Score,
-        player2Score: set.player2Score,
+        user1Score: set.user1Score,
+        user2Score: set.user2Score,
         winnerID: set.winnerID,
       });
     });

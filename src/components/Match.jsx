@@ -21,15 +21,14 @@ const Match = (props) => {
     manageUserAllowed,
     adminUserID,
     userID,
-    playerID,
   } = props;
 
   const {
     matchWinner,
-    player1ID,
-    player2ID,
-    player1Name,
-    player2Name,
+    user1ID,
+    user2ID,
+    user1Name,
+    user2Name,
     sets,
     matchDate,
   } = match;
@@ -38,10 +37,7 @@ const Match = (props) => {
     let checkIfMatchEditable = false;
 
     if (userID === adminUserID) checkIfMatchEditable = true;
-    else if (
-      manageUserAllowed &&
-      (player1ID === playerID || player2ID === playerID)
-    ) {
+    else if (manageUserAllowed && (user1ID === userID || user2ID === userID)) {
       checkIfMatchEditable = true;
     }
 
@@ -60,28 +56,28 @@ const Match = (props) => {
                 <Text style={styles.dateText}>{formatHour(matchDate)}</Text>
               </View>
               <View style={styles.separator} />
-              <View style={styles.playersWrapper}>
-                <View style={styles.playersInfo}>
-                  <Image source={UserDefaultImg} style={styles.playerIcon} />
+              <View style={styles.usersWrapper}>
+                <View style={styles.usersInfo}>
+                  <Image source={UserDefaultImg} style={styles.userIcon} />
                   <Text
                     style={[
-                      styles.playerStyled,
-                      matchWinner === player1ID && styles.winner,
+                      styles.userStyled,
+                      matchWinner === user1ID && styles.winner,
                     ]}
                   >
-                    {player1Name}
+                    {user1Name}
                   </Text>
                 </View>
-                <View style={styles.playersInfo}>
-                  <Image source={UserDefaultImg} style={styles.playerIcon} />
+                <View style={styles.usersInfo}>
+                  <Image source={UserDefaultImg} style={styles.userIcon} />
 
                   <Text
                     style={[
-                      styles.playerStyled,
-                      matchWinner === player2ID && styles.winner,
+                      styles.userStyled,
+                      matchWinner === user2ID && styles.winner,
                     ]}
                   >
-                    {player2Name}
+                    {user2Name}
                   </Text>
                 </View>
               </View>
@@ -92,18 +88,18 @@ const Match = (props) => {
                   <Text
                     style={[
                       styles.resultStyled,
-                      set.player1Score > set.player2Score && styles.winner,
+                      set.user1Score > set.user2Score && styles.winner,
                     ]}
                   >
-                    {set.player1Score}
+                    {set.user1Score}
                   </Text>
                   <Text
                     style={[
                       styles.resultStyled,
-                      set.player1Score < set.player2Score && styles.winner,
+                      set.user1Score < set.user2Score && styles.winner,
                     ]}
                   >
-                    {set.player2Score}
+                    {set.user2Score}
                   </Text>
                 </View>
               ))}
@@ -163,14 +159,14 @@ const styles = StyleSheet.create({
   resultSpan: {
     marginHorizontal: 5,
   },
-  playersWrapper: {
+  usersWrapper: {
     flexDirection: "column",
   },
-  playersInfo: {
+  usersInfo: {
     flexDirection: "row",
     alignItems: "center",
   },
-  playerStyled: {
+  userStyled: {
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
@@ -199,7 +195,7 @@ const styles = StyleSheet.create({
     width: 17,
     height: 17, // Added height for better scaling
   },
-  playerIcon: {
+  userIcon: {
     width: 18,
     height: 18,
     marginRight: 10,

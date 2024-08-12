@@ -5,24 +5,22 @@ import { colors } from "myracketpartner-commons";
 const Score = ({ matchDetails }) => {
   return (
     <View style={styles.wrapperScore}>
-      <View style={styles.playersWrapper}>
+      <View style={styles.usersWrapper}>
         <Text
           style={[
-            styles.playerStyled,
-            matchDetails?.winnerId === matchDetails?.player1?.id &&
-              styles.winner,
+            styles.userStyled,
+            matchDetails?.winnerId === matchDetails?.user1?.id && styles.winner,
           ]}
         >
-          {matchDetails?.player1?.name}
+          {matchDetails?.user1?.name}
         </Text>
         <Text
           style={[
-            styles.playerStyled,
-            matchDetails?.winnerId === matchDetails?.player2?.id &&
-              styles.winner,
+            styles.userStyled,
+            matchDetails?.winnerId === matchDetails?.user2?.id && styles.winner,
           ]}
         >
-          {matchDetails?.player2?.name}
+          {matchDetails?.user2?.name}
         </Text>
       </View>
       <View style={styles.resultScore}>
@@ -31,18 +29,18 @@ const Score = ({ matchDetails }) => {
             <Text
               style={[
                 styles.resultStyled,
-                set.player1Score > set.player2Score && styles.winner,
+                set.user1Score > set.user2Score && styles.winner,
               ]}
             >
-              {set.player1Score}
+              {set.user1Score}
             </Text>
             <Text
               style={[
                 styles.resultStyled,
-                set.player1Score < set.player2Score && styles.winner,
+                set.user1Score < set.user2Score && styles.winner,
               ]}
             >
-              {set.player2Score}
+              {set.user2Score}
             </Text>
           </View>
         ))}
@@ -58,13 +56,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     marginTop: 20,
   },
-  playersWrapper: {
+  usersWrapper: {
     flexDirection: "column",
     justifyContent: "space-around",
     marginRight: 80,
     overflow: "hidden",
   },
-  playerStyled: {
+  userStyled: {
     color: colors.white,
     fontSize: 17,
     whiteSpace: "nowrap",

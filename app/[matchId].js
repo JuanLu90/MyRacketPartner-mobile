@@ -39,7 +39,7 @@ const MatchId = () => {
           headerTintColor: colors.primary,
           headerLeft: () => {},
           headerRight: () => {},
-          headerTitle: `${matchDetails?.player1?.name} vs ${matchDetails?.player2?.name}`,
+          headerTitle: `${matchDetails?.user1?.name} vs ${matchDetails?.user2?.name}`,
         }}
       />
       <MatchInfo matchDetails={matchDetails} />

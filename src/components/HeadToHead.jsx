@@ -6,7 +6,7 @@ import { formatDate } from "../utils/dateUtil";
 import { colors } from "myracketpartner-commons";
 
 const HeadToHead = (props) => {
-  const { player1, player2 } = props;
+  const { user1, user2 } = props;
   const dispatch = useDispatch();
   const matchDetailsHeadToHead = useSelector(
     (state) => state.matches.matchDetailsHeadToHead,
@@ -14,13 +14,13 @@ const HeadToHead = (props) => {
 
   useEffect(() => {
     const getMatcheDetails = async () => {
-      if (!player1 || !player2) return;
+      if (!user1 || !user2) return;
 
       try {
         await dispatch(
           matchDetailsHeadToHeadAction({
-            player1Id: player1?.id,
-            player2Id: player2?.id,
+            user1Id: user1?.id,
+            user2Id: user2?.id,
           }),
         ).unwrap();
       } catch (error) {
@@ -29,7 +29,7 @@ const HeadToHead = (props) => {
     };
 
     getMatcheDetails();
-  }, [dispatch, player1, player2]);
+  }, [dispatch, user1, user2]);
 
   return (
     <ScrollView>
@@ -39,26 +39,26 @@ const HeadToHead = (props) => {
             {tournamentData.tournamentName}
           </Text>
           {tournamentData.matches.map((match) => {
-            const { id, date, player1, player2, winnerId, sets } = match;
+            const { id, date, user1, user2, winnerId, sets } = match;
             return (
               <View key={id} style={styles.wrapperScore}>
                 <Text style={styles.date}>{formatDate(date)}</Text>
-                <View style={styles.playersWrapper}>
+                <View style={styles.usersWrapper}>
                   <Text
                     style={[
-                      styles.playerStyled,
-                      winnerId === player1.id && styles.winner,
+                      styles.userStyled,
+                      winnerId === user1.id && styles.winner,
                     ]}
                   >
-                    {player1.name}
+                    {user1.name}
                   </Text>
                   <Text
                     style={[
-                      styles.playerStyled,
-                      winnerId === player2.id && styles.winner,
+                      styles.userStyled,
+                      winnerId === user2.id && styles.winner,
                     ]}
                   >
-                    {player2.name}
+                    {user2.name}
                   </Text>
                 </View>
                 <View style={styles.resultScore}>
@@ -67,18 +67,18 @@ const HeadToHead = (props) => {
                       <Text
                         style={[
                           styles.resultStyled,
-                          set.player1Score > set.player2Score && styles.winner,
+                          set.user1Score > set.user2Score && styles.winner,
                         ]}
                       >
-                        {set.player1Score}
+                        {set.user1Score}
                       </Text>
                       <Text
                         style={[
                           styles.resultStyled,
-                          set.player1Score < set.player2Score && styles.winner,
+                          set.user1Score < set.user2Score && styles.winner,
                         ]}
                       >
-                        {set.player2Score}
+                        {set.user2Score}
                       </Text>
                     </View>
                   ))}
@@ -98,12 +98,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
   },
-  playersWrapper: {
+  usersWrapper: {
     flexDirection: "column",
     marginRight: 80,
     overflow: "hidden",
   },
-  playerStyled: {
+  userStyled: {
     alignItems: "center",
     marginVertical: 3,
     whiteSpace: "nowrap",

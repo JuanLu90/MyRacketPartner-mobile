@@ -12,12 +12,7 @@ const MatchInfo = ({ matchDetails }) => {
 
   const options = {
     Marcador: <Score matchDetails={matchDetails} />,
-    H2H: (
-      <HeadToHead
-        player1={matchDetails?.player1}
-        player2={matchDetails?.player2}
-      />
-    ),
+    H2H: <HeadToHead user1={matchDetails?.user1} user2={matchDetails?.user2} />,
   };
 
   return (
@@ -26,44 +21,44 @@ const MatchInfo = ({ matchDetails }) => {
         <View style={styles.wrapperHeader}>
           <View
             style={[
-              styles.wrapperPlayer,
-              matchDetails?.winnerId !== matchDetails?.player1?.id &&
+              styles.wrapperUser,
+              matchDetails?.winnerId !== matchDetails?.user1?.id &&
                 styles.winner,
             ]}
           >
             <Image source={UserDefaultImg} style={styles.userDefaultIcon} />
-            <Text style={styles.playerName}>{matchDetails?.player1?.name}</Text>
+            <Text style={styles.userName}>{matchDetails?.user1?.name}</Text>
           </View>
           <View style={styles.resultContainer}>
             <Text
               style={[
                 styles.result,
-                matchDetails?.winnerId !== matchDetails?.player1?.id &&
+                matchDetails?.winnerId !== matchDetails?.user1?.id &&
                   styles.winner,
               ]}
             >
-              {matchDetails?.totalSetsPlayer1}
+              {matchDetails?.totalSetsUser1}
             </Text>
             <Text style={styles.result}> - </Text>
             <Text
               style={[
                 styles.result,
-                matchDetails?.winnerId !== matchDetails?.player2?.id &&
+                matchDetails?.winnerId !== matchDetails?.user2?.id &&
                   styles.winner,
               ]}
             >
-              {matchDetails?.totalSetsPlayer2}
+              {matchDetails?.totalSetsUser2}
             </Text>
           </View>
           <View
             style={[
-              styles.wrapperPlayer,
-              matchDetails?.winnerId !== matchDetails?.player2?.id &&
+              styles.wrapperUser,
+              matchDetails?.winnerId !== matchDetails?.user2?.id &&
                 styles.winner,
             ]}
           >
             <Image source={UserDefaultImg} style={styles.userDefaultIcon} />
-            <Text style={styles.playerName}>{matchDetails?.player2?.name}</Text>
+            <Text style={styles.userName}>{matchDetails?.user2?.name}</Text>
           </View>
         </View>
         <View style={styles.wrapperOptions}>
@@ -116,13 +111,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 35,
   },
-  wrapperPlayer: {
+  wrapperUser: {
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
     fontWeight: "bold",
   },
-  playerName: {
+  userName: {
     fontSize: 17,
     color: colors.white,
     fontWeight: "bold",

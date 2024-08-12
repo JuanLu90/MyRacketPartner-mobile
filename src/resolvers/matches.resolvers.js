@@ -5,4 +5,4 @@ export const getMatchesUrl = () => `${API_URL}/matches`;
 export const getMatchDetailsUrl = (matchId) =>
   `${API_URL}/matchDetails/${matchId}`;
 export const getMatchDetailsHeadToHeadUrl = (data) =>
-  `${API_URL}/matchDetails/headtohead/${data.player1Id}/${data.player2Id}`;
+  `${API_URL}/matchDetails/headtohead/${data.user1Id}/${data.user2Id}`;

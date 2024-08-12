@@ -42,9 +42,9 @@ export const matchDetailsAction = createAsyncThunk(
 
 export const matchDetailsHeadToHeadAction = createAsyncThunk(
   "matches/matchDetailsHeadToHead",
-  async (players, thunkAPI) => {
+  async (users, thunkAPI) => {
     try {
-      const data = await matchesService.matchDetailsHeadToHead(players);
+      const data = await matchesService.matchDetailsHeadToHead(users);
       return { matchDetailsHeadToHead: data };
     } catch (error) {
       console.log(error);
