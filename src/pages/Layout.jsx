@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Stack, Link } from "expo-router";
+import { Stack, Link, useRouter } from "expo-router";
 import {
   StyleSheet,
   View,
@@ -19,6 +19,7 @@ import { setUser } from "../redux/slices/authSlice";
 
 export default function Layout() {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const [menuVisible, setMenuVisible] = useState(false);
   const slideAnim = useState(new Animated.Value(250))[0];
@@ -81,9 +82,7 @@ export default function Layout() {
           headerRight: () => (
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               {id && (
-                <TouchableOpacity
-                  onPress={() => console.log("UserDefaultIcon")}
-                >
+                <Pressable onPress={() => router.push(`/profile/${id}`)}>
                   <Image
                     source={
                       profileImage
@@ -100,7 +99,7 @@ export default function Layout() {
                       borderRadius: 20,
                     }}
                   />
-                </TouchableOpacity>
+                </Pressable>
               )}
 
               <View>

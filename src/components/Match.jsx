@@ -11,7 +11,7 @@ import { colors } from "myracketpartner-commons";
 import EditMatchImg from "../images/edit.png";
 import { formatDate, formatHour } from "../utils/dateUtil";
 import UserDefaultImg from "../images/user-default.png";
-import { Link } from "expo-router";
+import { useRouter } from "expo-router";
 
 const Match = (props) => {
   const {
@@ -33,6 +33,8 @@ const Match = (props) => {
     matchDate,
   } = match;
 
+  const router = useRouter();
+
   const displayEditButton = () => {
     let checkIfMatchEditable = false;
 
@@ -45,66 +47,64 @@ const Match = (props) => {
   };
 
   return (
-    // <Link href={`/${match.matchID}`} asChild>
-    <Link href={`/${match.matchID}`} asChild>
-      <Pressable>
-        <View style={styles.wrapper}>
-          <View style={styles.innerWrapper}>
-            <View style={styles.firstBlock}>
-              <View style={styles.date}>
-                <Text style={styles.dateText}>{formatDate(matchDate)}</Text>
-                <Text style={styles.dateText}>{formatHour(matchDate)}</Text>
+    <Pressable onPress={() => router.push(`/match/${match.matchID}`)}>
+      <View style={styles.wrapper}>
+        <View style={styles.innerWrapper}>
+          <View style={styles.firstBlock}>
+            <View style={styles.date}>
+              <Text style={styles.dateText}>{formatDate(matchDate)}</Text>
+              <Text style={styles.dateText}>{formatHour(matchDate)}</Text>
+            </View>
+            <View style={styles.separator} />
+            <View style={styles.usersWrapper}>
+              <View style={styles.usersInfo}>
+                <Image source={UserDefaultImg} style={styles.userIcon} />
+                <Text
+                  style={[
+                    styles.userStyled,
+                    matchWinner === user1ID && styles.winner,
+                  ]}
+                >
+                  {user1Name}
+                </Text>
               </View>
-              <View style={styles.separator} />
-              <View style={styles.usersWrapper}>
-                <View style={styles.usersInfo}>
-                  <Image source={UserDefaultImg} style={styles.userIcon} />
-                  <Text
-                    style={[
-                      styles.userStyled,
-                      matchWinner === user1ID && styles.winner,
-                    ]}
-                  >
-                    {user1Name}
-                  </Text>
-                </View>
-                <View style={styles.usersInfo}>
-                  <Image source={UserDefaultImg} style={styles.userIcon} />
+              <View style={styles.usersInfo}>
+                <Image source={UserDefaultImg} style={styles.userIcon} />
 
-                  <Text
-                    style={[
-                      styles.userStyled,
-                      matchWinner === user2ID && styles.winner,
-                    ]}
-                  >
-                    {user2Name}
-                  </Text>
-                </View>
+                <Text
+                  style={[
+                    styles.userStyled,
+                    matchWinner === user2ID && styles.winner,
+                  ]}
+                >
+                  {user2Name}
+                </Text>
               </View>
             </View>
-            <View style={styles.result}>
-              {sets.map((set, i) => (
-                <View key={i} style={styles.resultInner}>
-                  <Text
-                    style={[
-                      styles.resultStyled,
-                      set.user1Score > set.user2Score && styles.winner,
-                    ]}
-                  >
-                    {set.user1Score}
-                  </Text>
-                  <Text
-                    style={[
-                      styles.resultStyled,
-                      set.user1Score < set.user2Score && styles.winner,
-                    ]}
-                  >
-                    {set.user2Score}
-                  </Text>
-                </View>
-              ))}
-            </View>
-            {/* {displayEditButton() && (
+          </View>
+          <View style={styles.result}>
+            {sets.map((set, i) => (
+              <View key={i} style={styles.resultInner}>
+                <Text
+                  style={[
+                    styles.resultStyled,
+                    set.user1Score > set.user2Score && styles.winner,
+                  ]}
+                >
+                  {set.user1Score}
+                </Text>
+                <Text
+                  style={[
+                    styles.resultStyled,
+                    set.user1Score < set.user2Score && styles.winner,
+                  ]}
+                >
+                  {set.user2Score}
+                </Text>
+              </View>
+            ))}
+          </View>
+          {/* {displayEditButton() && (
           <>
             <View style={styles.separator} />
             <View style={styles.wrapperEdit}>
@@ -119,10 +119,9 @@ const Match = (props) => {
             </View>
           </>
         )} */}
-          </View>
         </View>
-      </Pressable>
-    </Link>
+      </View>
+    </Pressable>
   );
 };
 
