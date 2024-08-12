@@ -29,7 +29,7 @@ const MatchId = () => {
     getMatcheDetails();
   }, [dispatch, matchId]);
 
-  const matchDetails = useSelector((state) => state.matches.matchDetails);
+  const matchDetails = useSelector((state) => state.matches.matchDetails || {});
 
   return (
     <>

@@ -5,61 +5,61 @@ import { colors } from "myracketpartner-commons";
 import UserDefaultImg from "../images/user-default.png";
 import Score from "../components/Score";
 import HeadToHead from "../components/HeadToHead";
+import { useRouter } from "expo-router";
 
 const MatchInfo = ({ matchDetails }) => {
+  const router = useRouter();
+
   const [currentOptionSelected, setCurrentOptionSelected] =
     useState("Marcador");
 
+  const { winnerId, user1, user2, totalSetsUser1, totalSetsUser2 } =
+    matchDetails;
+
   const options = {
     Marcador: <Score matchDetails={matchDetails} />,
-    H2H: <HeadToHead user1={matchDetails?.user1} user2={matchDetails?.user2} />,
+    H2H: <HeadToHead user1={user1} user2={user2} />,
   };
 
   return (
     <Screen>
       <View style={styles.container}>
         <View style={styles.wrapperHeader}>
-          <View
-            style={[
-              styles.wrapperUser,
-              matchDetails?.winnerId !== matchDetails?.user1?.id &&
-                styles.winner,
-            ]}
-          >
-            <Image source={UserDefaultImg} style={styles.userDefaultIcon} />
-            <Text style={styles.userName}>{matchDetails?.user1?.name}</Text>
-          </View>
-          <View style={styles.resultContainer}>
-            <Text
+          <Pressable onPress={() => router.push(`/profile/${user1?.id}`)}>
+            <View
               style={[
-                styles.result,
-                matchDetails?.winnerId !== matchDetails?.user1?.id &&
-                  styles.winner,
+                styles.wrapperUser,
+                winnerId !== user1?.id && styles.winner,
               ]}
             >
-              {matchDetails?.totalSetsUser1}
+              <Image source={UserDefaultImg} style={styles.userDefaultIcon} />
+              <Text style={styles.userName}>{user1?.name}</Text>
+            </View>
+          </Pressable>
+          <View style={styles.resultContainer}>
+            <Text
+              style={[styles.result, winnerId !== user1?.id && styles.winner]}
+            >
+              {totalSetsUser1}
             </Text>
             <Text style={styles.result}> - </Text>
             <Text
-              style={[
-                styles.result,
-                matchDetails?.winnerId !== matchDetails?.user2?.id &&
-                  styles.winner,
-              ]}
+              style={[styles.result, winnerId !== user2?.id && styles.winner]}
             >
-              {matchDetails?.totalSetsUser2}
+              {totalSetsUser2}
             </Text>
           </View>
-          <View
-            style={[
-              styles.wrapperUser,
-              matchDetails?.winnerId !== matchDetails?.user2?.id &&
-                styles.winner,
-            ]}
-          >
-            <Image source={UserDefaultImg} style={styles.userDefaultIcon} />
-            <Text style={styles.userName}>{matchDetails?.user2?.name}</Text>
-          </View>
+          <Pressable onPress={() => router.push(`/profile/${user2?.id}`)}>
+            <View
+              style={[
+                styles.wrapperUser,
+                winnerId !== user2?.id && styles.winner,
+              ]}
+            >
+              <Image source={UserDefaultImg} style={styles.userDefaultIcon} />
+              <Text style={styles.userName}>{user2?.name}</Text>
+            </View>
+          </Pressable>
         </View>
         <View style={styles.wrapperOptions}>
           <Pressable
