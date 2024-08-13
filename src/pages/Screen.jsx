@@ -2,12 +2,24 @@
 import { StyleSheet, View } from "react-native";
 import { colors } from "myracketpartner-commons";
 
+// REDUX
+import { useSelector } from "react-redux";
+
+// COMPONENTS
+import Loading from "../components/Loading";
+
 // FUNCTION
 const Screen = ({ children }) => {
+  const isLoading = useSelector((state) => state.loading);
+
   return (
-    <View style={[styles.wrapper]}>
+    <View style={styles.wrapper}>
       {children}
-      {/* <View style={styles.bottomBlock} /> */}
+      {isLoading && (
+        <View style={styles.loadingOverlay}>
+          <Loading />
+        </View>
+      )}
     </View>
   );
 };
@@ -22,12 +34,16 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
     paddingVertical: 10,
   },
-  //   bottomBlock: {
-  //     marginTop: "auto",
-  //     height: 60,
-  //     borderTopWidth: 1,
-  //     borderTopColor: colors.green,
-  //   },
+  loadingOverlay: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Fondo semitransparente para oscurecer el contenido debajo
+  },
 });
 
 export default Screen;

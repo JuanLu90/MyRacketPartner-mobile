@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import UsersService from "../../services/users.service";
+import { setLoading } from "./loadingSlice";
 
 const initialState = {
   userInfo: {},
@@ -8,10 +9,16 @@ const initialState = {
 export const userProfileAction = createAsyncThunk(
   "users/user",
   async (userId, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+
     try {
+      dispatch(setLoading(true));
       const data = await UsersService.userProfileInfo(userId);
+
+      dispatch(setLoading(false));
       return { userInfo: data[0] };
     } catch (error) {
+      dispatch(setLoading(false));
       console.log(error);
       return thunkAPI.rejectWithValue({
         status: error.status,

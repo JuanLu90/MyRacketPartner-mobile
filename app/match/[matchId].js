@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { colors } from "myracketpartner-commons";
+import { ActivityIndicator } from "react-native";
 
 // REDUX
 import { matchDetailsAction } from "../../src/redux/slices/matchesSlice";
@@ -13,6 +14,7 @@ import MatchInfo from "../../src/pages/MatchInfo";
 // FUNCTION
 const MatchId = () => {
   const { matchId } = useLocalSearchParams();
+  const isLoading = useSelector((state) => state.loading);
 
   const dispatch = useDispatch();
 
@@ -45,7 +47,9 @@ const MatchId = () => {
           headerTintColor: colors.primary,
           headerLeft: () => {},
           headerRight: () => {},
-          headerTitle: `${matchDetails?.user1?.name} vs ${matchDetails?.user2?.name}`,
+          headerTitle: isLoading
+            ? () => <ActivityIndicator size="small" color={colors.orange} />
+            : `${matchDetails?.user1?.name} vs ${matchDetails?.user2?.name}`,
         }}
       />
       <MatchInfo matchDetails={matchDetails} />

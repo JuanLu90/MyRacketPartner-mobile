@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import matchesService from "../../services/matches.service";
+import { setLoading } from "./loadingSlice";
 
 const initialState = {
   matches: [],
@@ -8,7 +9,10 @@ const initialState = {
 export const matches = createAsyncThunk(
   "matches/matches",
   async (id, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+
     try {
+      dispatch(setLoading(true));
       const data = await matchesService.matches();
 
       const dataByMatchs = data.reduce((acc, curr) => {
@@ -18,8 +22,11 @@ export const matches = createAsyncThunk(
         acc[curr.matchID].push(curr);
         return acc;
       }, {});
+
+      dispatch(setLoading(false));
       return { matches: dataByMatchs };
     } catch (error) {
+      dispatch(setLoading(false));
       console.log(error);
       return thunkAPI.rejectWithValue();
     }
@@ -29,11 +36,16 @@ export const matches = createAsyncThunk(
 export const matchDetailsAction = createAsyncThunk(
   "matches/matchDetails",
   async (matchId, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+
     try {
+      dispatch(setLoading(true));
       const data = await matchesService.matchDetails(matchId);
 
+      dispatch(setLoading(false));
       return { matchDetails: data };
     } catch (error) {
+      dispatch(setLoading(false));
       console.log(error);
       return thunkAPI.rejectWithValue();
     }
@@ -43,10 +55,16 @@ export const matchDetailsAction = createAsyncThunk(
 export const matchDetailsHeadToHeadAction = createAsyncThunk(
   "matches/matchDetailsHeadToHead",
   async (users, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+
     try {
+      dispatch(setLoading(true));
       const data = await matchesService.matchDetailsHeadToHead(users);
+
+      dispatch(setLoading(false));
       return { matchDetailsHeadToHead: data };
     } catch (error) {
+      dispatch(setLoading(false));
       console.log(error);
       return thunkAPI.rejectWithValue();
     }
