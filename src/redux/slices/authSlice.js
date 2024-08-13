@@ -49,9 +49,8 @@ export const authGoogleAction = createAsyncThunk(
   async (tokenGoogle, thunkAPI) => {
     try {
       const response = await AuthService.authGoogle({ token: tokenGoogle });
-
-      await AsyncStorage.setItem("token", response.token);
-      return { message: response.message, token: tokenGoogle };
+      AsyncStorage.setItem("token", response.token);
+      return { token: response.token };
     } catch (error) {
       return thunkAPI.rejectWithValue({
         status: error.status,
@@ -120,7 +119,7 @@ export const setUser = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk("auth/logout", () => {
-  localStorage.removeItem("token");
+  AsyncStorage.removeItem("token");
 });
 
 export const tokenExpired = createAsyncThunk(
@@ -152,6 +151,11 @@ const authSlice = createSlice({
         state.isLoggedIn = false;
         state.token = null;
         state.user = {};
+      })
+      .addCase(authGoogleAction.fulfilled, (state, action) => {
+        state.isLoggedIn = true;
+        state.token = action.payload.token;
+        state.user = jwtDecode(action.payload.token);
       })
       .addCase(logout.fulfilled, (state) => {
         state.isLoggedIn = false;

@@ -23,10 +23,8 @@ const GoogleAuthButton = () => {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
       // Envía la credencial a la acción de Redux
-      const response = await dispatch(
-        authGoogleAction(userInfo.idToken),
-      ).unwrap();
-      console.log("Usuario logueado:", response);
+      await dispatch(authGoogleAction(userInfo.idToken)).unwrap();
+      // console.log("Usuario logueado:", response);
       navigation.navigate("index");
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {

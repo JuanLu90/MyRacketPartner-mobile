@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { colors } from "myracketpartner-commons";
 
 // REDUX
-import { setUser } from "../redux/slices/authSlice";
+import { setUser, logout } from "../redux/slices/authSlice";
 
 // IMAGES
 import { LogoIcon } from "../images/svg-components/LogoIcon";
@@ -31,6 +31,16 @@ const Layout = () => {
 
   const [menuVisible, setMenuVisible] = useState(false);
   const slideAnim = useState(new Animated.Value(250))[0];
+
+  const logoutAction = async () => {
+    try {
+      await dispatch(logout()).unwrap();
+      toggleMenu();
+      router.push("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const toggleMenu = () => {
     if (menuVisible) {
@@ -124,16 +134,32 @@ const Layout = () => {
           <Animated.View
             style={[styles.menu, { transform: [{ translateX: slideAnim }] }]}
           >
-            <Link href="/login" onPress={toggleMenu} asChild>
-              <Pressable style={styles.menuItem}>
-                <Text style={styles.menuText}>Login</Text>
+            {id ? (
+              <Pressable onPress={logoutAction} style={styles.menuItem}>
+                <Text style={styles.menuText}>Logout</Text>
               </Pressable>
-            </Link>
-            <Link href="/register" onPress={toggleMenu} asChild>
-              <Pressable style={styles.menuItem}>
-                <Text style={styles.menuText}>Register</Text>
-              </Pressable>
-            </Link>
+            ) : (
+              <>
+                <Pressable
+                  onPress={() => {
+                    toggleMenu();
+                    router.push("/login");
+                  }}
+                  style={styles.menuItem}
+                >
+                  <Text style={styles.menuText}>Login</Text>
+                </Pressable>
+                <Pressable
+                  onPress={() => {
+                    toggleMenu();
+                    router.push("/register");
+                  }}
+                  style={styles.menuItem}
+                >
+                  <Text style={styles.menuText}>Register</Text>
+                </Pressable>
+              </>
+            )}
           </Animated.View>
         </Pressable>
       )}
