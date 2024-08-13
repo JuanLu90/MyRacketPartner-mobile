@@ -1,6 +1,8 @@
+// DEPENDENCIES
 import { StyleSheet, View } from "react-native";
 import { colors } from "myracketpartner-commons";
 
+// FUNCTION
 const Screen = ({ children }) => {
   return (
     <View style={[styles.wrapper]}>

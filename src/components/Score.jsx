@@ -1,7 +1,8 @@
-import React from "react";
+// DEPENDENCIES
 import { View, Text, StyleSheet } from "react-native";
 import { colors } from "myracketpartner-commons";
 
+// FUNCTION
 const Score = ({ matchDetails }) => {
   return (
     <View style={styles.wrapperScore}>

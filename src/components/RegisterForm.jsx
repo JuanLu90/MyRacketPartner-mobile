@@ -1,3 +1,4 @@
+// DEPENDENCIES
 import { useState } from "react";
 import { colors } from "myracketpartner-commons";
 import {
@@ -10,9 +11,14 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
-import { validateEmail, validatePassword } from "../utils/validationUtil";
+
+// REDUX
 import { loginAction, registerAction } from "../redux/slices/authSlice";
 
+// UTILS
+import { validateEmail, validatePassword } from "../utils/validationUtil";
+
+// FUNCTION
 const RegisterForm = () => {
   const initialRegisterInfo = {
     userName: "",

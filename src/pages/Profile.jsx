@@ -1,9 +1,17 @@
+// DEPENDENCIES
 import { View, Text, Image, ScrollView, StyleSheet } from "react-native";
-import UserDefaultImg from "../images/user-default.png";
-import { formatDate } from "../utils/dateUtil";
-import Screen from "./Screen";
 import { colors } from "myracketpartner-commons";
 
+// COMPONENTS
+import Screen from "./Screen";
+
+// IMAGES
+import UserDefaultImg from "../images/user-default.png";
+
+// UTILS
+import { formatDate } from "../utils/dateUtil";
+
+// FUNCTION
 const Profile = ({ userInfo }) => {
   const {
     userId,

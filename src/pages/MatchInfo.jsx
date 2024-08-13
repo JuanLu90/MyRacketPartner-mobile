@@ -1,12 +1,18 @@
+// DEPENDENCIES
 import { useState } from "react";
 import { Image, StyleSheet, Text, Pressable, View } from "react-native";
-import Screen from "./Screen";
 import { colors } from "myracketpartner-commons";
-import UserDefaultImg from "../images/user-default.png";
-import Score from "../components/Score";
-import HeadToHead from "../components/HeadToHead";
 import { useRouter } from "expo-router";
 
+// COMPONENTS
+import Screen from "./Screen";
+import Score from "../components/Score";
+import HeadToHead from "../components/HeadToHead";
+
+// IMAGES
+import UserDefaultImg from "../images/user-default.png";
+
+// FUNCTION
 const MatchInfo = ({ matchDetails }) => {
   const router = useRouter();
 

@@ -1,14 +1,19 @@
-import React from "react";
+// DEPENDENCIES
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useDispatch } from "react-redux";
 import {
   GoogleSignin,
   statusCodes,
 } from "@react-native-google-signin/google-signin";
-import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+
+// REDUX
 import { authGoogleAction } from "../redux/slices/authSlice";
+
+// IMAGES
 import GoogleIcon from "../images/svg-components/GoogleIcon";
 
+// FUNCTION
 const GoogleAuthButton = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();

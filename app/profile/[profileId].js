@@ -1,10 +1,16 @@
+// DEPENDENCIES
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Stack, useLocalSearchParams } from "expo-router";
-import ProfileComponent from "../../src/pages/Profile";
-import { userProfileAction } from "../../src/redux/slices/usersSlice";
 import { colors } from "myracketpartner-commons";
 
+// REDUX
+import { userProfileAction } from "../../src/redux/slices/usersSlice";
+
+// COMPONENTS
+import ProfileComponent from "../../src/pages/Profile";
+
+// FUNCTION
 const ProfileId = () => {
   const { profileId } = useLocalSearchParams();
   const userId = profileId;

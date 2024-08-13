@@ -1,10 +1,16 @@
-import React, { useEffect } from "react";
+// DEPENDENCIES
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
-import { matchDetailsHeadToHeadAction } from "../redux/slices/matchesSlice";
-import { formatDate } from "../utils/dateUtil";
 import { colors } from "myracketpartner-commons";
 
+// REDUX
+import { matchDetailsHeadToHeadAction } from "../redux/slices/matchesSlice";
+
+// UTILS
+import { formatDate } from "../utils/dateUtil";
+
+// FUNCTION
 const HeadToHead = (props) => {
   const { user1, user2 } = props;
   const dispatch = useDispatch();

@@ -1,3 +1,4 @@
+// DEPENDENCIES
 import { useEffect, useState } from "react";
 import { Stack, Link, useRouter } from "expo-router";
 import {
@@ -9,15 +10,22 @@ import {
   Text,
   Pressable,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { colors } from "myracketpartner-commons";
+
+// REDUX
+import { setUser } from "../redux/slices/authSlice";
+
+// IMAGES
 import { LogoIcon } from "../images/svg-components/LogoIcon";
 import { MenuIcon } from "../images/svg-components/MenuIcon";
 import UserDefaultImg from "../images/user-default.png";
-import { useDispatch, useSelector } from "react-redux";
-import { getTokenLocalStorage } from "../utils/apiUtils";
-import { setUser } from "../redux/slices/authSlice";
 
-export default function Layout() {
+// UTILS
+import { getTokenLocalStorage } from "../utils/apiUtils";
+
+// FUNCTION
+const Layout = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -131,7 +139,7 @@ export default function Layout() {
       )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -249,3 +257,5 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+export default Layout;

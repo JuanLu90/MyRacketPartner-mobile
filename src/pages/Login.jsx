@@ -1,9 +1,13 @@
+// DEPENDENCIES
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import LoginForm from "../components/LoginForm";
-import { colors } from "myracketpartner-commons";
-import GoogleAuthButton from "../components/GoogleAuthButton";
 import { Link, Stack } from "expo-router";
+import { colors } from "myracketpartner-commons";
 
+// COMPONENTS
+import LoginForm from "../components/LoginForm";
+import GoogleAuthButton from "../components/GoogleAuthButton";
+
+// FUNCTION
 const Login = () => {
   return (
     <ScrollView>

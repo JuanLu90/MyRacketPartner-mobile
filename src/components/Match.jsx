@@ -1,3 +1,4 @@
+// DEPENDENCIES
 import {
   View,
   Text,
@@ -6,13 +7,17 @@ import {
   StyleSheet,
   Pressable,
 } from "react-native";
-
 import { colors } from "myracketpartner-commons";
-import EditMatchImg from "../images/edit.png";
-import { formatDate, formatHour } from "../utils/dateUtil";
-import UserDefaultImg from "../images/user-default.png";
 import { useRouter } from "expo-router";
 
+// UTILS
+import { formatDate, formatHour } from "../utils/dateUtil";
+
+// IMAGES
+import EditMatchImg from "../images/edit.png";
+import UserDefaultImg from "../images/user-default.png";
+
+// FUNCTION
 const Match = (props) => {
   const {
     match,

@@ -1,9 +1,13 @@
+// DEPENDENCIES
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import RegisterForm from "../components/RegisterForm";
-import { colors } from "myracketpartner-commons";
-import GoogleAuthButton from "../components/GoogleAuthButton";
 import { Link, Stack } from "expo-router";
+import { colors } from "myracketpartner-commons";
 
+// COMPONENTS
+import RegisterForm from "../components/RegisterForm";
+import GoogleAuthButton from "../components/GoogleAuthButton";
+
+// FUNCTION
 const Register = () => {
   return (
     <ScrollView>

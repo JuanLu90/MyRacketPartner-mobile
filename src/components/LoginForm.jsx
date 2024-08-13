@@ -1,3 +1,4 @@
+// DEPENDENCIES
 import { useState } from "react";
 import { Link } from "expo-router";
 import { colors } from "myracketpartner-commons";
@@ -11,9 +12,14 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
-import { validateEmail, validatePassword } from "../utils/validationUtil";
+
+// REDUX
 import { loginAction } from "../redux/slices/authSlice";
 
+// UTILS
+import { validateEmail, validatePassword } from "../utils/validationUtil";
+
+// FUNCTION
 const LoginForm = () => {
   const initialCredentials = {
     email: "",
