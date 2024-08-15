@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { colors } from "myracketpartner-commons";
+import { useTranslation } from "react-i18next";
 
 // REDUX
 import { matches } from "../redux/slices/matchesSlice";
@@ -15,9 +16,6 @@ import FriendlyIcon from "../images/svg-components/FriendlyIcon";
 
 // UTILS
 import { groupMatches } from "../utils/groupMatches";
-
-// TRANSLATIONS
-import { useTranslation } from "react-i18next";
 
 // FUNCTION
 const Board = () => {

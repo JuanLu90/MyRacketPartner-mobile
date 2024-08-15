@@ -1,7 +1,65 @@
 {
+  "Login": {
+    "Title": "Welcome Back",
+    "Subtitle": "Log into your account",
+    "Separator1": "Do it with",
+    "Separator2": "or",
+    "Email": "Email",
+    "Password": "Password",
+    "ForgotPassword": "I forgot my password",
+    "SendButton": "Send",
+    "noRegisterYet": "Are you not registered yet?",
+    "Signin": "Log in"
+  },
+  "Register": {
+    "Title": "Welcome Back",
+    "Subtitle": "Insert your info",
+    "Separator1": "Do it with",
+    "Separator2": "or",
+    "Username": "Nombre de usuario",
+    "Email": "Email",
+    "Password": "Password",
+    "ConfirmPassword": "Confirma contraseña",
+    "ForgotPassword": "I forgot my password",
+    "SendButton": "Send",
+    "haveAccount": "Do you already have an account?",
+    "Signup": "Sign up"
+  },
   "Board": {
     "Friendly": {
       "Title": "Friendly matches"
+    }
+  },
+  "HeaderMenu": {
+    "Login": "Log in",
+    "Signup": "Sign up",
+    "Logout": "Logout"
+  },
+  "Match": {
+    "Score": "Score"
+  },
+  "Profile": {
+    "Personal": {
+      "Title": "Personal information",
+      "Name": "Name",
+      "Surname": "Surname",
+      "Birthdate": "Birthdate",
+      "Gender": "Gender",
+      "Place": "Place",
+      "Phone": "Phone",
+      "Email": "Email"
+    },
+    "Account": {
+      "Title": "Account information",
+      "Id": "User ID",
+      "Username": "Username",
+      "CreationDate": "Creation date",
+      "Password": "Password"
+    },
+    "Player": {
+      "Title": "Information as a player",
+      "Mainhand": "Mainhand",
+      "Backhand": "Backhand"
     }
   }
 }

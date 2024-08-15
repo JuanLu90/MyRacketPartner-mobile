@@ -1,6 +1,7 @@
 // DEPENDENCIES
 import { View, Text, Image, ScrollView, StyleSheet } from "react-native";
 import { colors } from "myracketpartner-commons";
+import { useTranslation } from "react-i18next";
 
 // COMPONENTS
 import Screen from "./Screen";
@@ -27,6 +28,8 @@ const Profile = ({ userInfo }) => {
     backhand,
   } = userInfo;
 
+  const { t } = useTranslation();
+
   const InfoItem = ({ label, value }) => (
     <View style={styles.infoItem}>
       <Text style={styles.infoLabel}>{label}</Text>
@@ -47,31 +50,40 @@ const Profile = ({ userInfo }) => {
           </Text>
         </View>
         <View>
-          <Text style={styles.sectionTitle}>Personal Information</Text>
+          <Text style={styles.sectionTitle}>{t("Profile.Personal.Title")}</Text>
           <View style={styles.wrapperInfo}>
-            <InfoItem label="Name" value={firstName} />
-            <InfoItem label="Surname" value={lastName} />
-            <InfoItem label="Birthdate" value={birthdate} />
-            <InfoItem label="Gender" value={gender} />
-            <InfoItem label="Place" value="-" />
-            <InfoItem label="Telephone" value="-" />
-            <InfoItem label="Email" value={email} />
+            <InfoItem label={t("Profile.Personal.Name")} value={firstName} />
+            <InfoItem label={t("Profile.Personal.Surname")} value={lastName} />
+            <InfoItem
+              label={t("Profile.Personal.Birthdate")}
+              value={birthdate}
+            />
+            <InfoItem label={t("Profile.Personal.Gender")} value={gender} />
+            <InfoItem label={t("Profile.Personal.Place")} value="-" />
+            <InfoItem label={t("Profile.Personal.Phone")} value="-" />
+            <InfoItem label={t("Profile.Personal.Email")} value={email} />
           </View>
         </View>
         <View>
-          <Text style={styles.sectionTitle}>Account Information</Text>
+          <Text style={styles.sectionTitle}>{t("Profile.Account.Title")}</Text>
           <View style={styles.wrapperInfo}>
-            <InfoItem label="User ID" value={`#${userId}`} />
-            <InfoItem label="Username" value={userName} />
-            <InfoItem label="Creation Date" value={createDate} />
-            <InfoItem label="Password" value="********" />
+            <InfoItem label={t("Profile.Account.Id")} value={`#${userId}`} />
+            <InfoItem label={t("Profile.Account.Username")} value={userName} />
+            <InfoItem
+              label={t("Profile.Account.CreationDate")}
+              value={formatDate(createDate)}
+            />
+            <InfoItem label={t("Profile.Account.Password")} value="********" />
           </View>
         </View>
         <View>
-          <Text style={styles.sectionTitle}>Player Information</Text>
+          <Text style={styles.sectionTitle}> {t("Profile.Player.Title")}</Text>
           <View style={styles.wrapperInfo}>
-            <InfoItem label="Lefty/Righty" value={dominantHand} />
-            <InfoItem label="Backhand" value={backhand} />
+            <InfoItem
+              label={t("Profile.Player.Mainhand")}
+              value={dominantHand}
+            />
+            <InfoItem label={t("Profile.Player.Backhand")} value={backhand} />
           </View>
         </View>
       </Screen>

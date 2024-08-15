@@ -1,7 +1,65 @@
 {
+  "Login": {
+    "Title": "Bienvenido",
+    "Subtitle": "Iniciar sesion con tu cuenta",
+    "Separator1": "Hazlo con",
+    "Separator2": "o",
+    "Email": "Correo electrónico",
+    "Password": "Contraseña",
+    "ForgotPassword": "He olvidado mi contraseña",
+    "SendButton": "Enviar",
+    "noRegisterYet": "¿Aún no estás registrado?",
+    "Signup": "Registrate"
+  },
+  "Register": {
+    "Title": "Bienvenido",
+    "Subtitle": "Añade tu información",
+    "Separator1": "Hazlo con",
+    "Separator2": "o",
+    "Username": "Nombre de usuario",
+    "Email": "Correo electrónico",
+    "Password": "Contraseña",
+    "ConfirmPassword": "Confirma contraseña",
+    "ForgotPassword": "He olvidado mi contraseña",
+    "SendButton": "Enviar",
+    "haveAccount": "¿Tienes ya una cuenta?",
+    "Signin": "Inicia sesión"
+  },
   "Board": {
     "Friendly": {
       "Title": "Partidos amistosos"
+    }
+  },
+  "HeaderMenu": {
+    "Login": "Iniciar sesión",
+    "Signup": "Registrate",
+    "Logout": "Desconectar"
+  },
+  "Match": {
+    "Score": "Marcador"
+  },
+  "Profile": {
+    "Personal": {
+      "Title": "Información personal",
+      "Name": "Nombre",
+      "Surname": "Apellidos",
+      "Birthdate": "Fecha de nacimiento",
+      "Gender": "Género",
+      "Place": "Lugar",
+      "Phone": "Télefono",
+      "Email": "Correo electrónico"
+    },
+    "Account": {
+      "Title": "Información de la cuenta",
+      "Id": "ID de usuario",
+      "Username": "Nombre de usuario",
+      "CreationDate": "Fecha de registro",
+      "Password": "Contraseña"
+    },
+    "Player": {
+      "Title": "Información como jugador",
+      "Mainhand": "Brazo principal",
+      "Backhand": "Revés"
     }
   }
 }
