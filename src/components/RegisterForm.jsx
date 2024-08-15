@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 // REDUX
 import { loginAction, registerAction } from "../redux/slices/authSlice";
@@ -20,6 +21,8 @@ import { validateEmail, validatePassword } from "../utils/validationUtil";
 
 // FUNCTION
 const RegisterForm = () => {
+  const { t } = useTranslation();
+
   const initialRegisterInfo = {
     userName: "",
     email: "",
@@ -115,7 +118,7 @@ const RegisterForm = () => {
           ]}
           onChangeText={(value) => handleChange(value, "userName")}
           value={registerInfo.userName}
-          placeholder="Username"
+          placeholder={t("Register.Username")}
           placeholderTextColor={colors.greyDark}
         />
         {errorState.userName ? (
@@ -135,7 +138,7 @@ const RegisterForm = () => {
           ]}
           onChangeText={(value) => handleChange(value, "email")}
           value={registerInfo.email}
-          placeholder="Email"
+          placeholder={t("Register.Email")}
           placeholderTextColor={colors.greyDark}
         />
         {errorState.email ? (
@@ -155,7 +158,7 @@ const RegisterForm = () => {
           ]}
           onChangeText={(value) => handleChange(value, "password")}
           value={registerInfo.password}
-          placeholder="Password"
+          placeholder={t("Register.Password")}
           placeholderTextColor={colors.greyDark}
           secureTextEntry={true}
         />
@@ -176,7 +179,7 @@ const RegisterForm = () => {
           ]}
           onChangeText={(value) => handleChange(value, "confirmPassword")}
           value={registerInfo.confirmPassword}
-          placeholder="Confirm Password"
+          placeholder={t("Register.ConfirmPassword")}
           placeholderTextColor={colors.greyDark}
           secureTextEntry={true}
         />
@@ -185,7 +188,7 @@ const RegisterForm = () => {
         ) : null}
       </View>
       <Pressable onPress={onSubmit} style={styles.sendButton}>
-        <Text style={styles.textSenfButton}>Send</Text>
+        <Text style={styles.textSenfButton}>{t("Register.SendButton")}</Text>
       </Pressable>
     </View>
   );

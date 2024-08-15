@@ -2,6 +2,7 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { Link, Stack } from "expo-router";
 import { colors } from "myracketpartner-commons";
+import { useTranslation } from "react-i18next";
 
 // COMPONENTS
 import RegisterForm from "../components/RegisterForm";
@@ -9,6 +10,8 @@ import GoogleAuthButton from "../components/GoogleAuthButton";
 
 // FUNCTION
 const Register = () => {
+  const { t } = useTranslation();
+
   return (
     <ScrollView>
       <Stack.Screen
@@ -21,18 +24,27 @@ const Register = () => {
         }}
       />
       <View style={styles.wrapper}>
-        <Text style={[styles.textColor, styles.title]}>Welcome</Text>
-        <Text style={[styles.textColor, styles.subtitle]}>
-          Insert your info
+        <Text style={[styles.textColor, styles.title]}>
+          {t("Register.Title")}
         </Text>
-        <Text style={[styles.textColor, styles.Register]}>Log in with</Text>
+        <Text style={[styles.textColor, styles.subtitle]}>
+          {t("Register.Subtitle")}
+        </Text>
+        <Text style={[styles.textColor, styles.Register]}>
+          {t("Register.Separator1")}
+        </Text>
         <GoogleAuthButton />
-        <Text style={[styles.textColor, styles.Register]}>or</Text>
+        <Text style={[styles.textColor, styles.Register]}>
+          {t("Register.Separator2")}
+        </Text>
         <RegisterForm />
         <Text style={[styles.textColor, { fontSize: 18 }]}>
-          Do you already have an account?
+          {t("Register.haveAccount")}{" "}
           <Link href="/login" style={styles.forgotPassword}>
-            <Text style={{ color: colors.green }}> Sign in</Text>
+            <Text style={{ color: colors.green }}>
+              {" "}
+              {t("Register.Signin")}{" "}
+            </Text>
           </Link>
         </Text>
       </View>

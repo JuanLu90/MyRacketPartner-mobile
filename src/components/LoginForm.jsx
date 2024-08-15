@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 // REDUX
 import { loginAction } from "../redux/slices/authSlice";
@@ -31,6 +32,7 @@ const LoginForm = () => {
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const validateLogin = () => {
     const { email, password } = credentials;
@@ -85,7 +87,7 @@ const LoginForm = () => {
           ]}
           onChangeText={(value) => handleChange(value, "email")}
           value={credentials.email}
-          placeholder="Email"
+          placeholder={t("Login.Email")}
           placeholderTextColor={colors.greyDark}
         />
         {errorState.email ? (
@@ -105,7 +107,7 @@ const LoginForm = () => {
           ]}
           onChangeText={(value) => handleChange(value, "password")}
           value={credentials.password}
-          placeholder="Password"
+          placeholder={t("Login.Password")}
           placeholderTextColor={colors.greyDark}
           secureTextEntry={true}
         />
@@ -114,10 +116,12 @@ const LoginForm = () => {
         ) : null}
       </View>
       <Link href="/" style={styles.forgotPassword}>
-        <Text style={styles.textForgotPassword}>I forgot my password</Text>
+        <Text style={styles.textForgotPassword}>
+          {t("Login.ForgotPassword")}
+        </Text>
       </Link>
       <Pressable onPress={onSubmit} style={styles.sendButton}>
-        <Text style={styles.textSenfButton}>Send</Text>
+        <Text style={styles.textSenfButton}>{t("Login.SendButton")}</Text>
       </Pressable>
     </View>
   );
