@@ -12,6 +12,8 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { colors } from "myracketpartner-commons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useTranslation } from "react-i18next";
 
 // REDUX
 import { setUser, logout } from "../redux/slices/authSlice";
@@ -20,6 +22,7 @@ import { setUser, logout } from "../redux/slices/authSlice";
 import { LogoIcon } from "../images/svg-components/LogoIcon";
 import { MenuIcon } from "../images/svg-components/MenuIcon";
 import UserDefaultImg from "../images/user-default.png";
+import LanguageImg from "../images/language.png";
 
 // UTILS
 import { getTokenLocalStorage } from "../utils/apiUtils";
@@ -28,6 +31,8 @@ import { getTokenLocalStorage } from "../utils/apiUtils";
 const Layout = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { i18n, t } = useTranslation();
+  const currentLanguage = i18n.language;
 
   const [menuVisible, setMenuVisible] = useState(false);
   const slideAnim = useState(new Animated.Value(250))[0];
@@ -84,6 +89,22 @@ const Layout = () => {
     fetchUser();
   }, [dispatch, token]);
 
+  useEffect(() => {
+    const loadLanguage = async () => {
+      const savedLanguage = await AsyncStorage.getItem("language");
+      if (savedLanguage) {
+        i18n.changeLanguage(savedLanguage);
+      }
+    };
+    loadLanguage();
+  }, [i18n]);
+
+  const changeLanguage = async (lang) => {
+    await AsyncStorage.setItem("language", lang);
+    i18n.changeLanguage(lang);
+    toggleMenu();
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <Stack
@@ -134,6 +155,34 @@ const Layout = () => {
           <Animated.View
             style={[styles.menu, { transform: [{ translateX: slideAnim }] }]}
           >
+            <View style={styles.wrapperSelectLanguage}>
+              <Image
+                source={LanguageImg}
+                style={{
+                  width: 35,
+                  height: 35,
+                }}
+              />
+              <Pressable
+                onPress={() => changeLanguage("es")}
+                style={[
+                  styles.languageOption,
+                  currentLanguage === "es" && styles.languageOptionSelected,
+                ]}
+              >
+                <Text style={styles.languageOptionText}>ES</Text>
+              </Pressable>
+              <Pressable
+                onPress={() => changeLanguage("en-US")}
+                style={[
+                  styles.languageOption,
+                  currentLanguage === "en-US" && styles.languageOptionSelected,
+                ]}
+              >
+                <Text style={styles.languageOptionText}>EN</Text>
+              </Pressable>
+            </View>
+
             {id ? (
               <Pressable onPress={logoutAction} style={styles.menuItem}>
                 <Text style={styles.menuText}>Logout</Text>
@@ -169,8 +218,8 @@ const Layout = () => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    position: "sticky", // No hay equivalente directo en RN, manejar con otros estilos si es necesario
-    top: 0, // No hay equivalente directo en RN
+    position: "sticky",
+    top: 0,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -178,9 +227,9 @@ const styles = StyleSheet.create({
     zIndex: 3,
   },
   logoIcon: {
-    height: 40, // 2.5rem aproximadamente
+    height: 40,
     cursor: "pointer",
-    fill: colors.green, // Necesitarás ajustar el SVG manualmente
+    fill: colors.green,
   },
   wrapperMenuIcon: {
     flexDirection: "row",
@@ -189,7 +238,7 @@ const styles = StyleSheet.create({
   menuIcon: {
     height: 40,
     cursor: "pointer",
-    fill: colors.green, // Necesitarás ajustar el SVG manualmente
+    fill: colors.green,
   },
   dropdownWrapper: {
     position: "absolute",
@@ -197,7 +246,7 @@ const styles = StyleSheet.create({
     right: 0,
     width: 200,
     backgroundColor: colors.green,
-    overflow: "hidden", // Manejando la animación con RN Animated
+    overflow: "hidden",
   },
   listItem: {
     display: "flex",
@@ -220,16 +269,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: 20,
+    marginBottom: 20,
   },
   languageOption: {
     marginHorizontal: 7,
     paddingVertical: 3,
     paddingHorizontal: 7,
-    color: colors.primary,
     borderRadius: 5,
     borderWidth: 2,
     borderColor: "transparent",
+  },
+  languageOptionText: {
+    color: colors.primary,
+    fontSize: 18,
   },
   languageOptionSelected: {
     borderColor: "black",

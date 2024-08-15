@@ -16,8 +16,13 @@ import FriendlyIcon from "../images/svg-components/FriendlyIcon";
 // UTILS
 import { groupMatches } from "../utils/groupMatches";
 
-const Home = () => {
+// TRANSLATIONS
+import { useTranslation } from "react-i18next";
+
+// FUNCTION
+const Board = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const getMatches = async () => {
@@ -52,7 +57,7 @@ const Home = () => {
           marginHorizontal={23}
           pathFill={colors.greyLight}
         />
-        <Text style={styles.title}>Friendy Matches</Text>
+        <Text style={styles.title}>{t("Board.Friendly.Title")}</Text>
       </View>
       {matchesGrouped.map((match, i) => (
         <Match match={match} key={i} />
@@ -73,4 +78,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default Board;
