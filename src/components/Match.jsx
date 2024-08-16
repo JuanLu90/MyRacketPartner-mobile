@@ -1,12 +1,5 @@
 // DEPENDENCIES
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  Pressable,
-} from "react-native";
+import { View, Text, Image, Pressable, StyleSheet } from "react-native";
 import { colors } from "myracketpartner-commons";
 import { useRouter } from "expo-router";
 
@@ -113,14 +106,14 @@ const Match = (props) => {
           <>
             <View style={styles.separator} />
             <View style={styles.wrapperEdit}>
-              <TouchableOpacity
+              <Pressable
                 onPress={() => {
                   toggleModal();
                   selectMatch(match);
                 }}
               >
                 <Image source={EditMatchImg} style={styles.editIcon} />
-              </TouchableOpacity>
+              </Pressable>
             </View>
           </>
         )} */}

@@ -33,7 +33,8 @@
   "HeaderMenu": {
     "Login": "Log in",
     "Signup": "Sign up",
-    "Logout": "Logout"
+    "Logout": "Logout",
+    "Suggestions": "Suggestions"
   },
   "Match": {
     "Score": "Score"
@@ -61,5 +62,12 @@
       "Mainhand": "Mainhand",
       "Backhand": "Backhand"
     }
+  },
+  "Suggestions": {
+    "Title": "Suggestions",
+    "Description": "What would you improve? If you need any functionality, let us know and we will try to add it, if it is added in future updates, we will mention it (if you give permission)",
+    "PlaceholderTextArea": "Write the suggestions...",
+    "CheckboxShare": "Check if you don't mind us sharing your username (In News section) if functionality is added.",
+    "SendButton": "Send"
   }
 }

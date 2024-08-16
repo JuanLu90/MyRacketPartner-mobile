@@ -1,4 +1,7 @@
-import { getUserProfileInfoUrl } from "../resolvers/users.resolvers";
+import {
+  getSendSuggestionsUrl,
+  getUserProfileInfoUrl,
+} from "../resolvers/users.resolvers";
 import {
   handleResponse,
   handleError,
@@ -6,7 +9,7 @@ import {
 } from "../utils/apiUtils";
 
 async function userProfileInfo(userId) {
-  const requestOptions = getRequestOptions("GET");
+  const requestOptions = await getRequestOptions("GET");
 
   return await fetch(getUserProfileInfoUrl(userId), requestOptions).then(
     handleResponse,
@@ -15,7 +18,7 @@ async function userProfileInfo(userId) {
 }
 
 // async function editUserProfileInfo(data) {
-//   const requestOptions = getRequestOptions("PUT", data);
+//   const requestOptions = await getRequestOptions("PUT", data);
 
 //   return await fetch(
 //     `${API_URL}/currentUserProfile/editUserProfile`,
@@ -24,7 +27,7 @@ async function userProfileInfo(userId) {
 // }
 
 // async function editPlayerProfileInfo(data) {
-//   const requestOptions = getRequestOptions("PUT", data);
+//   const requestOptions = await getRequestOptions("PUT", data);
 
 //   return await fetch(
 //     `${API_URL}/currentUserProfile/editPlayerProfile`,
@@ -32,20 +35,19 @@ async function userProfileInfo(userId) {
 //   ).then(handleResponse, handleError);
 // }
 
-// async function sendSuggestions(data) {
-//   const requestOptions = getRequestOptions("POST", data);
-
-//   return await fetch(`${API_URL}/sendSuggestions`, requestOptions).then(
-//     handleResponse,
-//     handleError
-//   );
-// }
+async function sendSuggestions(data) {
+  const requestOptions = await getRequestOptions("POST", data);
+  return await fetch(getSendSuggestionsUrl(), requestOptions).then(
+    handleResponse,
+    handleError,
+  );
+}
 
 const matchesService = {
   userProfileInfo,
   // editUserProfileInfo,
   // editPlayerProfileInfo,
-  // sendSuggestions,
+  sendSuggestions,
 };
 
 export default matchesService;

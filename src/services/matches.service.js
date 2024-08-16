@@ -11,7 +11,7 @@ import {
 } from "../resolvers/matches.resolvers";
 
 async function matches() {
-  const requestOptions = getRequestOptions("GET");
+  const requestOptions = await getRequestOptions("GET");
 
   return await fetch(getMatchesUrl(), requestOptions).then(
     handleResponse,
@@ -20,7 +20,7 @@ async function matches() {
 }
 
 async function matchDetails(matchId) {
-  const requestOptions = getRequestOptions("GET");
+  const requestOptions = await getRequestOptions("GET");
 
   return await fetch(getMatchDetailsUrl(matchId), requestOptions).then(
     handleResponse,
@@ -29,7 +29,7 @@ async function matchDetails(matchId) {
 }
 
 async function matchDetailsHeadToHead(data) {
-  const requestOptions = getRequestOptions("GET");
+  const requestOptions = await getRequestOptions("GET");
 
   return await fetch(getMatchDetailsHeadToHeadUrl(data), requestOptions).then(
     handleResponse,

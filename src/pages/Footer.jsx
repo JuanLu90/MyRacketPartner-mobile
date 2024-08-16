@@ -5,7 +5,7 @@ import {
   Image,
   StyleSheet,
   Linking,
-  TouchableOpacity,
+  Pressable,
 } from "react-native";
 import { colors } from "myracketpartner-commons";
 
@@ -36,13 +36,13 @@ const Footer = () => {
         Todas las contribuciones se destinan a cubrir gastos fijos como hosting,
         dominio, entre otros. ¡Gracias!
       </Text>
-      <TouchableOpacity
+      <Pressable
         onPress={() =>
           Linking.openURL("https://www.paypal.com/paypalme/jlmorenocalderon")
         }
       >
         <Image style={styles.donatePaypalImage} source={PaypalIcon} />
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };

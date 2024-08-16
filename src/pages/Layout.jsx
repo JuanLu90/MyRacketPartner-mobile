@@ -4,11 +4,10 @@ import { Stack, Link, useRouter } from "expo-router";
 import {
   StyleSheet,
   View,
-  TouchableOpacity,
+  Pressable,
   Image,
   Animated,
   Text,
-  Pressable,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { colors } from "myracketpartner-commons";
@@ -142,9 +141,9 @@ const Layout = () => {
               )}
 
               <View>
-                <TouchableOpacity onPress={toggleMenu}>
+                <Pressable onPress={toggleMenu}>
                   <MenuIcon width={40} height={40} pathFill={colors.green} />
-                </TouchableOpacity>
+                </Pressable>
               </View>
             </View>
           ),
@@ -184,9 +183,18 @@ const Layout = () => {
             </View>
 
             {id ? (
-              <Pressable onPress={logoutAction} style={styles.menuItem}>
-                <Text style={styles.menuText}>Logout</Text>
-              </Pressable>
+              <>
+                <Link
+                  href="/suggestions"
+                  style={styles.suggestionsLink}
+                  onPress={toggleMenu}
+                >
+                  {t("HeaderMenu.Suggestions")}
+                </Link>
+                <Pressable onPress={logoutAction} style={styles.menuItem}>
+                  <Text style={styles.menuText}>{t("HeaderMenu.Logout")}</Text>
+                </Pressable>
+              </>
             ) : (
               <>
                 <Pressable
@@ -332,6 +340,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     borderWidth: 1,
     borderColor: colors.primary,
+    textAlign: "center",
+  },
+  suggestionsLink: {
+    padding: 30,
     textAlign: "center",
   },
 });

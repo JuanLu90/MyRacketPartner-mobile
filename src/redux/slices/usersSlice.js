@@ -61,6 +61,22 @@ export const editPlayerInfoAction = createAsyncThunk(
   },
 );
 
+export const sendSuggestionsAction = createAsyncThunk(
+  "users/sendSuggestions",
+  async (data, thunkAPI) => {
+    try {
+      const response = await UsersService.sendSuggestions(data);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue({
+        status: error.status,
+        message: error.message,
+      });
+    }
+  },
+);
+
 const usersSlice = createSlice({
   name: "users",
   initialState,

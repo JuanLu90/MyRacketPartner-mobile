@@ -33,7 +33,8 @@
   "HeaderMenu": {
     "Login": "Iniciar sesión",
     "Signup": "Registrate",
-    "Logout": "Desconectar"
+    "Logout": "Desconectar",
+    "Suggestions": "Sugerencias"
   },
   "Match": {
     "Score": "Marcador"
@@ -61,5 +62,12 @@
       "Mainhand": "Brazo principal",
       "Backhand": "Revés"
     }
+  },
+  "Suggestions": {
+    "Title": "Sugerencias",
+    "Description": "¿Qué mejorarías? Si necesitas alguna funcionalidad o arreglar un bug, háznoslo saber y trataremos de añadirlo lo antes posible. Si se agrega en futuras actualizaciones, te mencionaremos (si das permiso)",
+    "PlaceholderTextArea": "Escribe las sugerencias...",
+    "CheckboxShare": "Marque esta casilla si no le importa que compartamos su nombre de usuario (en la sección Novedades) si se agrega alguna funcionalidad.",
+    "SendButton": "Enviar"
   }
 }

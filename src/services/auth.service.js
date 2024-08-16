@@ -11,7 +11,7 @@ import {
 } from "../resolvers/auth.resolvers";
 
 async function login(user) {
-  const requestOptions = getRequestOptions("POST", user);
+  const requestOptions = await getRequestOptions("POST", user);
 
   return await fetch(getLoginUrl(), requestOptions).then(
     handleResponse,
@@ -20,7 +20,7 @@ async function login(user) {
 }
 
 async function register(data) {
-  const requestOptions = getRequestOptions("POST", data);
+  const requestOptions = await getRequestOptions("POST", data);
 
   return await fetch(getRegistersUrl(), requestOptions).then(
     handleResponse,
@@ -29,7 +29,7 @@ async function register(data) {
 }
 
 async function authGoogle({ token }) {
-  const requestOptions = getRequestOptions("POST", { token });
+  const requestOptions = await getRequestOptions("POST", { token });
 
   return await fetch(getAuthGoogleUrl(), requestOptions).then(
     handleResponse,

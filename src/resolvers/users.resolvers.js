@@ -3,3 +3,5 @@ const API_URL = `${REACT_APP_API_URL}/api/users`;
 
 export const getUserProfileInfoUrl = (userId) =>
   `${API_URL}/userProfile/${userId}`;
+
+export const getSendSuggestionsUrl = () => `${API_URL}/sendSuggestions`;

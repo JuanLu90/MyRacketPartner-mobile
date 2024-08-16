@@ -86,16 +86,24 @@ export function handleError(error) {
   throw error;
 }
 
-// export const getTokenLocalStorage = () => localStorage.getItem("token");
-export const getTokenLocalStorage = () => AsyncStorage.getItem("token");
+export const getTokenLocalStorage = async () => {
+  try {
+    return await AsyncStorage.getItem("token");
+  } catch (error) {
+    console.error("Failed to retrieve token from local storage", error);
+    return null;
+  }
+};
 
-export const getRequestOptions = (method, body) => ({
-  method: method,
-  headers: {
-    "Content-Type": "application/json; charset=UTF-8",
-    Authorization: getTokenLocalStorage()
-      ? `Bearer ${getTokenLocalStorage()}`
-      : undefined,
-  },
-  body: body ? JSON.stringify(body) : undefined,
-});
+export const getRequestOptions = async (method, body) => {
+  const token = await getTokenLocalStorage();
+
+  return {
+    method: method,
+    headers: {
+      "Content-Type": "application/json; charset=UTF-8",
+      Authorization: token ? `Bearer ${token}` : undefined,
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  };
+};
