@@ -40,15 +40,31 @@
     "Score": "Score"
   },
   "Profile": {
+    "Age": "Age",
+    "Height": "Height",
+    "Weight": "Weight",
+    "Country": "Country",
+    "AsPlayer": "As player"
+  },
+  "EditProfile": {
     "Personal": {
       "Title": "Personal information",
       "Name": "Name",
-      "Surname": "Surname",
+      "Lastname": "Lastname",
       "Birthdate": "Birthdate",
-      "Gender": "Gender",
+      "Gender": {
+        "title": "Gender",
+        "types": {
+          "MALE": "Male",
+          "FEMALE": "Female",
+          "OTHER": "Other"
+        }
+      },
       "Place": "Place",
       "Phone": "Phone",
-      "Email": "Email"
+      "Email": "Email",
+      "Height": "Height",
+      "Weight": "Weight"
     },
     "Account": {
       "Title": "Account information",
@@ -59,9 +75,24 @@
     },
     "Player": {
       "Title": "Information as a player",
-      "Mainhand": "Mainhand",
-      "Backhand": "Backhand"
-    }
+      "DominantHand": {
+        "Title": "Dominant hand",
+        "Types": {
+          "RIGHT": "Right",
+          "LEFT": "Left",
+          "BOTH": "Both"
+        }
+      },
+      "Backhand": {
+        "Title": "Backhand",
+        "Types": {
+          "ONE": "One hand",
+          "TWO": "Tow hand",
+          "NONE": "I have not"
+        }
+      }
+    },
+    "SendButton": "Send"
   },
   "Suggestions": {
     "Title": "Suggestions",

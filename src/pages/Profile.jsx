@@ -1,21 +1,31 @@
 // DEPENDENCIES
-import { View, Text, Image, ScrollView, StyleSheet } from "react-native";
+import { useState } from "react";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Pressable,
+} from "react-native";
 import { colors } from "myracketpartner-commons";
 import { useTranslation } from "react-i18next";
 
 // COMPONENTS
 import Screen from "./Screen";
+import EditProfile from "../components/EditProfile";
 
 // IMAGES
 import UserDefaultImg from "../images/user-default.png";
 
 // UTILS
-import { formatDate } from "../utils/dateUtil";
+import { calculateAge, formatDate } from "../utils/dateUtil";
+import { getCountry } from "../utils/countriesUtil";
+// import { getFlagImage } from "../utils/countriesUtil";
 
 // FUNCTION
-const Profile = ({ userInfo }) => {
+const Profile = ({ userInfo, userIdPath, userId }) => {
   const {
-    userId,
     email,
     firstName,
     lastName,
@@ -30,12 +40,17 @@ const Profile = ({ userInfo }) => {
 
   const { t } = useTranslation();
 
+  const [editProfileActive, setEditProfileActive] = useState(false);
+
   const InfoItem = ({ label, value }) => (
     <View style={styles.infoItem}>
       <Text style={styles.infoLabel}>{label}</Text>
       <Text style={styles.infoValue}>{value ?? "-"}</Text>
     </View>
   );
+
+  const isAdmin = userId === userIdPath;
+  const defaultValue = (value) => value ?? "-";
 
   return (
     <ScrollView>
@@ -49,41 +64,94 @@ const Profile = ({ userInfo }) => {
             {userName} #{userId}
           </Text>
         </View>
-        <View>
-          <Text style={styles.sectionTitle}>{t("Profile.Personal.Title")}</Text>
-          <View style={styles.wrapperInfo}>
-            <InfoItem label={t("Profile.Personal.Name")} value={firstName} />
-            <InfoItem label={t("Profile.Personal.Surname")} value={lastName} />
-            <InfoItem
-              label={t("Profile.Personal.Birthdate")}
-              value={birthdate}
-            />
-            <InfoItem label={t("Profile.Personal.Gender")} value={gender} />
-            <InfoItem label={t("Profile.Personal.Place")} value="-" />
-            <InfoItem label={t("Profile.Personal.Phone")} value="-" />
-            <InfoItem label={t("Profile.Personal.Email")} value={email} />
+        {/* <EditProfile /> */}
+
+        {isAdmin && (
+          <View style={styles.wrapperButtons}>
+            {editProfileActive ? (
+              <Pressable
+                style={styles.button}
+                onPress={() => setEditProfileActive(false)}
+              >
+                <Text style={{ color: "white", fontSize: 17 }}>Volver</Text>
+              </Pressable>
+            ) : (
+              <Pressable
+                style={styles.button}
+                onPress={() => setEditProfileActive(true)}
+              >
+                <Text style={{ color: "white", fontSize: 17 }}>
+                  Editar perfil
+                </Text>
+              </Pressable>
+            )}
           </View>
-        </View>
+        )}
+
         <View>
-          <Text style={styles.sectionTitle}>{t("Profile.Account.Title")}</Text>
-          <View style={styles.wrapperInfo}>
-            <InfoItem label={t("Profile.Account.Id")} value={`#${userId}`} />
-            <InfoItem label={t("Profile.Account.Username")} value={userName} />
-            <InfoItem
-              label={t("Profile.Account.CreationDate")}
-              value={formatDate(createDate)}
-            />
-            <InfoItem label={t("Profile.Account.Password")} value="********" />
-          </View>
-        </View>
-        <View>
-          <Text style={styles.sectionTitle}> {t("Profile.Player.Title")}</Text>
-          <View style={styles.wrapperInfo}>
-            <InfoItem
-              label={t("Profile.Player.Mainhand")}
-              value={dominantHand}
-            />
-            <InfoItem label={t("Profile.Player.Backhand")} value={backhand} />
+          <View style={styles.userInfo}>
+            <View
+              style={[
+                styles.userInfoChild,
+                { backgroundColor: colors.greyLightSemiTransparent },
+              ]}
+            >
+              <Text style={{ color: colors.white, fontSize: 18 }}>
+                {t("Profile.Age")}
+              </Text>
+              <View>
+                <Text style={{ color: colors.white, fontSize: 18 }}>
+                  {calculateAge(birthdate)} ({formatDate(birthdate)})
+                </Text>
+              </View>
+            </View>
+            <View
+              style={[
+                styles.userInfoChild,
+                { backgroundColor: colors.greyLightSemiTransparent },
+              ]}
+            >
+              <Text style={{ color: colors.white, fontSize: 18 }}>
+                {t("Profile.Height")}
+              </Text>
+              <Text style={{ color: colors.white, fontSize: 18 }}>
+                {defaultValue(userInfo?.height)}
+                {userInfo?.height && " cm"}
+              </Text>
+            </View>
+            <View
+              style={[
+                styles.userInfoChild,
+                { backgroundColor: colors.greyLightSemiTransparent },
+              ]}
+            >
+              <Text style={{ color: colors.white, fontSize: 18 }}>
+                {t("Profile.Weight")}
+              </Text>
+              <Text style={{ color: colors.white, fontSize: 18 }}>
+                {defaultValue(userInfo?.weight)}
+                {userInfo?.weight && " kg"}
+              </Text>
+            </View>
+            <View
+              style={[
+                styles.userInfoChild,
+                { backgroundColor: colors.greyLightSemiTransparent },
+              ]}
+            >
+              <Text style={{ color: colors.white, fontSize: 18 }}>
+                {t("Profile.Country")}
+              </Text>
+              <View style={styles.countryInfo}>
+                <Text style={{ color: colors.white, fontSize: 18 }}>
+                  <Image
+                    source={getCountry(userInfo.country)?.flag}
+                    style={{ width: 25, height: 15, marginRight: 10 }}
+                  />
+                  {getCountry(userInfo.country)?.name}
+                </Text>
+              </View>
+            </View>
           </View>
         </View>
       </Screen>
@@ -108,31 +176,33 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: colors.white,
   },
-  wrapperInfo: {
-    marginBottom: 30,
+  wrapperButtons: {
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: 10,
+  },
+  button: {
+    color: "#ffffff" /* Color del texto blanco */,
     paddingHorizontal: 20,
     paddingVertical: 10,
-    backgroundColor: colors.greyDarkSemiTransparent, // Adjust based on your theme
+    borderRadius: 4 /* Bordes redondeados */,
+    borderWidth: 2,
+    borderColor: "#ffffff",
+    margin: "auto",
   },
-  sectionTitle: {
-    marginBottom: 10,
-    paddingHorizontal: 22,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: colors.white,
+  userInfo: {
+    marginBottom: 55,
   },
-  infoItem: {
-    flexDirection: "row",
+  userInfoChild: {
+    display: "flex",
     justifyContent: "space-between",
+    flexDirection: "row",
+    marginHorizontal: 20,
     marginVertical: 10,
+    padding: 12,
   },
-  infoLabel: {
-    color: colors.greyLight,
-    fontSize: 16,
-  },
-  infoValue: {
-    color: colors.white,
-    fontSize: 16,
+  countryInfo: {
+    display: "flex",
   },
 });
 

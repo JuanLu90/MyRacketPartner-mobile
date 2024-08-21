@@ -39,3 +39,25 @@ export const formatDateMySql = (date) => {
 
   return fechaEnFormatoMysql;
 };
+
+export const normalizeDate = (dateString) => {
+  const date = new Date(dateString);
+  // Verifica si la fecha es válida
+  return isNaN(date.getTime()) ? null : date;
+};
+
+export const calculateAge = (birthdate) => {
+  const birthDate = new Date(birthdate);
+  const today = new Date();
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDifference = today.getMonth() - birthDate.getMonth();
+  const dayDifference = today.getDate() - birthDate.getDate();
+
+  // Ajustar la edad si el cumpleaños aún no ha ocurrido este año
+  if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+    age--;
+  }
+
+  return age;
+};

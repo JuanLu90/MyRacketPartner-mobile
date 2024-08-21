@@ -40,15 +40,31 @@
     "Score": "Marcador"
   },
   "Profile": {
+    "Age": "Edad",
+    "Height": "Altura",
+    "Weight": "Peso",
+    "Country": "País",
+    "AsPlayer": "Como jugador"
+  },
+  "EditProfile": {
     "Personal": {
       "Title": "Información personal",
       "Name": "Nombre",
-      "Surname": "Apellidos",
+      "Lastname": "Apellidos",
       "Birthdate": "Fecha de nacimiento",
-      "Gender": "Género",
+      "Gender": {
+        "title": "Género",
+        "types": {
+          "MALE": "Masculino",
+          "FEMALE": "Femenino",
+          "OTHER": "Otro"
+        }
+      },
       "Place": "Lugar",
       "Phone": "Télefono",
-      "Email": "Correo electrónico"
+      "Email": "Correo electrónico",
+      "Height": "Altura",
+      "Weight": "Peso"
     },
     "Account": {
       "Title": "Información de la cuenta",
@@ -59,9 +75,24 @@
     },
     "Player": {
       "Title": "Información como jugador",
-      "Mainhand": "Brazo principal",
-      "Backhand": "Revés"
-    }
+      "DominantHand": {
+        "Title": "Brazo dominante",
+        "Types": {
+          "RIGHT": "Derecha",
+          "LEFT": "Izquierda",
+          "BOTH": "Ambos"
+        }
+      },
+      "Backhand": {
+        "Title": "Revés",
+        "Types": {
+          "ONE": "Una mano",
+          "TWO": "Dos manos",
+          "NONE": "No tengo reves"
+        }
+      }
+    },
+    "SendButton": "Enviar"
   },
   "Suggestions": {
     "Title": "Sugerencias",

@@ -13,16 +13,17 @@ import ProfileComponent from "../../src/pages/Profile";
 // FUNCTION
 const ProfileId = () => {
   const { profileId } = useLocalSearchParams();
-  const userId = profileId;
 
   const dispatch = useDispatch();
 
+  const userIdPath = Number(profileId);
   const userInfo = useSelector((state) => state.users.userInfo || {});
+  const userId = useSelector((state) => state.auth.user.id);
 
   useEffect(() => {
     const getUserInfo = async () => {
       try {
-        await dispatch(userProfileAction(userId)).unwrap();
+        await dispatch(userProfileAction(userIdPath)).unwrap();
       } catch (error) {
         console.log(error);
       }
@@ -31,7 +32,7 @@ const ProfileId = () => {
     //   getUserInfo();
     // }
     getUserInfo();
-  }, [dispatch, userId]);
+  }, [dispatch, userIdPath]);
 
   return (
     <>
@@ -44,7 +45,11 @@ const ProfileId = () => {
           headerTitle: `${userInfo.userName} - Profile`,
         }}
       />
-      <ProfileComponent userInfo={{ ...userInfo, userId }} />
+      <ProfileComponent
+        userInfo={{ ...userInfo }}
+        userIdPath={userIdPath}
+        userId={userId}
+      />
     </>
   );
 };
