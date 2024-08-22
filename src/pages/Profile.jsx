@@ -17,10 +17,16 @@ import EditProfile from "../components/EditProfile";
 
 // IMAGES
 import UserDefaultImg from "../images/user-default.png";
+import HandIcon from "../images/svg-components/HandIcon";
 
 // UTILS
 import { calculateAge, formatDate } from "../utils/dateUtil";
 import { getCountry } from "../utils/countriesUtil";
+import {
+  getLabelForOptions,
+  dominantHandOptions,
+  backhandOptions,
+} from "../utils/typesUtil";
 // import { getFlagImage } from "../utils/countriesUtil";
 
 // FUNCTION
@@ -61,6 +67,9 @@ const Profile = ({ userInfo, userIdPath, userId }) => {
             style={styles.userProfileIcon}
           />
           <Text style={styles.nameInfo}>
+            {firstName} {lastName}
+          </Text>
+          <Text style={styles.usernameInfo}>
             {userName} #{userId}
           </Text>
         </View>
@@ -154,6 +163,55 @@ const Profile = ({ userInfo, userIdPath, userId }) => {
             </View>
           </View>
         </View>
+
+        <Text style={[styles.asPlayerTitle, { color: colors.white }]}>
+          {t("Profile.AsPlayer")}
+        </Text>
+
+        <View style={[styles.playerBox, { borderColor: colors.greyDark }]}>
+          <View style={styles.wrapperHandIcom}>
+            <HandIcon />
+          </View>
+          <View style={styles.wrapperHandIcom}>
+            <Text
+              style={{ color: colors.white, paddingVertical: 7, fontSize: 18 }}
+            >
+              {t("EditProfile.Player.DominantHand.Title")}
+            </Text>
+            <Text
+              style={{
+                color: colors.white,
+                fontWeight: "bold",
+                paddingVertical: 7,
+                fontSize: 18,
+              }}
+            >
+              {t(
+                getLabelForOptions(userInfo?.dominantHand, dominantHandOptions),
+              )}
+            </Text>
+          </View>
+        </View>
+        <View style={[styles.playerBox, { borderColor: colors.greyDark }]}>
+          <View style={styles.wrapperHandIcom}>
+            <HandIcon transform={[{ scaleX: -1 }]} />
+          </View>
+          <View>
+            <Text style={{ color: colors.white, fontSize: 18 }}>
+              {t("EditProfile.Player.Backhand.Title")}
+            </Text>
+            <Text
+              style={{
+                color: colors.white,
+                fontWeight: "bold",
+                paddingVertical: 7,
+                fontSize: 18,
+              }}
+            >
+              {t(getLabelForOptions(userInfo?.backhand, backhandOptions))}
+            </Text>
+          </View>
+        </View>
       </Screen>
     </ScrollView>
   );
@@ -174,6 +232,10 @@ const styles = StyleSheet.create({
   nameInfo: {
     fontSize: 35,
     fontWeight: "bold",
+    color: colors.white,
+  },
+  usernameInfo: {
+    fontSize: 17,
     color: colors.white,
   },
   wrapperButtons: {
@@ -203,6 +265,25 @@ const styles = StyleSheet.create({
   },
   countryInfo: {
     display: "flex",
+  },
+  asPlayerTitle: {
+    marginLeft: 20,
+    fontSize: 23,
+    fontWeight: "bold",
+  },
+  playerBox: {
+    display: "flex",
+    flexDirection: "row",
+    marginHorizontal: 20,
+    marginVertical: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 7,
+    borderWidth: 1,
+  },
+  wrapperHandIcom: {
+    display: "flex",
+    justifyContent: "center",
+    paddingRight: 20,
   },
 });
 
