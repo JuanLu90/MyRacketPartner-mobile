@@ -77,9 +77,9 @@ export const tournamentDefeatPointsOptions = [0, 1, 2];
 
 export const invitationStatusOptions = ["PENDING", "ACCEPTED", "REJECTED"];
 export const genderOptions = [
-  { value: "MALE", label: "EditProfile.Personal.Gender.types.MALE" },
-  { value: "FEMALE", label: "EditProfile.Personal.Gender.types.FEMALE" },
-  { value: "OTHER", label: "EditProfile.Personal.Gender.types.OTHER" },
+  { value: "MALE", label: "EditProfile.Personal.Gender.Types.MALE" },
+  { value: "FEMALE", label: "EditProfile.Personal.Gender.Types.FEMALE" },
+  { value: "OTHER", label: "EditProfile.Personal.Gender.Types.OTHER" },
 ];
 
 export const dominantHandOptions = [
@@ -97,4 +97,11 @@ export const backhandOptions = [
 export const getLabelForOptions = (value, options) => {
   const option = options.find((option) => option.value === value);
   return option ? option.label : "-";
+};
+
+export const translateOptions = (options, translate) => {
+  return options.map((option) => ({
+    ...option,
+    label: translate(option.label),
+  }));
 };

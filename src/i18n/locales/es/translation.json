@@ -53,8 +53,8 @@
       "Lastname": "Apellidos",
       "Birthdate": "Fecha de nacimiento",
       "Gender": {
-        "title": "Género",
-        "types": {
+        "Title": "Género",
+        "Types": {
           "MALE": "Masculino",
           "FEMALE": "Femenino",
           "OTHER": "Otro"

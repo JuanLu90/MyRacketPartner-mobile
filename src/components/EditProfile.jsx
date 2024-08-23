@@ -1,7 +1,18 @@
 // DEPENDENCIES
-import { View, Text, Image, ScrollView, StyleSheet } from "react-native";
+import { useState, useMemo } from "react";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Dimensions,
+  TextInput,
+} from "react-native";
+import { useSelector, useDispatch } from "react-redux";
 import { colors } from "myracketpartner-commons";
 import { useTranslation } from "react-i18next";
+import RNPickerSelect from "react-native-picker-select";
 
 // COMPONENTS
 
@@ -9,73 +20,242 @@ import { useTranslation } from "react-i18next";
 import UserDefaultImg from "../images/user-default.png";
 
 // UTILS
-import { formatDate } from "../utils/dateUtil";
+import { formatDate, normalizeDate } from "../utils/dateUtil";
+import { genderOptions, translateOptions } from "../utils/typesUtil";
 
 // FUNCTION
-const Profile = ({ userInfo }) => {
-  const {
-    userId,
-    email,
-    firstName,
-    lastName,
-    userName,
-    gender,
-    birthdate,
-    createDate,
-    profileImage,
-    dominantHand,
-    backhand,
-  } = userInfo;
-
+const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const InfoItem = ({ label, value }) => (
-    <View style={styles.infoItem}>
-      <Text style={styles.infoLabel}>{label}</Text>
-      <Text style={styles.infoValue}>{value ?? "-"}</Text>
-    </View>
+  const userInfo = useSelector((state) => state.users.userInfo);
+
+  const initialState = useMemo(
+    () => ({
+      firstName: userInfo.firstName,
+      lastName: userInfo.lastName,
+      birthdate: normalizeDate(userInfo.birthdate),
+      gender: userInfo.gender,
+      dominantHand: userInfo.dominantHand,
+      backhand: userInfo.backhand,
+      height: userInfo.height,
+      weight: userInfo.weight,
+      country: userInfo.country,
+    }),
+    [userInfo],
   );
+
+  const [userState, setUserState] = useState(initialState);
+
+  const handleChange = (value, name) => {
+    setUserState((prevUser) => ({
+      ...prevUser,
+      [name]: value === "" ? null : value,
+    }));
+  };
+
+  const handleChangeBirthdate = (date) => {
+    setUserState((prevState) => ({
+      ...prevState,
+      // birthdate: formatDateMySql(date),
+      birthdate: normalizeDate(date),
+    }));
+  };
+
+  const handleChangeGender = (value) => {
+    setUserState((prevState) => ({
+      ...prevState,
+      gender: value,
+    }));
+  };
+
+  const onSubmit = async () => {
+    // if (!validateState()) return;
+
+    try {
+      await dispatch(editUserInfoAction(userState)).unwrap();
+      await dispatch(userProfileAction(userId)).unwrap();
+      closeEditProfile();
+      // await dispatch(toastAction(response)).unwrap();
+    } catch (error) {
+      // await dispatch(
+      //   toastAction({ message: error.message, type: "ERROR" })
+      // ).unwrap();
+    }
+  };
+
+  const compareObj = JSON.stringify(initialState) === JSON.stringify(userState);
+
+  if (!isAdmin) return;
+
+  // const InfoItem = ({ label, value }) => (
+  //   <View style={styles.infoItem}>
+  //     <Text style={styles.infoLabel}>{label}</Text>
+  //     <Text style={styles.infoValue}>{value ?? "-"}</Text>
+  //   </View>
+  // );
+
+  const { width } = Dimensions.get("window");
+
+  const generalWidth = width - 65;
 
   return (
     <ScrollView>
-      <View style={styles.firstBlock}>
-        <Image
-          source={profileImage ? { uri: profileImage } : UserDefaultImg}
-          style={styles.userProfileIcon}
-        />
-        <Text style={styles.nameInfo}>
-          {userName} #{userId}
-        </Text>
-      </View>
-      <View>
-        <Text style={styles.sectionTitle}>{t("Profile.Personal.Title")}</Text>
-        <View style={styles.wrapperInfo}>
-          <InfoItem label={t("Profile.Personal.Name")} value={firstName} />
-          <InfoItem label={t("Profile.Personal.Surname")} value={lastName} />
-          <InfoItem label={t("Profile.Personal.Birthdate")} value={birthdate} />
-          <InfoItem label={t("Profile.Personal.Gender")} value={gender} />
-          <InfoItem label={t("Profile.Personal.Place")} value="-" />
-          <InfoItem label={t("Profile.Personal.Phone")} value="-" />
-          <InfoItem label={t("Profile.Personal.Email")} value={email} />
-        </View>
-      </View>
-      <View>
-        <Text style={styles.sectionTitle}>{t("Profile.Account.Title")}</Text>
-        <View style={styles.wrapperInfo}>
-          <InfoItem label={t("Profile.Account.Id")} value={`#${userId}`} />
-          <InfoItem label={t("Profile.Account.Username")} value={userName} />
-          <InfoItem
-            label={t("Profile.Account.CreationDate")}
-            value={formatDate(createDate)}
+      <Text style={styles.sectionTitle}>{t("EditProfile.Personal.Title")}</Text>
+      <View
+        style={{
+          paddingVertical: 20,
+          paddingHorizontal: 20,
+          backgroundColor: colors.greyDarkSemiTransparent,
+        }}
+      >
+        <View>
+          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+            {t("EditProfile.Personal.Email")}
+          </Text>
+          <TextInput
+            style={[
+              styles.input,
+              {
+                width: generalWidth,
+                backgroundColor: colors.greyDark,
+                opacity: 0.5,
+                // borderColor: errorState.email ? colors.orange : colors.greyDark,
+              },
+            ]}
+            onChangeText={(value) => handleChange(value, "email")}
+            value={userInfo?.email}
+            editable={false}
           />
-          <InfoItem label={t("Profile.Account.Password")} value="********" />
         </View>
-      </View>
-      <View>
-        <Text style={styles.sectionTitle}> {t("Profile.Player.Title")}</Text>
-        <View style={styles.wrapperInfo}>
-          <InfoItem label={t("Profile.Player.Mainhand")} value={dominantHand} />
-          <InfoItem label={t("Profile.Player.Backhand")} value={backhand} />
+        <View>
+          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+            {t("EditProfile.Personal.Name")}
+          </Text>
+          <TextInput
+            style={[
+              styles.input,
+              {
+                width: generalWidth,
+                // borderColor: errorState.email ? colors.orange : colors.greyDark,
+              },
+            ]}
+            onChangeText={(value) => handleChange(value, "firstName")}
+            value={userState?.firstName}
+          />
+        </View>
+        <View>
+          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+            {t("EditProfile.Personal.Lastname")}
+          </Text>
+          <TextInput
+            style={[
+              styles.input,
+              {
+                width: generalWidth,
+                // borderColor: errorState.email ? colors.orange : colors.greyDark,
+              },
+            ]}
+            onChangeText={(value) => handleChange(value, "lastName")}
+            value={userState?.lastName}
+          />
+        </View>
+        <View>
+          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+            {t("EditProfile.Personal.Birthdate")}
+          </Text>
+          {/* 
+          <TextInput
+            style={[
+              styles.input,
+              {
+                width: generalWidth,
+                borderColor: colors.greyDark,
+                // borderColor: errorState.email ? colors.orange : colors.greyDark,
+                marginBottom: 20,
+              },
+            ]}
+            onChangeText={(value) => handleChange(value, "Birthdate")}
+            value={userState?.Birthdate}
+          />*/}
+        </View>
+        <View>
+          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+            {t("EditProfile.Personal.Gender.Title")}
+          </Text>
+          <RNPickerSelect
+            onValueChange={handleChangeGender}
+            items={translateOptions(genderOptions, t)}
+            style={{
+              inputIOS: { ...styles.inputSelect, width: generalWidth },
+              inputAndroid: { ...styles.inputSelect, width: generalWidth },
+            }}
+            darkTheme
+            doneText="OK"
+          />
+          {/*
+          <TextInput
+            style={[
+              styles.input,
+              {
+                width: generalWidth,
+                borderColor: colors.greyDark,
+                // borderColor: errorState.email ? colors.orange : colors.greyDark,
+                marginBottom: 20,
+              },
+            ]}
+            onChangeText={(value) => handleChange(value, "firstName")}
+            value={userState?.firstName}
+          />*/}
+        </View>
+        <View>
+          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+            {t("EditProfile.Personal.Height")}
+          </Text>
+          <TextInput
+            style={[
+              styles.input,
+              {
+                width: generalWidth,
+                // borderColor: errorState.email ? colors.orange : colors.greyDark,
+              },
+            ]}
+            onChangeText={(value) => handleChange(value, "height")}
+            value={String(userState?.height)}
+          />
+        </View>
+        <View>
+          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+            {t("EditProfile.Personal.Weight")}
+          </Text>
+          <TextInput
+            style={[
+              styles.input,
+              {
+                width: generalWidth,
+
+                // borderColor: errorState.email ? colors.orange : colors.greyDark,
+              },
+            ]}
+            onChangeText={(value) => handleChange(value, "weight")}
+            value={String(userState?.weight)}
+          />
+        </View>
+        <View>
+          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+            {t("Profile.Country")}
+          </Text>
+          <TextInput
+            style={[
+              styles.input,
+              {
+                width: generalWidth,
+                // borderColor: errorState.email ? colors.orange : colors.greyDark,
+              },
+            ]}
+            onChangeText={(value) => handleChange(value, "weight")}
+            value={String(userState?.weight)}
+          />
         </View>
       </View>
     </ScrollView>
@@ -125,6 +305,22 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 16,
   },
+  input: {
+    height: 45,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    color: colors.white,
+    borderWidth: 1,
+    borderColor: colors.greyDark,
+  },
+  inputSelect: {
+    height: 45,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    color: colors.white,
+    borderWidth: 1,
+    borderColor: colors.greyDark,
+  },
 });
 
-export default Profile;
+export default EditProfile;

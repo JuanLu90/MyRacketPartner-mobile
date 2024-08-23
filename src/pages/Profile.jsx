@@ -96,122 +96,138 @@ const Profile = ({ userInfo, userIdPath, userId }) => {
             )}
           </View>
         )}
+        {editProfileActive ? (
+          <EditProfile
+            isAdmin={isAdmin}
+            closeEditProfile={() => setEditProfileActive(false)}
+            userId={userIdPath}
+          />
+        ) : (
+          <View>
+            <View>
+              <View style={styles.userInfo}>
+                <View
+                  style={[
+                    styles.userInfoChild,
+                    { backgroundColor: colors.greyLightSemiTransparent },
+                  ]}
+                >
+                  <Text style={{ color: colors.white, fontSize: 18 }}>
+                    {t("Profile.Age")}
+                  </Text>
+                  <View>
+                    <Text style={{ color: colors.white, fontSize: 18 }}>
+                      {calculateAge(birthdate)} ({formatDate(birthdate)})
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={[
+                    styles.userInfoChild,
+                    { backgroundColor: colors.greyLightSemiTransparent },
+                  ]}
+                >
+                  <Text style={{ color: colors.white, fontSize: 18 }}>
+                    {t("Profile.Height")}
+                  </Text>
+                  <Text style={{ color: colors.white, fontSize: 18 }}>
+                    {defaultValue(userInfo?.height)}
+                    {userInfo?.height && " cm"}
+                  </Text>
+                </View>
+                <View
+                  style={[
+                    styles.userInfoChild,
+                    { backgroundColor: colors.greyLightSemiTransparent },
+                  ]}
+                >
+                  <Text style={{ color: colors.white, fontSize: 18 }}>
+                    {t("Profile.Weight")}
+                  </Text>
+                  <Text style={{ color: colors.white, fontSize: 18 }}>
+                    {defaultValue(userInfo?.weight)}
+                    {userInfo?.weight && " kg"}
+                  </Text>
+                </View>
+                <View
+                  style={[
+                    styles.userInfoChild,
+                    { backgroundColor: colors.greyLightSemiTransparent },
+                  ]}
+                >
+                  <Text style={{ color: colors.white, fontSize: 18 }}>
+                    {t("Profile.Country")}
+                  </Text>
+                  <View style={styles.countryInfo}>
+                    <Text style={{ color: colors.white, fontSize: 18 }}>
+                      <Image
+                        source={getCountry(userInfo.country)?.flag}
+                        style={{ width: 25, height: 15, marginRight: 10 }}
+                      />
+                      {getCountry(userInfo.country)?.name}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
 
-        <View>
-          <View style={styles.userInfo}>
-            <View
-              style={[
-                styles.userInfoChild,
-                { backgroundColor: colors.greyLightSemiTransparent },
-              ]}
-            >
-              <Text style={{ color: colors.white, fontSize: 18 }}>
-                {t("Profile.Age")}
-              </Text>
+            <Text style={[styles.asPlayerTitle, { color: colors.white }]}>
+              {t("Profile.AsPlayer")}
+            </Text>
+
+            <View style={[styles.playerBox, { borderColor: colors.greyDark }]}>
+              <View style={styles.wrapperHandIcom}>
+                <HandIcon />
+              </View>
+              <View style={styles.wrapperHandIcom}>
+                <Text
+                  style={{
+                    color: colors.white,
+                    paddingVertical: 7,
+                    fontSize: 18,
+                  }}
+                >
+                  {t("EditProfile.Player.DominantHand.Title")}
+                </Text>
+                <Text
+                  style={{
+                    color: colors.white,
+                    fontWeight: "bold",
+                    paddingVertical: 7,
+                    fontSize: 18,
+                  }}
+                >
+                  {t(
+                    getLabelForOptions(
+                      userInfo?.dominantHand,
+                      dominantHandOptions,
+                    ),
+                  )}
+                </Text>
+              </View>
+            </View>
+            <View style={[styles.playerBox, { borderColor: colors.greyDark }]}>
+              <View style={styles.wrapperHandIcom}>
+                <HandIcon transform={[{ scaleX: -1 }]} />
+              </View>
               <View>
                 <Text style={{ color: colors.white, fontSize: 18 }}>
-                  {calculateAge(birthdate)} ({formatDate(birthdate)})
+                  {t("EditProfile.Player.Backhand.Title")}
                 </Text>
-              </View>
-            </View>
-            <View
-              style={[
-                styles.userInfoChild,
-                { backgroundColor: colors.greyLightSemiTransparent },
-              ]}
-            >
-              <Text style={{ color: colors.white, fontSize: 18 }}>
-                {t("Profile.Height")}
-              </Text>
-              <Text style={{ color: colors.white, fontSize: 18 }}>
-                {defaultValue(userInfo?.height)}
-                {userInfo?.height && " cm"}
-              </Text>
-            </View>
-            <View
-              style={[
-                styles.userInfoChild,
-                { backgroundColor: colors.greyLightSemiTransparent },
-              ]}
-            >
-              <Text style={{ color: colors.white, fontSize: 18 }}>
-                {t("Profile.Weight")}
-              </Text>
-              <Text style={{ color: colors.white, fontSize: 18 }}>
-                {defaultValue(userInfo?.weight)}
-                {userInfo?.weight && " kg"}
-              </Text>
-            </View>
-            <View
-              style={[
-                styles.userInfoChild,
-                { backgroundColor: colors.greyLightSemiTransparent },
-              ]}
-            >
-              <Text style={{ color: colors.white, fontSize: 18 }}>
-                {t("Profile.Country")}
-              </Text>
-              <View style={styles.countryInfo}>
-                <Text style={{ color: colors.white, fontSize: 18 }}>
-                  <Image
-                    source={getCountry(userInfo.country)?.flag}
-                    style={{ width: 25, height: 15, marginRight: 10 }}
-                  />
-                  {getCountry(userInfo.country)?.name}
+                <Text
+                  style={{
+                    color: colors.white,
+                    fontWeight: "bold",
+                    paddingVertical: 7,
+                    fontSize: 18,
+                  }}
+                >
+                  {t(getLabelForOptions(userInfo?.backhand, backhandOptions))}
                 </Text>
               </View>
             </View>
           </View>
-        </View>
-
-        <Text style={[styles.asPlayerTitle, { color: colors.white }]}>
-          {t("Profile.AsPlayer")}
-        </Text>
-
-        <View style={[styles.playerBox, { borderColor: colors.greyDark }]}>
-          <View style={styles.wrapperHandIcom}>
-            <HandIcon />
-          </View>
-          <View style={styles.wrapperHandIcom}>
-            <Text
-              style={{ color: colors.white, paddingVertical: 7, fontSize: 18 }}
-            >
-              {t("EditProfile.Player.DominantHand.Title")}
-            </Text>
-            <Text
-              style={{
-                color: colors.white,
-                fontWeight: "bold",
-                paddingVertical: 7,
-                fontSize: 18,
-              }}
-            >
-              {t(
-                getLabelForOptions(userInfo?.dominantHand, dominantHandOptions),
-              )}
-            </Text>
-          </View>
-        </View>
-        <View style={[styles.playerBox, { borderColor: colors.greyDark }]}>
-          <View style={styles.wrapperHandIcom}>
-            <HandIcon transform={[{ scaleX: -1 }]} />
-          </View>
-          <View>
-            <Text style={{ color: colors.white, fontSize: 18 }}>
-              {t("EditProfile.Player.Backhand.Title")}
-            </Text>
-            <Text
-              style={{
-                color: colors.white,
-                fontWeight: "bold",
-                paddingVertical: 7,
-                fontSize: 18,
-              }}
-            >
-              {t(getLabelForOptions(userInfo?.backhand, backhandOptions))}
-            </Text>
-          </View>
-        </View>
+        )}
       </Screen>
     </ScrollView>
   );
