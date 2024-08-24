@@ -1,6 +1,7 @@
 import {
   getSendSuggestionsUrl,
   getUserProfileInfoUrl,
+  getEditUserProfileInfo,
 } from "../resolvers/users.resolvers";
 import {
   handleResponse,
@@ -17,14 +18,14 @@ async function userProfileInfo(userId) {
   );
 }
 
-// async function editUserProfileInfo(data) {
-//   const requestOptions = await getRequestOptions("PUT", data);
-
-//   return await fetch(
-//     `${API_URL}/currentUserProfile/editUserProfile`,
-//     requestOptions
-//   ).then(handleResponse, handleError);
-// }
+async function editUserProfileInfo(data) {
+  const requestOptions = await getRequestOptions("PUT", data);
+  return await fetch(getEditUserProfileInfo(), requestOptions)
+    .then(handleResponse)
+    .catch((error) => {
+      handleError(error);
+    });
+}
 
 // async function editPlayerProfileInfo(data) {
 //   const requestOptions = await getRequestOptions("PUT", data);
@@ -45,7 +46,7 @@ async function sendSuggestions(data) {
 
 const matchesService = {
   userProfileInfo,
-  // editUserProfileInfo,
+  editUserProfileInfo,
   // editPlayerProfileInfo,
   sendSuggestions,
 };

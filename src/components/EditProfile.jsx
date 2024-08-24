@@ -9,12 +9,19 @@ import {
   Dimensions,
   TextInput,
   Button,
+  Pressable,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { colors } from "myracketpartner-commons";
 import { useTranslation } from "react-i18next";
 import RNPickerSelect from "react-native-picker-select";
 import DateTimePicker from "@react-native-community/datetimepicker";
+
+// REDUX
+import {
+  editUserInfoAction,
+  userProfileAction,
+} from "../redux/slices/usersSlice";
 
 // IMAGES
 import UserDefaultImg from "../images/user-default.png";
@@ -70,7 +77,6 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
 
   const onSubmit = async () => {
     // if (!validateState()) return;
-
     try {
       await dispatch(editUserInfoAction(userState)).unwrap();
       await dispatch(userProfileAction(userId)).unwrap();
@@ -103,7 +109,7 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
   //   setDate(currentDate);
   // };
   if (!isAdmin) return;
-  console.log(userState);
+
   return (
     <ScrollView>
       <Text style={styles.sectionTitle}>{t("EditProfile.Personal.Title")}</Text>
@@ -300,6 +306,14 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
           />
         </View>
       </View>
+      <View style={styles.wrapperSendButton}>
+        <Button
+          onPress={onSubmit}
+          title={t("EditProfile.SendButton")}
+          accessibilityLabel={t("EditProfile.SendButton")}
+          disabled={compareObj}
+        />
+      </View>
     </ScrollView>
   );
 };
@@ -362,6 +376,9 @@ const styles = StyleSheet.create({
     color: colors.white,
     borderWidth: 1,
     borderColor: colors.greyDark,
+  },
+  wrapperSendButton: {
+    marginBottom: 20,
   },
 });
 
