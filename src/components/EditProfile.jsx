@@ -8,20 +8,26 @@ import {
   StyleSheet,
   Dimensions,
   TextInput,
+  Button,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { colors } from "myracketpartner-commons";
 import { useTranslation } from "react-i18next";
 import RNPickerSelect from "react-native-picker-select";
-
-// COMPONENTS
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 // IMAGES
 import UserDefaultImg from "../images/user-default.png";
 
 // UTILS
 import { formatDate, normalizeDate } from "../utils/dateUtil";
-import { genderOptions, translateOptions } from "../utils/typesUtil";
+import {
+  backhandOptions,
+  dominantHandOptions,
+  genderOptions,
+  translateOptions,
+} from "../utils/typesUtil";
+import { countries } from "../utils/countriesUtil";
 
 // FUNCTION
 const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
@@ -54,18 +60,11 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
     }));
   };
 
-  const handleChangeBirthdate = (date) => {
+  const handleChangeBirthdate = (_, date) => {
     setUserState((prevState) => ({
       ...prevState,
       // birthdate: formatDateMySql(date),
       birthdate: normalizeDate(date),
-    }));
-  };
-
-  const handleChangeGender = (value) => {
-    setUserState((prevState) => ({
-      ...prevState,
-      gender: value,
     }));
   };
 
@@ -86,8 +85,6 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
 
   const compareObj = JSON.stringify(initialState) === JSON.stringify(userState);
 
-  if (!isAdmin) return;
-
   // const InfoItem = ({ label, value }) => (
   //   <View style={styles.infoItem}>
   //     <Text style={styles.infoLabel}>{label}</Text>
@@ -99,11 +96,20 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
 
   const generalWidth = width - 65;
 
+  // const [date, setDate] = useState(new Date(userState.birthdate));
+
+  // const onChange = (event, selectedDate) => {
+  //   const currentDate = selectedDate;
+  //   setDate(currentDate);
+  // };
+  if (!isAdmin) return;
+  console.log(userState);
   return (
     <ScrollView>
       <Text style={styles.sectionTitle}>{t("EditProfile.Personal.Title")}</Text>
       <View
         style={{
+          marginBottom: 30,
           paddingVertical: 20,
           paddingHorizontal: 20,
           backgroundColor: colors.greyDarkSemiTransparent,
@@ -164,27 +170,35 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
           <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
             {t("EditProfile.Personal.Birthdate")}
           </Text>
-          {/* 
-          <TextInput
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={userState.birthdate}
+            mode="date"
+            onChange={handleChangeBirthdate}
+            display="default"
+            style={{ ...styles.inputSelect, width: generalWidth }}
+          />
+          {/* <TextInput
             style={[
               styles.input,
               {
                 width: generalWidth,
-                borderColor: colors.greyDark,
                 // borderColor: errorState.email ? colors.orange : colors.greyDark,
-                marginBottom: 20,
               },
             ]}
-            onChangeText={(value) => handleChange(value, "Birthdate")}
-            value={userState?.Birthdate}
-          />*/}
+            onChangeText={(value) => handleChange(value, "birthdate")}
+            value={formatDate(userState?.birthdate)}
+            onPress={() => console.log("aaaaaa")}
+            editable={false}
+          /> */}
         </View>
         <View>
           <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
             {t("EditProfile.Personal.Gender.Title")}
           </Text>
           <RNPickerSelect
-            onValueChange={handleChangeGender}
+            onValueChange={(value) => handleChange(value, "gender")}
+            value={userState.gender}
             items={translateOptions(genderOptions, t)}
             style={{
               inputIOS: { ...styles.inputSelect, width: generalWidth },
@@ -193,20 +207,6 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
             darkTheme
             doneText="OK"
           />
-          {/*
-          <TextInput
-            style={[
-              styles.input,
-              {
-                width: generalWidth,
-                borderColor: colors.greyDark,
-                // borderColor: errorState.email ? colors.orange : colors.greyDark,
-                marginBottom: 20,
-              },
-            ]}
-            onChangeText={(value) => handleChange(value, "firstName")}
-            value={userState?.firstName}
-          />*/}
         </View>
         <View>
           <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
@@ -245,16 +245,58 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
           <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
             {t("Profile.Country")}
           </Text>
-          <TextInput
-            style={[
-              styles.input,
-              {
-                width: generalWidth,
-                // borderColor: errorState.email ? colors.orange : colors.greyDark,
-              },
-            ]}
-            onChangeText={(value) => handleChange(value, "weight")}
-            value={String(userState?.weight)}
+          <RNPickerSelect
+            onValueChange={(value) => handleChange(value, "country")}
+            value={userState.country}
+            items={countries}
+            style={{
+              inputIOS: { ...styles.inputSelect, width: generalWidth },
+              inputAndroid: { ...styles.inputSelect, width: generalWidth },
+            }}
+            darkTheme
+            doneText="OK"
+          />
+        </View>
+      </View>
+      <Text style={styles.sectionTitle}>{t("EditProfile.Player.Title")}</Text>
+      <View
+        style={{
+          marginBottom: 30,
+          paddingVertical: 20,
+          paddingHorizontal: 20,
+          backgroundColor: colors.greyDarkSemiTransparent,
+        }}
+      >
+        <View>
+          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+            {t("EditProfile.Player.DominantHand.Title")}
+          </Text>
+          <RNPickerSelect
+            onValueChange={(value) => handleChange(value, "dominantHand")}
+            value={userState.dominantHand}
+            items={translateOptions(dominantHandOptions, t)}
+            style={{
+              inputIOS: { ...styles.inputSelect, width: generalWidth },
+              inputAndroid: { ...styles.inputSelect, width: generalWidth },
+            }}
+            darkTheme
+            doneText="OK"
+          />
+        </View>
+        <View>
+          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+            {t("EditProfile.Player.Backhand.Title")}
+          </Text>
+          <RNPickerSelect
+            onValueChange={(value) => handleChange(value, "backhand")}
+            value={userState.backhand}
+            items={translateOptions(backhandOptions, t)}
+            style={{
+              inputIOS: { ...styles.inputSelect, width: generalWidth },
+              inputAndroid: { ...styles.inputSelect, width: generalWidth },
+            }}
+            darkTheme
+            doneText="OK"
           />
         </View>
       </View>
@@ -286,7 +328,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.greyDarkSemiTransparent, // Adjust based on your theme
   },
   sectionTitle: {
-    marginBottom: 10,
+    marginVertical: 10,
     paddingHorizontal: 22,
     fontSize: 20,
     fontWeight: "bold",
