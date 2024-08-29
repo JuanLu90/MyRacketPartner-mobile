@@ -1,14 +1,10 @@
-import {
-  handleResponse,
-  handleError,
-  getRequestOptions,
-} from "../utils/apiUtils";
+import { handleResponse, handleError, getRequestOptions } from "utils/apiUtils";
 
 import {
   getMatchesUrl,
   getMatchDetailsUrl,
   getMatchDetailsHeadToHeadUrl,
-} from "../resolvers/matches.resolvers";
+} from "resolvers/matches.resolvers";
 
 async function matches() {
   const requestOptions = await getRequestOptions("GET");

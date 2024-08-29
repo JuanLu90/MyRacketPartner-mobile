@@ -1,14 +1,10 @@
-import {
-  handleResponse,
-  handleError,
-  getRequestOptions,
-} from "../utils/apiUtils";
+import { handleResponse, handleError, getRequestOptions } from "utils/apiUtils";
 
 import {
   getAuthGoogleUrl,
   getLoginUrl,
   getRegistersUrl,
-} from "../resolvers/auth.resolvers";
+} from "resolvers/auth.resolvers";
 
 async function login(user) {
   const requestOptions = await getRequestOptions("POST", user);

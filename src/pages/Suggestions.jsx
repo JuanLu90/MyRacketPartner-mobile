@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 
 // REDUX
-import { sendSuggestionsAction } from "../redux/slices/usersSlice";
+import { sendSuggestionsAction } from "store/slices/usersSlice";
 
 // FUNCTION
 const Suggestions = () => {

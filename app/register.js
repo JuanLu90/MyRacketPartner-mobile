@@ -1,6 +1,6 @@
 // COMPONENTS
-import Screen from "../src/pages/Screen";
-import RegisterComponent from "../src/pages/Register";
+import Screen from "pages/Screen";
+import RegisterComponent from "pages/Register";
 
 // FUNCTION
 const Register = () => {

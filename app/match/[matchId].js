@@ -6,10 +6,10 @@ import { colors } from "myracketpartner-commons";
 import { ActivityIndicator } from "react-native";
 
 // REDUX
-import { matchDetailsAction } from "../../src/redux/slices/matchesSlice";
+import { matchDetailsAction } from "store/slices/matchesSlice";
 
 // COMPONENTS
-import MatchInfo from "../../src/pages/MatchInfo";
+import MatchInfo from "pages/MatchInfo";
 
 // FUNCTION
 const MatchId = () => {

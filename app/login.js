@@ -1,6 +1,6 @@
 // COMPONENTS
-import Screen from "../src/pages/Screen";
-import LoginComponent from "../src/pages/Login";
+import Screen from "pages/Screen";
+import LoginComponent from "pages/Login";
 
 // FUNCTION
 const Login = () => {

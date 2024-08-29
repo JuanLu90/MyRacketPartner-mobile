@@ -5,8 +5,8 @@ import { colors } from "myracketpartner-commons";
 import { useTranslation } from "react-i18next";
 
 // COMPONENTS
-import RegisterForm from "../components/RegisterForm";
-import GoogleAuthButton from "../components/GoogleAuthButton";
+import RegisterForm from "components/RegisterForm";
+import GoogleAuthButton from "components/GoogleAuthButton";
 
 // FUNCTION
 const Register = () => {

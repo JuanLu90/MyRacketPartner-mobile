@@ -4,11 +4,11 @@ import { colors } from "myracketpartner-commons";
 import { useRouter } from "expo-router";
 
 // UTILS
-import { formatDate, formatHour } from "../utils/dateUtil";
+import { formatDate, formatHour } from "utils/dateUtil";
 
 // IMAGES
-import EditMatchImg from "../images/edit.png";
-import UserDefaultImg from "../images/user-default.png";
+import EditMatchImg from "images/edit.png";
+import UserDefaultImg from "images/user-default.png";
 
 // FUNCTION
 const Match = (props) => {

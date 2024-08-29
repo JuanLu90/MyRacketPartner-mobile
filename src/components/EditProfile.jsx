@@ -18,23 +18,20 @@ import RNPickerSelect from "react-native-picker-select";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 // REDUX
-import {
-  editUserInfoAction,
-  userProfileAction,
-} from "../redux/slices/usersSlice";
+import { editUserInfoAction, userProfileAction } from "store/slices/usersSlice";
 
 // IMAGES
-import UserDefaultImg from "../images/user-default.png";
+import UserDefaultImg from "images/user-default.png";
 
 // UTILS
-import { formatDate, normalizeDate } from "../utils/dateUtil";
+import { formatDate, normalizeDate } from "utils/dateUtil";
 import {
   backhandOptions,
   dominantHandOptions,
   genderOptions,
   translateOptions,
-} from "../utils/typesUtil";
-import { countries } from "../utils/countriesUtil";
+} from "utils/typesUtil";
+import { countries } from "utils/countriesUtil";
 
 // FUNCTION
 const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {

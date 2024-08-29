@@ -10,9 +10,9 @@ import {
 import { colors } from "myracketpartner-commons";
 
 // IMAGES
-import FBIcon from "../images/facebook.png";
-import IGIcon from "../images/instagram.png";
-import PaypalIcon from "../images/donate-paypal.png";
+import FBIcon from "images/facebook.png";
+import IGIcon from "images/instagram.png";
+import PaypalIcon from "images/donate-paypal.png";
 
 // FUNCTION
 const Footer = () => {

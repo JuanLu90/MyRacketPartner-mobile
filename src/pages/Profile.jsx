@@ -13,21 +13,21 @@ import { useTranslation } from "react-i18next";
 
 // COMPONENTS
 import Screen from "./Screen";
-import EditProfile from "../components/EditProfile";
+import EditProfile from "components/EditProfile";
 
 // IMAGES
-import UserDefaultImg from "../images/user-default.png";
-import HandIcon from "../images/svg-components/HandIcon";
+import UserDefaultImg from "images/user-default.png";
+import HandIcon from "images/svg-components/HandIcon";
 
 // UTILS
-import { calculateAge, formatDate } from "../utils/dateUtil";
-import { getCountry } from "../utils/countriesUtil";
+import { calculateAge, formatDate } from "utils/dateUtil";
+import { getCountry } from "utils/countriesUtil";
 import {
   getLabelForOptions,
   dominantHandOptions,
   backhandOptions,
-} from "../utils/typesUtil";
-// import { getFlagImage } from "../utils/countriesUtil";
+} from "utils/typesUtil";
+// import { getFlagImage } from "utils/countriesUtil";
 
 // FUNCTION
 const Profile = ({ userInfo, userIdPath, userId }) => {

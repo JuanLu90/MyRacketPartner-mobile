@@ -5,10 +5,10 @@ import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { colors } from "myracketpartner-commons";
 
 // REDUX
-import { matchDetailsHeadToHeadAction } from "../redux/slices/matchesSlice";
+import { matchDetailsHeadToHeadAction } from "store/slices/matchesSlice";
 
 // UTILS
-import { formatDate } from "../utils/dateUtil";
+import { formatDate } from "utils/dateUtil";
 
 // FUNCTION
 const HeadToHead = (props) => {

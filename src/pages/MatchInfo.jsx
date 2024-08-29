@@ -6,11 +6,11 @@ import { useRouter } from "expo-router";
 
 // COMPONENTS
 import Screen from "./Screen";
-import Score from "../components/Score";
-import HeadToHead from "../components/HeadToHead";
+import Score from "components/Score";
+import HeadToHead from "components/HeadToHead";
 
 // IMAGES
-import UserDefaultImg from "../images/user-default.png";
+import UserDefaultImg from "images/user-default.png";
 
 // FUNCTION
 const MatchInfo = ({ matchDetails }) => {

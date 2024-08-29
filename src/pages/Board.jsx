@@ -6,16 +6,16 @@ import { colors } from "myracketpartner-commons";
 import { useTranslation } from "react-i18next";
 
 // REDUX
-import { matches } from "../redux/slices/matchesSlice";
+import { matches } from "store/slices/matchesSlice";
 
 // COMPONENTS
-import Match from "../components/Match";
+import Match from "components/Match";
 
 // IMAGES
-import FriendlyIcon from "../images/svg-components/FriendlyIcon";
+import FriendlyIcon from "images/svg-components/FriendlyIcon";
 
 // UTILS
-import { groupMatches } from "../utils/groupMatches";
+import { groupMatches } from "utils/groupMatches";
 
 // FUNCTION
 const Board = () => {

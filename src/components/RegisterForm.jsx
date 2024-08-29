@@ -14,10 +14,10 @@ import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 // REDUX
-import { loginAction, registerAction } from "../redux/slices/authSlice";
+import { loginAction, registerAction } from "store/slices/authSlice";
 
 // UTILS
-import { validateEmail, validatePassword } from "../utils/validationUtil";
+import { validateEmail, validatePassword } from "utils/validationUtil";
 
 // FUNCTION
 const RegisterForm = () => {

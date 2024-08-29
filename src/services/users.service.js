@@ -2,12 +2,8 @@ import {
   getSendSuggestionsUrl,
   getUserProfileInfoUrl,
   getEditUserProfileInfo,
-} from "../resolvers/users.resolvers";
-import {
-  handleResponse,
-  handleError,
-  getRequestOptions,
-} from "../utils/apiUtils";
+} from "resolvers/users.resolvers";
+import { handleResponse, handleError, getRequestOptions } from "utils/apiUtils";
 
 async function userProfileInfo(userId) {
   const requestOptions = await getRequestOptions("GET");

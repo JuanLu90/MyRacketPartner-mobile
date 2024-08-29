@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import matchesService from "../../services/matches.service";
+import matchesService from "services/matches.service";
 import { setLoading } from "./loadingSlice";
 
 const initialState = {

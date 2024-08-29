@@ -5,10 +5,10 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { colors } from "myracketpartner-commons";
 
 // REDUX
-import { userProfileAction } from "../../src/redux/slices/usersSlice";
+import { userProfileAction } from "store/slices/usersSlice";
 
 // COMPONENTS
-import ProfileComponent from "../../src/pages/Profile";
+import ProfileComponent from "pages/Profile";
 
 // FUNCTION
 const ProfileId = () => {

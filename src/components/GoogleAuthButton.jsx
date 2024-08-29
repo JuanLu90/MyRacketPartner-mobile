@@ -8,10 +8,10 @@ import {
 import { useNavigation } from "@react-navigation/native";
 
 // REDUX
-import { authGoogleAction } from "../redux/slices/authSlice";
+import { authGoogleAction } from "store/slices/authSlice";
 
 // IMAGES
-import GoogleIcon from "../images/svg-components/GoogleIcon";
+import GoogleIcon from "images/svg-components/GoogleIcon";
 
 // FUNCTION
 const GoogleAuthButton = () => {

@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { jwtDecode } from "jwt-decode";
 // import { toastAction } from "./alertSlice";
-import AuthService from "../../services/auth.service";
+import AuthService from "services/auth.service";
 
 const initialState = {
   isLoggedIn: false,

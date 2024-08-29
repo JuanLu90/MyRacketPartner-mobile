@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 // REDUX
-import { store } from "../src/redux/store";
+import { store } from "store/store";
 
 // ENV
 import {
@@ -13,7 +13,7 @@ import {
 } from "@env";
 
 // COMPONENTS
-import LayoutComponent from "../src/pages/Layout";
+import LayoutComponent from "pages/Layout";
 
 // FUNCTION
 const Layout = () => {

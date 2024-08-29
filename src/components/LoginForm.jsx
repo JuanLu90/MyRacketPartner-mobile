@@ -15,10 +15,10 @@ import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 // REDUX
-import { loginAction } from "../redux/slices/authSlice";
+import { loginAction } from "store/slices/authSlice";
 
 // UTILS
-import { validateEmail, validatePassword } from "../utils/validationUtil";
+import { validateEmail, validatePassword } from "utils/validationUtil";
 
 // FUNCTION
 const LoginForm = () => {

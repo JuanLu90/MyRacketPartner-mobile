@@ -15,16 +15,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTranslation } from "react-i18next";
 
 // REDUX
-import { setUser, logout } from "../redux/slices/authSlice";
+import { setUser, logout } from "store/slices/authSlice";
 
 // IMAGES
-import { LogoIcon } from "../images/svg-components/LogoIcon";
-import { MenuIcon } from "../images/svg-components/MenuIcon";
-import UserDefaultImg from "../images/user-default.png";
-import LanguageImg from "../images/language.png";
+import { LogoIcon } from "images/svg-components/LogoIcon";
+import { MenuIcon } from "images/svg-components/MenuIcon";
+import UserDefaultImg from "images/user-default.png";
+import LanguageImg from "images/language.png";
 
 // UTILS
-import { getTokenLocalStorage } from "../utils/apiUtils";
+import { getTokenLocalStorage } from "utils/apiUtils";
 
 // FUNCTION
 const Layout = () => {

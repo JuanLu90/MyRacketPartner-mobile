@@ -6,7 +6,7 @@ import { colors } from "myracketpartner-commons";
 import { useSelector } from "react-redux";
 
 // COMPONENTS
-import Loading from "../components/Loading";
+import Loading from "components/Loading";
 
 // FUNCTION
 const Screen = ({ children }) => {
