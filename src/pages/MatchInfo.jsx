@@ -38,7 +38,17 @@ const MatchInfo = ({ matchDetails }) => {
                 winnerId !== user1?.id && styles.winner,
               ]}
             >
-              <Image source={UserDefaultImg} style={styles.userDefaultIcon} />
+              <Image
+                source={
+                  user1?.profileImage
+                    ? {
+                        uri: user1?.profileImage,
+                      }
+                    : UserDefaultImg
+                }
+                style={styles.userDefaultIcon}
+              />
+
               <Text style={styles.userName}>{user1?.name}</Text>
             </View>
           </Pressable>
@@ -62,7 +72,16 @@ const MatchInfo = ({ matchDetails }) => {
                 winnerId !== user2?.id && styles.winner,
               ]}
             >
-              <Image source={UserDefaultImg} style={styles.userDefaultIcon} />
+              <Image
+                source={
+                  user2?.profileImage
+                    ? {
+                        uri: user2?.profileImage,
+                      }
+                    : UserDefaultImg
+                }
+                style={styles.userDefaultIcon}
+              />
               <Text style={styles.userName}>{user2?.name}</Text>
             </View>
           </Pressable>
@@ -164,6 +183,7 @@ const styles = StyleSheet.create({
     width: 65,
     height: 65,
     marginBottom: 8,
+    borderRadius: 40,
   },
 });
 

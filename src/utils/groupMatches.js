@@ -8,8 +8,10 @@ export const groupMatches = (matchesList) => {
         matchDate: matchs[0].matchDate,
         user1ID: matchs[0].user1ID,
         user1Name: matchs[0].user1Name,
+        user1ProfileImage: matchs[0].user1ProfileImage,
         user2ID: matchs[0].user2ID,
         user2Name: matchs[0].user2Name,
+        user2ProfileImage: matchs[0].user2ProfileImage,
         sets: [],
       };
     }

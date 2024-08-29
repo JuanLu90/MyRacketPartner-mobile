@@ -25,8 +25,10 @@ const Match = (props) => {
     matchWinner,
     user1ID,
     user2ID,
+    user1ProfileImage,
     user1Name,
     user2Name,
+    user2ProfileImage,
     sets,
     matchDate,
   } = match;
@@ -56,7 +58,16 @@ const Match = (props) => {
             <View style={styles.separator} />
             <View style={styles.usersWrapper}>
               <View style={styles.usersInfo}>
-                <Image source={UserDefaultImg} style={styles.userIcon} />
+                <Image
+                  source={
+                    user1ProfileImage
+                      ? {
+                          uri: user1ProfileImage,
+                        }
+                      : UserDefaultImg
+                  }
+                  style={styles.userIcon}
+                />
                 <Text
                   style={[
                     styles.userStyled,
@@ -67,7 +78,16 @@ const Match = (props) => {
                 </Text>
               </View>
               <View style={styles.usersInfo}>
-                <Image source={UserDefaultImg} style={styles.userIcon} />
+                <Image
+                  source={
+                    user2ProfileImage
+                      ? {
+                          uri: user2ProfileImage,
+                        }
+                      : UserDefaultImg
+                  }
+                  style={styles.userIcon}
+                />
 
                 <Text
                   style={[
@@ -80,7 +100,7 @@ const Match = (props) => {
               </View>
             </View>
           </View>
-          <View style={styles.result}>
+          <View style={styles.wrapperResult}>
             {sets.map((set, i) => (
               <View key={i} style={styles.resultInner}>
                 <Text
@@ -145,19 +165,21 @@ const styles = StyleSheet.create({
   dateText: {
     color: colors.greyLight,
   },
-  result: {
+  wrapperResult: {
     flexDirection: "row",
     justifyContent: "flex-end",
   },
   resultInner: {
     flexDirection: "column",
     justifyContent: "center",
+    gap: 5,
   },
   resultSpan: {
     marginHorizontal: 5,
   },
   usersWrapper: {
     flexDirection: "column",
+    gap: 5,
   },
   usersInfo: {
     flexDirection: "row",
@@ -196,6 +218,7 @@ const styles = StyleSheet.create({
     width: 18,
     height: 18,
     marginRight: 10,
+    borderRadius: 40,
   },
 });
 
