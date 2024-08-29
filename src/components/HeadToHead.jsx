@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
-import { colors } from "myracketpartner-commons";
+import { colors } from "utils/stylesUtil";
 
 // REDUX
 import { matchDetailsHeadToHeadAction } from "store/slices/matchesSlice";

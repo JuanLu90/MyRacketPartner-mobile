@@ -9,7 +9,7 @@ import {
   Dimensions,
 } from "react-native";
 import CheckBox from "@react-native-community/checkbox";
-import { colors } from "myracketpartner-commons";
+import { colors } from "utils/stylesUtil";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 

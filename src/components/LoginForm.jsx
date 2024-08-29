@@ -1,7 +1,7 @@
 // DEPENDENCIES
 import { useState } from "react";
 import { Link } from "expo-router";
-import { colors } from "myracketpartner-commons";
+import { colors } from "utils/stylesUtil";
 import {
   Pressable,
   StyleSheet,

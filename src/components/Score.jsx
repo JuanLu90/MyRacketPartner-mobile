@@ -1,6 +1,6 @@
 // DEPENDENCIES
 import { View, Text, StyleSheet } from "react-native";
-import { colors } from "myracketpartner-commons";
+import { colors } from "utils/stylesUtil";
 
 // FUNCTION
 const Score = ({ matchDetails }) => {

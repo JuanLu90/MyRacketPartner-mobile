@@ -1,7 +1,7 @@
 // DEPENDENCIES
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { Link, Stack } from "expo-router";
-import { colors } from "myracketpartner-commons";
+import { colors } from "utils/stylesUtil";
 import { useTranslation } from "react-i18next";
 
 // COMPONENTS

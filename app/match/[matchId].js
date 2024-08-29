@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { colors } from "myracketpartner-commons";
+import { colors } from "utils/stylesUtil";
 import { ActivityIndicator } from "react-native";
 
 // REDUX

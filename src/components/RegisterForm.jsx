@@ -1,6 +1,6 @@
 // DEPENDENCIES
 import { useState } from "react";
-import { colors } from "myracketpartner-commons";
+import { colors } from "utils/stylesUtil";
 import {
   Pressable,
   StyleSheet,

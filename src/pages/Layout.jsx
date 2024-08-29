@@ -10,7 +10,7 @@ import {
   Text,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { colors } from "myracketpartner-commons";
+import { colors } from "utils/stylesUtil";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTranslation } from "react-i18next";
 

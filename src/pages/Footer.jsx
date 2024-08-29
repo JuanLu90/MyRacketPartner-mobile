@@ -7,7 +7,7 @@ import {
   Linking,
   Pressable,
 } from "react-native";
-import { colors } from "myracketpartner-commons";
+import { colors } from "utils/stylesUtil";
 
 // IMAGES
 import FBIcon from "images/facebook.png";

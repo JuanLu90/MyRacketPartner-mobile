@@ -1,6 +1,6 @@
 // DEPENDENCIES
 import { StyleSheet, View } from "react-native";
-import { colors } from "myracketpartner-commons";
+import { colors } from "utils/stylesUtil";
 
 // REDUX
 import { useSelector } from "react-redux";

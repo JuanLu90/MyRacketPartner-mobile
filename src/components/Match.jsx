@@ -1,6 +1,6 @@
 // DEPENDENCIES
 import { View, Text, Image, Pressable, StyleSheet } from "react-native";
-import { colors } from "myracketpartner-commons";
+import { colors } from "utils/stylesUtil";
 import { useRouter } from "expo-router";
 
 // UTILS

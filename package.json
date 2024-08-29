@@ -34,7 +34,6 @@
     "expo-status-bar": "~1.12.1",
     "i18next": "^23.12.3",
     "jwt-decode": "^4.0.0",
-    "myracketpartner-commons": "git+https://github.com/JuanLu90/MyRacketPartner-commons.git",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-i18next": "^15.0.1",

@@ -1,6 +1,6 @@
 // DEPENDENCIES
 import { View, ActivityIndicator, StyleSheet } from "react-native";
-import { colors } from "myracketpartner-commons";
+import { colors } from "utils/stylesUtil";
 
 const Loading = () => {
   return (

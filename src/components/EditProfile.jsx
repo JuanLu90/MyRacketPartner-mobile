@@ -12,7 +12,7 @@ import {
   Pressable,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { colors } from "myracketpartner-commons";
+import { colors } from "utils/stylesUtil";
 import { useTranslation } from "react-i18next";
 import RNPickerSelect from "react-native-picker-select";
 import DateTimePicker from "@react-native-community/datetimepicker";
