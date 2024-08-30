@@ -74,12 +74,12 @@ const BottomSheetModal = ({
         <View style={styles.children}>{children}</View>
         {!hideButtons && (
           <View style={styles.buttons}>
-            {/* <TouchableOpacity style={styles.cancelButton} onPress={closeModal}>
+            {/* <Pressable style={styles.cancelButton} onPress={closeModal}>
               <Text style={styles.buttonText}>Close</Text>
-            </TouchableOpacity> */}
-            <TouchableOpacity style={styles.sendButton} onPress={onSubmit}>
+            </Pressable> */}
+            <Pressable style={styles.sendButton} onPress={onSubmit}>
               <Text style={styles.buttonText}>Send</Text>
-            </TouchableOpacity>
+            </Pressable>
           </View>
         )}
       </Animated.View>
@@ -130,20 +130,23 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttons: {
+    flex: 1,
     flexDirection: "row",
     justifyContent: "flex-end",
     marginTop: 15,
+    padding: 10,
   },
   buttonText: {
     color: colors.primary,
     fontWeight: "bold",
     fontSize: 16,
+    textAlign: "center",
   },
   sendButton: {
+    flex: 1,
     backgroundColor: colors.green,
     padding: 10,
     borderRadius: 5,
-    marginLeft: 10,
   },
   cancelButton: {
     backgroundColor: "transparent",

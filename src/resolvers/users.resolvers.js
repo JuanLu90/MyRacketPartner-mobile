@@ -8,3 +8,5 @@ export const getSendSuggestionsUrl = () => `${API_URL}/sendSuggestions`;
 
 export const getEditUserProfileInfo = () =>
   `${API_URL}/currentUserProfile/editUserProfile`;
+
+export const getUsersSearch = (value) => `${API_URL}/usersSearch/${value}`;

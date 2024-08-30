@@ -6,7 +6,7 @@ import { colors } from "utils/stylesUtil";
 import { useTranslation } from "react-i18next";
 
 // REDUX
-import { matches } from "store/slices/matchesSlice";
+import { matchesAction } from "store/slices/matchesSlice";
 
 // COMPONENTS
 import Match from "components/Match";
@@ -32,7 +32,7 @@ const Board = () => {
 
       try {
         // console.log(credentials);
-        await dispatch(matches()).unwrap();
+        await dispatch(matchesAction()).unwrap();
 
         // navigate("/matches");
       } catch (error) {

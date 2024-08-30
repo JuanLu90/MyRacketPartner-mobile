@@ -6,7 +6,7 @@ const initialState = {
   matches: [],
 };
 
-export const matches = createAsyncThunk(
+export const matchesAction = createAsyncThunk(
   "matches/matches",
   async (id, thunkAPI) => {
     const { dispatch } = thunkAPI;
@@ -71,12 +71,27 @@ export const matchDetailsHeadToHeadAction = createAsyncThunk(
   },
 );
 
+export const newMatchAction = createAsyncThunk(
+  "matches/newMatch",
+  async (user, thunkAPI) => {
+    try {
+      const response = await matchesService.newMatch(user);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({
+        status: error.status,
+        message: error.message,
+      });
+    }
+  },
+);
+
 const matchesSlice = createSlice({
   name: "matches",
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(matches.fulfilled, (state, action) => {
+      .addCase(matchesAction.fulfilled, (state, action) => {
         state.matches = action.payload.matches;
       })
       .addCase(matchDetailsAction.fulfilled, (state, action) => {

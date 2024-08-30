@@ -7,11 +7,11 @@ const {
   Image,
   Pressable,
   TextInput,
-  Dimensions,
 } = require("react-native");
 
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
+import { matchesAction, newMatchAction } from "store/slices/matchesSlice";
 
 // COMPONENTS
 import BottomSheetModal from "./BottomSheetModal";
@@ -63,7 +63,7 @@ const AddMatchModal = (props) => {
 
   const [query, setQuery] = useState("");
   const { users, loading, error } = useSearchUsers(query);
-  console.log(matchInfoState);
+
   const onSubmit = async () => {
     try {
       await dispatch(newMatchAction(matchInfoState)).unwrap();
@@ -78,6 +78,10 @@ const AddMatchModal = (props) => {
       //   toastAction({ message: error.message, type: "ERROR" }),
       // ).unwrap();
     }
+  };
+
+  const handleChange = (value) => {
+    setQuery(value);
   };
 
   const handleChangeResult = (value, name, playerOrder) => {
@@ -118,21 +122,22 @@ const AddMatchModal = (props) => {
     setQuery("");
   }, [selectUserisActive]);
 
-  const { width } = Dimensions.get("window");
-
-  const generalWidth = width;
-
   return (
     <BottomSheetModal
       title="Add a result"
       isOpen={isOpen}
       closeModal={closeModal}
-      //   onSubmit={onSubmit}
+      onSubmit={onSubmit}
     >
-      <View>
+      <View style={{ padding: 10 }}>
         <View style={styles.wrapperInfoResult}>
           <View style={styles.usersWrapper}>
-            <View style={styles.userStyled}>
+            <View
+              style={[
+                styles.userStyled,
+                selectUserisActive && { opacity: 0.3 },
+              ]}
+            >
               <Image
                 source={
                   profileImage
@@ -154,7 +159,13 @@ const AddMatchModal = (props) => {
             <View style={styles.userStyled}>
               {userSelected?.userID ? (
                 <Image
-                  source={UserDefaultImg}
+                  source={
+                    userSelected?.profileImage
+                      ? {
+                          uri: userSelected?.profileImage,
+                        }
+                      : UserDefaultImg
+                  }
                   style={styles.userDefaultIcon}
                   onPress={() => setSelectUserisActive(!selectUserisActive)}
                 />
@@ -228,8 +239,50 @@ const AddMatchModal = (props) => {
               </View>
             </View>
           ) : (
-            <View>
-              <Text>aaaaaaaaaaa</Text>
+            <View style={{ flex: 1, paddingLeft: 30 }}>
+              <TextInput
+                style={styles.inputSearchUser}
+                onChangeText={handleChange}
+                placeholder="Search by username..."
+                placeholderTextColor={colors.greyLight}
+              />
+              <View style={{ marginTop: 18 }}>
+                {users.length > 0 &&
+                  query &&
+                  users?.map((user) => (
+                    <Pressable
+                      style={styles.option}
+                      key={user.userID}
+                      onPress={() => handleSelectUser(user)}
+                    >
+                      <Image
+                        source={
+                          user?.profileImage
+                            ? {
+                                uri: user?.profileImage,
+                              }
+                            : UserDefaultImg
+                        }
+                        style={styles.searchUserImage}
+                      />
+                      <View>
+                        <Text
+                          style={{ color: colors.white, fontWeight: "500" }}
+                        >
+                          {user.firstName ?? user.userName} {user.lastName}
+                        </Text>
+                        <Text style={{ color: colors.white, fontSize: 12 }}>
+                          {user.email}
+                        </Text>
+                      </View>
+                    </Pressable>
+                  ))}
+                {(!users.length || !query) && (
+                  <Text style={{ color: colors.white, fontSize: 18 }}>
+                    No users found
+                  </Text>
+                )}
+              </View>
             </View>
           )}
         </View>
@@ -262,8 +315,8 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
   notSelectedUser: {
-    width: 60,
-    height: 60,
+    width: 65,
+    height: 65,
     marginBottom: 7,
     padding: 16,
     backgroundColor: "transparent",
@@ -273,18 +326,18 @@ const styles = StyleSheet.create({
     borderStyle: "dashed",
   },
   input: {
-    paddingVertical: 10,
+    paddingBottom: 5,
     width: 40,
     color: colors.white,
     background: "transparent",
-    fontSize: 30,
+    fontSize: 32,
     border: "none",
     borderBottomWidth: 1,
-    borderColor: colors.greyLight,
+    borderColor: colors.white,
     textAlign: "center",
   },
   wrapperResult: {
-    marginVertical: 15,
+    marginVertical: 10,
     flex: 1,
     flexDirection: "row",
     justifyContent: "center",
@@ -292,6 +345,25 @@ const styles = StyleSheet.create({
   },
   result: {
     justifyContent: "space-between",
+  },
+  inputSearchUser: {
+    width: "100%",
+    paddingBottom: 5,
+    color: colors.white,
+    borderBottomWidth: 1,
+    borderColor: colors.white,
+    fontSize: 18,
+  },
+  searchUserImage: {
+    width: 35,
+    height: 35,
+    marginBottom: 8,
+    borderRadius: 40,
+  },
+  option: {
+    flexDirection: "row",
+    marginBottom: 10,
+    gap: 7,
   },
 });
 

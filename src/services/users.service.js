@@ -2,6 +2,7 @@ import {
   getSendSuggestionsUrl,
   getUserProfileInfoUrl,
   getEditUserProfileInfo,
+  getUsersSearch,
 } from "resolvers/users.resolvers";
 import { handleResponse, handleError, getRequestOptions } from "utils/apiUtils";
 
@@ -40,11 +41,21 @@ async function sendSuggestions(data) {
   );
 }
 
+async function usersSearch(value) {
+  const requestOptions = await getRequestOptions("GET");
+
+  return await fetch(getUsersSearch(value), requestOptions).then(
+    handleResponse,
+    handleError,
+  );
+}
+
 const matchesService = {
   userProfileInfo,
   editUserProfileInfo,
   // editPlayerProfileInfo,
   sendSuggestions,
+  usersSearch,
 };
 
 export default matchesService;
