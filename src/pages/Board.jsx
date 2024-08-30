@@ -1,5 +1,5 @@
 // DEPENDENCIES
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { colors } from "utils/stylesUtil";
@@ -10,6 +10,8 @@ import { matches } from "store/slices/matchesSlice";
 
 // COMPONENTS
 import Match from "components/Match";
+import AddMatchModal from "components/Modals/AddMatchModal";
+import FloatingButton from "components/FloatingButton";
 
 // IMAGES
 import FriendlyIcon from "images/svg-components/FriendlyIcon";
@@ -21,6 +23,8 @@ import { groupMatches } from "utils/groupMatches";
 const Board = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  const [addMatchModalState, setAddMatchModalState] = useState(false);
 
   useEffect(() => {
     const getMatches = async () => {
@@ -42,25 +46,37 @@ const Board = () => {
     getMatches();
   }, [dispatch]);
 
+  const {
+    user: { id },
+  } = useSelector((state) => state.auth);
   const matchesList = useSelector((state) => state.matches.matches);
 
   const matchesGrouped = groupMatches(matchesList);
 
   return (
-    <ScrollView>
-      <View style={styles.wrapperTitle}>
-        <FriendlyIcon
-          width={40}
-          height={30}
-          marginHorizontal={23}
-          pathFill={colors.greyLight}
-        />
-        <Text style={styles.title}>{t("Board.Friendly.Title")}</Text>
-      </View>
-      {matchesGrouped.map((match, i) => (
-        <Match match={match} key={i} />
-      ))}
-    </ScrollView>
+    <>
+      <ScrollView>
+        <View style={styles.wrapperTitle}>
+          <FriendlyIcon
+            width={40}
+            height={30}
+            marginHorizontal={23}
+            pathFill={colors.greyLight}
+          />
+          <Text style={styles.title}>{t("Board.Friendly.Title")}</Text>
+        </View>
+        {matchesGrouped.map((match, i) => (
+          <Match match={match} key={i} />
+        ))}
+        {addMatchModalState && (
+          <AddMatchModal
+            isOpen={addMatchModalState}
+            closeModal={() => setAddMatchModalState(false)}
+          />
+        )}
+      </ScrollView>
+      <FloatingButton action={() => setAddMatchModalState(true)} />
+    </>
   );
 };
 
