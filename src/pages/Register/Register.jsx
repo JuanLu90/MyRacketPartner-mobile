@@ -1,12 +1,15 @@
 // DEPENDENCIES
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { Text, View, ScrollView } from "react-native";
 import { Link, Stack } from "expo-router";
 import { colors } from "utils/stylesUtil";
 import { useTranslation } from "react-i18next";
 
 // COMPONENTS
-import RegisterForm from "components/RegisterForm";
+import RegisterForm from "./components/RegisterForm";
 import GoogleAuthButton from "components/GoogleAuthButton";
+
+// STYLES
+import styles from "./Register.styled";
 
 // FUNCTION
 const Register = () => {
@@ -51,26 +54,5 @@ const Register = () => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  wrapper: { alignItems: "center", marginTop: 50 },
-  textColor: {
-    color: colors.white,
-  },
-  title: {
-    fontSize: 35,
-    fontWeight: "bold",
-    marginBottom: 3,
-  },
-  subtitle: {
-    fontSize: 15,
-    fontWeight: "bold",
-    color: colors.greyLight,
-  },
-  Register: {
-    fontSize: 18,
-    marginVertical: 30,
-  },
-});
 
 export default Register;

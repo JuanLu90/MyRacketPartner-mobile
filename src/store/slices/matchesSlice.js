@@ -15,16 +15,8 @@ export const matchesAction = createAsyncThunk(
       dispatch(setLoading(true));
       const data = await matchesService.matches();
 
-      const dataByMatchs = data.reduce((acc, curr) => {
-        if (!acc[curr.matchID]) {
-          acc[curr.matchID] = [];
-        }
-        acc[curr.matchID].push(curr);
-        return acc;
-      }, {});
-
       dispatch(setLoading(false));
-      return { matches: dataByMatchs };
+      return { matches: data };
     } catch (error) {
       dispatch(setLoading(false));
       console.log(error);

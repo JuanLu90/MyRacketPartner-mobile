@@ -2,14 +2,7 @@
 import { useState } from "react";
 import { Link } from "expo-router";
 import { colors } from "utils/stylesUtil";
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Dimensions,
-} from "react-native";
+import { Pressable, Text, View, TextInput, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -19,6 +12,9 @@ import { loginAction } from "store/slices/authSlice";
 
 // UTILS
 import { validateEmail, validatePassword } from "utils/validationUtil";
+
+// STYLES
+import styles from "./LoginForm.styled";
 
 // FUNCTION
 const LoginForm = () => {
@@ -126,43 +122,5 @@ const LoginForm = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  input: {
-    width: 40,
-    height: 45,
-    marginBottom: 6,
-    paddingHorizontal: 10,
-    color: colors.white,
-    borderWidth: 1,
-  },
-  sendButton: {
-    marginHorizontal: "auto",
-    marginBottom: 80,
-    marginTop: 30,
-    paddingVertical: 8,
-    paddingHorizontal: 20,
-    borderRadius: 12,
-    backgroundColor: colors.green,
-  },
-  textSenfButton: {
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  forgotPassword: {
-    marginLeft: "auto",
-    marginTop: 15,
-  },
-  textForgotPassword: {
-    margin: "auto",
-    fontSize: 18,
-    color: colors.green,
-  },
-  errorLabel: {
-    fontSize: 17,
-    color: colors.orange,
-  },
-});
 
 export default LoginForm;

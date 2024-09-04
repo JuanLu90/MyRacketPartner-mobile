@@ -8,7 +8,7 @@ import { colors } from "utils/stylesUtil";
 import { userProfileAction } from "store/slices/usersSlice";
 
 // COMPONENTS
-import ProfileComponent from "pages/Profile";
+import ProfileComponent from "pages/Profile/Profile";
 
 // FUNCTION
 const ProfileId = () => {

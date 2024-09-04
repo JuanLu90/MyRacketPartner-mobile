@@ -1,12 +1,15 @@
 // DEPENDENCIES
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { Text, View, ScrollView } from "react-native";
 import { Link, Stack } from "expo-router";
 import { colors } from "utils/stylesUtil";
 import { useTranslation } from "react-i18next";
 
 // COMPONENTS
-import LoginForm from "components/LoginForm";
+import LoginForm from "./components/LoginForm";
 import GoogleAuthButton from "components/GoogleAuthButton";
+
+// STYLES
+import styles from "./Login.styled";
 
 // FUNCTION
 const Login = () => {
@@ -37,7 +40,7 @@ const Login = () => {
         </Text>
         <LoginForm />
         <Text style={[styles.textColor, { fontSize: 18 }]}>
-          {t("Login.noRegisterYet")}{" "}
+          {t("Login.noRegisterYet")}
           <Link href="/register" style={styles.forgotPassword}>
             <Text style={{ color: colors.green }}> {t("Login.Signup")} </Text>
           </Link>
@@ -46,26 +49,5 @@ const Login = () => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  wrapper: { alignItems: "center", marginTop: 50 },
-  textColor: {
-    color: colors.white,
-  },
-  title: {
-    fontSize: 35,
-    fontWeight: "bold",
-    marginBottom: 3,
-  },
-  subtitle: {
-    fontSize: 15,
-    fontWeight: "bold",
-    color: colors.greyLight,
-  },
-  LogIn: {
-    fontSize: 18,
-    marginVertical: 30,
-  },
-});
 
 export default Login;

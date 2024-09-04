@@ -1,28 +1,5 @@
-// DEPENDENCIES
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { colors } from "utils/stylesUtil";
-
-// REDUX
-import { useSelector } from "react-redux";
-
-// COMPONENTS
-import Loading from "components/Loading";
-
-// FUNCTION
-const Screen = ({ children }) => {
-  const isLoading = useSelector((state) => state.loading);
-
-  return (
-    <View style={styles.wrapper}>
-      {children}
-      {isLoading && (
-        <View style={styles.loadingOverlay}>
-          <Loading />
-        </View>
-      )}
-    </View>
-  );
-};
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -46,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Screen;
+export default styles;

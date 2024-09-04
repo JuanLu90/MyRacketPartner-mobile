@@ -1,6 +1,6 @@
 // DEPENDENCIES
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { colors } from "utils/stylesUtil";
 import { useTranslation } from "react-i18next";
@@ -13,11 +13,11 @@ import Match from "components/Match";
 import AddMatchModal from "components/Modals/AddMatchModal";
 import FloatingButton from "components/FloatingButton";
 
+// STYLES
+import styles from "./Board.styled";
+
 // IMAGES
 import FriendlyIcon from "images/svg-components/FriendlyIcon";
-
-// UTILS
-import { groupMatches } from "utils/groupMatches";
 
 // FUNCTION
 const Board = () => {
@@ -28,17 +28,9 @@ const Board = () => {
 
   useEffect(() => {
     const getMatches = async () => {
-      // if (!validateLogin()) return;
-
       try {
-        // console.log(credentials);
         await dispatch(matchesAction()).unwrap();
-
-        // navigate("/matches");
       } catch (error) {
-        // await dispatch(
-        //   toastAction({ message: error.message, type: "ERROR" })
-        // ).unwrap();
         console.log(error);
       }
     };
@@ -50,8 +42,6 @@ const Board = () => {
     user: { id },
   } = useSelector((state) => state.auth);
   const matchesList = useSelector((state) => state.matches.matches);
-
-  const matchesGrouped = groupMatches(matchesList);
 
   return (
     <>
@@ -65,8 +55,8 @@ const Board = () => {
           />
           <Text style={styles.title}>{t("Board.Friendly.Title")}</Text>
         </View>
-        {matchesGrouped.map((match, i) => (
-          <Match match={match} key={i} />
+        {matchesList.map((match) => (
+          <Match match={match} key={match.matchID} />
         ))}
         {addMatchModalState && (
           <AddMatchModal
@@ -75,21 +65,9 @@ const Board = () => {
           />
         )}
       </ScrollView>
-      <FloatingButton action={() => setAddMatchModalState(true)} />
+      {id && <FloatingButton action={() => setAddMatchModalState(true)} />}
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  wrapperTitle: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  title: {
-    color: colors.white,
-    fontSize: 17,
-    fontWeight: "bold",
-  },
-});
 
 export default Board;

@@ -9,7 +9,7 @@ import { ActivityIndicator } from "react-native";
 import { matchDetailsAction } from "store/slices/matchesSlice";
 
 // COMPONENTS
-import MatchInfo from "pages/MatchInfo";
+import MatchInfo from "pages/MatchInfo/MatchInfo";
 
 // FUNCTION
 const MatchId = () => {

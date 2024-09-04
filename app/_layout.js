@@ -13,7 +13,7 @@ import {
 } from "@env";
 
 // COMPONENTS
-import LayoutComponent from "pages/Layout";
+import LayoutComponent from "pages/Layout/Layout";
 
 // FUNCTION
 const Layout = () => {

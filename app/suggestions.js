@@ -1,6 +1,6 @@
 // COMPONENTS
-import Screen from "pages/Screen";
-import SuggestionsComponent from "pages/Suggestions";
+import Screen from "pages/Screen/Screen";
+import SuggestionsComponent from "pages/Suggestions/Suggestions";
 
 // FUNCTION
 const Suggestions = () => {
