@@ -40,7 +40,7 @@ const Login = () => {
         </Text>
         <LoginForm />
         <Text style={[styles.textColor, { fontSize: 18 }]}>
-          {t("Login.noRegisterYet")}
+          {t("Login.NoRegisterYet")}
           <Link href="/register" style={styles.forgotPassword}>
             <Text style={{ color: colors.green }}> {t("Login.Signup")} </Text>
           </Link>

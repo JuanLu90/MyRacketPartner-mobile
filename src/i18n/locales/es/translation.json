@@ -8,8 +8,14 @@
     "Password": "Contraseña",
     "ForgotPassword": "He olvidado mi contraseña",
     "SendButton": "Enviar",
-    "noRegisterYet": "¿Aún no estás registrado?",
-    "Signup": "Registrate"
+    "NoRegisterYet": "¿Aún no estás registrado?",
+    "Signup": "Registrate",
+    "Validations": {
+      "NoEmail": "Introduza su correo electrónico",
+      "NoPassword": "Introduzca su contraseña",
+      "InvalidEmail": "Introduzca un correo electrónico válido",
+      "InvalidPassword": "La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un dígito y entre 6 y 12 caracteres."
+    }
   },
   "Register": {
     "Title": "Bienvenido",

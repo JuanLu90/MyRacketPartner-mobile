@@ -34,19 +34,17 @@ const LoginForm = () => {
     const { email, password } = credentials;
     const errors = {};
 
-    if (!email) errors.email = "Email is required.";
+    if (!email) errors.email = t("Login.Validations.NoEmail");
     else if (!validateEmail(email))
-      errors.email = "Enter a valid email address.";
+      errors.email = t("Login.Validations.InvalidEmail");
 
-    if (!password) errors.password = "Password is required";
+    if (!password) errors.password = t("Login.Validations.NoPassword");
     else if (!validatePassword(password))
-      errors.password =
-        "Password must contain at least one lowercase letter, one uppercase letter, one digit, and between 6 and 12 characters.";
+      errors.password = t("Login.Validations.InvalidPassword");
 
     setErrorState(errors);
     return Object.keys(errors).length === 0;
   };
-
   const handleChange = (value, name) => {
     setCredentials((prevUser) => ({
       ...prevUser,

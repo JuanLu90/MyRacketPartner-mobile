@@ -8,8 +8,14 @@
     "Password": "Password",
     "ForgotPassword": "I forgot my password",
     "SendButton": "Send",
-    "noRegisterYet": "Are you not registered yet?",
-    "Signin": "Log in"
+    "NoRegisterYet": "Are you not registered yet?",
+    "Signin": "Log in",
+    "Validations": {
+      "NoEmail": "Email is required",
+      "NoPassword": "Password is required",
+      "InvalidEmail": "Enter a valid email",
+      "InvalidPassword": "Password must contain at least one lowercase letter, one uppercase letter, one digit, and between 6 and 12 characters."
+    }
   },
   "Register": {
     "Title": "Welcome Back",
