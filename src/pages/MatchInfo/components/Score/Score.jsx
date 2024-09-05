@@ -12,7 +12,7 @@ const Score = ({ matchDetails }) => {
         <Text
           style={[
             styles.userStyled,
-            matchDetails?.winnerId === matchDetails?.user1?.id && styles.winner,
+            matchDetails?.winnerID === matchDetails?.user1?.id && styles.winner,
           ]}
         >
           {matchDetails?.user1?.name}
@@ -20,7 +20,7 @@ const Score = ({ matchDetails }) => {
         <Text
           style={[
             styles.userStyled,
-            matchDetails?.winnerId === matchDetails?.user2?.id && styles.winner,
+            matchDetails?.winnerID === matchDetails?.user2?.id && styles.winner,
           ]}
         >
           {matchDetails?.user2?.name}

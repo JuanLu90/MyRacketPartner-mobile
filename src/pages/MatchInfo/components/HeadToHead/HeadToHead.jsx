@@ -48,7 +48,7 @@ const HeadToHead = (props) => {
             {tournamentData.tournamentName}
           </Text>
           {tournamentData.matches.map((match) => {
-            const { id, date, user1, user2, winnerId, sets } = match;
+            const { id, date, user1, user2, winnerID, sets } = match;
             return (
               <View key={id} style={styles.wrapperScore}>
                 <Text style={styles.date}>{formatDate(date)}</Text>
@@ -56,7 +56,7 @@ const HeadToHead = (props) => {
                   <Text
                     style={[
                       styles.userStyled,
-                      winnerId === user1.id && styles.winner,
+                      winnerID === user1.id && styles.winner,
                     ]}
                   >
                     {user1.name}
@@ -64,7 +64,7 @@ const HeadToHead = (props) => {
                   <Text
                     style={[
                       styles.userStyled,
-                      winnerId === user2.id && styles.winner,
+                      winnerID === user2.id && styles.winner,
                     ]}
                   >
                     {user2.name}

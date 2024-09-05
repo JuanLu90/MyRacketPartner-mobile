@@ -21,7 +21,7 @@ const MatchInfo = ({ matchDetails }) => {
   const [currentOptionSelected, setCurrentOptionSelected] =
     useState("Marcador");
 
-  const { winnerId, user1, user2, totalSetsUser1, totalSetsUser2 } =
+  const { winnerID, user1, user2, totalSetsUser1, totalSetsUser2 } =
     matchDetails;
 
   const options = {
@@ -37,7 +37,7 @@ const MatchInfo = ({ matchDetails }) => {
             <View
               style={[
                 styles.wrapperUser,
-                winnerId !== user1?.id && styles.winner,
+                winnerID !== user1?.id && styles.winner,
               ]}
             >
               <Image
@@ -56,13 +56,13 @@ const MatchInfo = ({ matchDetails }) => {
           </Pressable>
           <View style={styles.resultContainer}>
             <Text
-              style={[styles.result, winnerId !== user1?.id && styles.winner]}
+              style={[styles.result, winnerID !== user1?.id && styles.winner]}
             >
               {totalSetsUser1}
             </Text>
             <Text style={styles.result}> - </Text>
             <Text
-              style={[styles.result, winnerId !== user2?.id && styles.winner]}
+              style={[styles.result, winnerID !== user2?.id && styles.winner]}
             >
               {totalSetsUser2}
             </Text>
@@ -71,7 +71,7 @@ const MatchInfo = ({ matchDetails }) => {
             <View
               style={[
                 styles.wrapperUser,
-                winnerId !== user2?.id && styles.winner,
+                winnerID !== user2?.id && styles.winner,
               ]}
             >
               <Image

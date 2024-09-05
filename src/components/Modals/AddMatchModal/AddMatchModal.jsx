@@ -14,14 +14,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { matchesAction, newMatchAction } from "store/slices/matchesSlice";
 
 // COMPONENTS
-import BottomSheetModal from "./BottomSheetModal";
-import PlusIcon from "images/svg-components/PlusIcon";
+import BottomSheetModal from "components/Modals/BottomSheetModal/BottomSheetModal";
 
 // HOOKS
 import useSearchUsers from "hooks/getUsersHook";
 
+// STYLES
+import styles from "./AddMatchModal.styled";
+
 // IMAGES
 import UserDefaultImg from "images/user-default.png";
+import PlusIcon from "images/svg-components/PlusIcon";
+import MinusIcon from "images/svg-components/MinusIcon";
 
 // UTILS
 import { colors } from "utils/stylesUtil";
@@ -67,10 +71,7 @@ const AddMatchModal = (props) => {
   const onSubmit = async () => {
     try {
       await dispatch(newMatchAction(matchInfoState)).unwrap();
-
-      setTimeout(() => {
-        dispatch(matchesAction()).unwrap();
-      }, 500);
+      dispatch(matchesAction()).unwrap();
 
       closeModal();
     } catch (error) {
@@ -158,17 +159,25 @@ const AddMatchModal = (props) => {
             </View>
             <View style={styles.userStyled}>
               {userSelected?.userID ? (
-                <Image
-                  source={
-                    userSelected?.profileImage
-                      ? {
-                          uri: userSelected?.profileImage,
-                        }
-                      : UserDefaultImg
-                  }
-                  style={styles.userDefaultIcon}
-                  onPress={() => setSelectUserisActive(!selectUserisActive)}
-                />
+                <>
+                  <Image
+                    source={
+                      userSelected?.profileImage
+                        ? {
+                            uri: userSelected?.profileImage,
+                          }
+                        : UserDefaultImg
+                    }
+                    style={styles.selectedUser}
+                    onPress={() => setSelectUserisActive(!selectUserisActive)}
+                  />
+                  <Pressable
+                    onPress={() => handleSelectUser({})}
+                    style={styles.unselectUser}
+                  >
+                    <MinusIcon pathFill={colors.white} />
+                  </Pressable>
+                </>
               ) : (
                 <Pressable
                   onPress={() => setSelectUserisActive(!selectUserisActive)}
@@ -290,81 +299,5 @@ const AddMatchModal = (props) => {
     </BottomSheetModal>
   );
 };
-
-const styles = StyleSheet.create({
-  userDefaultIcon: {
-    width: 65,
-    height: 65,
-    marginBottom: 8,
-    borderRadius: 40,
-  },
-  wrapperInfoResult: {
-    flex: 1,
-    flexDirection: "row",
-  },
-  usersWrapper: {
-    width: 100,
-    gap: 25,
-    overflow: "hidden",
-  },
-  userStyled: {
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  userName: {
-    color: colors.white,
-  },
-  notSelectedUser: {
-    width: 65,
-    height: 65,
-    marginBottom: 7,
-    padding: 16,
-    backgroundColor: "transparent",
-    borderWidth: 2,
-    borderColor: colors.white,
-    borderRadius: 40,
-    borderStyle: "dashed",
-  },
-  input: {
-    paddingBottom: 5,
-    width: 40,
-    color: colors.white,
-    background: "transparent",
-    fontSize: 32,
-    border: "none",
-    borderBottomWidth: 1,
-    borderColor: colors.white,
-    textAlign: "center",
-  },
-  wrapperResult: {
-    marginVertical: 10,
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: 20,
-  },
-  result: {
-    justifyContent: "space-between",
-  },
-  inputSearchUser: {
-    width: "100%",
-    paddingBottom: 5,
-    color: colors.white,
-    borderBottomWidth: 1,
-    borderColor: colors.white,
-    fontSize: 18,
-  },
-  searchUserImage: {
-    width: 35,
-    height: 35,
-    marginBottom: 8,
-    borderRadius: 40,
-  },
-  option: {
-    flexDirection: "row",
-    marginBottom: 10,
-    gap: 7,
-  },
-});
 
 export default AddMatchModal;

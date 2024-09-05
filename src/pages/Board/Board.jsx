@@ -10,7 +10,7 @@ import { matchesAction } from "store/slices/matchesSlice";
 
 // COMPONENTS
 import Match from "components/Match/Match";
-import AddMatchModal from "components/Modals/AddMatchModal";
+import AddMatchModal from "components/Modals/AddMatchModal/AddMatchModal";
 import FloatingButton from "components/FloatingButton/FloatingButton";
 
 // STYLES
