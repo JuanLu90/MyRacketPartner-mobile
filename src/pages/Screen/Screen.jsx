@@ -5,7 +5,7 @@ import { View } from "react-native";
 import { useSelector } from "react-redux";
 
 // COMPONENTS
-import Loading from "components/Loading";
+import Loading from "components/Loading/Loading";
 
 // STYLES
 import styles from "./Screen.styled";

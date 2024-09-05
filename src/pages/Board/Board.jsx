@@ -9,9 +9,9 @@ import { useTranslation } from "react-i18next";
 import { matchesAction } from "store/slices/matchesSlice";
 
 // COMPONENTS
-import Match from "components/Match";
+import Match from "components/Match/Match";
 import AddMatchModal from "components/Modals/AddMatchModal";
-import FloatingButton from "components/FloatingButton";
+import FloatingButton from "components/FloatingButton/FloatingButton";
 
 // STYLES
 import styles from "./Board.styled";

@@ -3,13 +3,10 @@ import { useState, useMemo } from "react";
 import {
   View,
   Text,
-  Image,
   ScrollView,
-  StyleSheet,
   Dimensions,
   TextInput,
   Button,
-  Pressable,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { colors } from "utils/stylesUtil";

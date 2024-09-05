@@ -1,7 +1,13 @@
 // DEPENDENCIES
-import { View, ActivityIndicator, StyleSheet } from "react-native";
+import { View, ActivityIndicator } from "react-native";
+
+// STYLES
+import styles from "./Loading.styled";
+
+// UTILS
 import { colors } from "utils/stylesUtil";
 
+// FUNCTION
 const Loading = () => {
   return (
     <View style={styles.container}>
@@ -9,13 +15,5 @@ const Loading = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default Loading;

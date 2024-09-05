@@ -1,13 +1,6 @@
 // DEPENDENCIES
 import { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Pressable,
-  Dimensions,
-} from "react-native";
+import { View, Text, TextInput, Pressable, Dimensions } from "react-native";
 import CheckBox from "@react-native-community/checkbox";
 import { colors } from "utils/stylesUtil";
 import { useTranslation } from "react-i18next";

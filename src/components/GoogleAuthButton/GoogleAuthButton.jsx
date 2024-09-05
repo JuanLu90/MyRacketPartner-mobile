@@ -1,5 +1,5 @@
 // DEPENDENCIES
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
 import {
   GoogleSignin,
@@ -9,6 +9,9 @@ import { useNavigation } from "@react-navigation/native";
 
 // REDUX
 import { authGoogleAction } from "store/slices/authSlice";
+
+// STYLES
+import styles from "./GoogleAuthButton.styled";
 
 // IMAGES
 import GoogleIcon from "images/svg-components/GoogleIcon";
@@ -51,26 +54,4 @@ const GoogleAuthButton = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: "#f2f2f2",
-    borderRadius: 4,
-    height: 40,
-    paddingHorizontal: 12,
-    justifyContent: "center",
-  },
-  contentWrapper: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  iconWrapper: {
-    width: 20,
-    height: 20,
-    marginRight: 12,
-  },
-  contents: {
-    fontSize: 14,
-    fontWeight: "500",
-  },
-});
 export default GoogleAuthButton;

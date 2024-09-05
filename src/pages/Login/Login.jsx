@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 
 // COMPONENTS
 import LoginForm from "./components/LoginForm";
-import GoogleAuthButton from "components/GoogleAuthButton";
+import GoogleAuthButton from "components/GoogleAuthButton/GoogleAuthButton";
 
 // STYLES
 import styles from "./Login.styled";

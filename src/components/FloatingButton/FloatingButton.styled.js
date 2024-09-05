@@ -1,15 +1,5 @@
-// STYLES
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { colors } from "utils/stylesUtil";
-import PlusIcon from "images/svg-components/PlusIcon";
-
-const FloatingButton = ({ action }) => {
-  return (
-    <Pressable onPress={action} style={styles.button}>
-      <PlusIcon pathFill={colors.primary} />
-    </Pressable>
-  );
-};
 
 const styles = StyleSheet.create({
   button: {
@@ -31,4 +21,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FloatingButton;
+export default styles;

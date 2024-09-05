@@ -5,8 +5,8 @@ import { useRouter } from "expo-router";
 
 // COMPONENTS
 import Screen from "../Screen/Screen";
-import Score from "components/Score";
-import HeadToHead from "components/HeadToHead";
+import Score from "./components/Score/Score";
+import HeadToHead from "./components/HeadToHead/HeadToHead";
 
 // STYLES
 import styles from "./MatchInfo.styled";
