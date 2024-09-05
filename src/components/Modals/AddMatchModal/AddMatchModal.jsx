@@ -127,6 +127,15 @@ const AddMatchModal = (props) => {
     setQuery("");
   }, [selectUserisActive]);
 
+  const textInputGeneral = (value1, value2) => (
+    <TextInput
+      style={styles.input}
+      onChangeText={(value) => handleChangeResult(value, value1, value2)}
+      placeholder="0"
+      placeholderTextColor={colors.greyLightSemiTransparent}
+      value={matchInfoState.sets[value1]?.[`user${value2}Score`]?.toString()}
+    />
+  );
   return (
     <BottomSheetModal
       title={isEditing ? "Edit a result" : "Add a result"}
@@ -203,52 +212,16 @@ const AddMatchModal = (props) => {
           {!selectUserisActive ? (
             <View style={styles.wrapperResult}>
               <View style={styles.result}>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(value) => handleChangeResult(value, 0, 1)}
-                  placeholder="0"
-                  placeholderTextColor={colors.greyLightSemiTransparent}
-                  value={matchInfoState.sets[0]?.user1Score?.toString()}
-                />
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(value) => handleChangeResult(value, 0, 2)}
-                  placeholder="0"
-                  placeholderTextColor={colors.greyLightSemiTransparent}
-                  value={matchInfoState.sets[0]?.user2Score?.toString()}
-                />
+                {textInputGeneral(0, 1)}
+                {textInputGeneral(0, 2)}
               </View>
               <View style={styles.result}>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(value) => handleChangeResult(value, 1, 1)}
-                  placeholder="0"
-                  placeholderTextColor={colors.greyLightSemiTransparent}
-                  value={matchInfoState.sets[1]?.user1Score?.toString()}
-                />
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(value) => handleChangeResult(value, 1, 2)}
-                  placeholder="0"
-                  placeholderTextColor={colors.greyLightSemiTransparent}
-                  value={matchInfoState.sets[1]?.user2Score?.toString()}
-                />
+                {textInputGeneral(1, 1)}
+                {textInputGeneral(1, 2)}
               </View>
               <View style={styles.result}>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(value) => handleChangeResult(value, 2, 1)}
-                  placeholder="0"
-                  placeholderTextColor={colors.greyLightSemiTransparent}
-                  value={matchInfoState.sets[2]?.user1Score?.toString()}
-                />
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(value) => handleChangeResult(value, 2, 2)}
-                  placeholder="0"
-                  placeholderTextColor={colors.greyLightSemiTransparent}
-                  value={matchInfoState.sets[2]?.user2Score?.toString()}
-                />
+                {textInputGeneral(2, 1)}
+                {textInputGeneral(2, 2)}
               </View>
             </View>
           ) : (
