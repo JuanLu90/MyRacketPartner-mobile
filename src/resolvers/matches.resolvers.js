@@ -7,3 +7,4 @@ export const getMatchDetailsUrl = (matchId) =>
 export const getMatchDetailsHeadToHeadUrl = (data) =>
   `${API_URL}/matchDetails/headtohead/${data.user1Id}/${data.user2Id}`;
 export const getNewMatchUrl = () => `${API_URL}/newMatch`;
+export const getEditMatchUrl = () => `${API_URL}/editMatch`;

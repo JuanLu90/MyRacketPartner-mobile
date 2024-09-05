@@ -78,6 +78,33 @@ export const newMatchAction = createAsyncThunk(
   },
 );
 
+export const editMatchAction = createAsyncThunk(
+  "matches/editMatch",
+  async (match, thunkAPI) => {
+    try {
+      // Filtrar sets vacíos
+      const filteredSets = match.sets.filter(
+        (set) => set.user1Score || set.user2Score,
+      );
+
+      // Crear una copia del objeto match con los sets filtrados
+      const cleanedMatch = {
+        ...match,
+        sets: filteredSets,
+      };
+
+      // Enviar los datos filtrados al servicio
+      const response = await matchesService.editMatch(cleanedMatch);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({
+        status: error.status,
+        message: error.message,
+      });
+    }
+  },
+);
+
 const matchesSlice = createSlice({
   name: "matches",
   initialState,

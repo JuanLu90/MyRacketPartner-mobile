@@ -5,6 +5,7 @@ import {
   getMatchDetailsUrl,
   getMatchDetailsHeadToHeadUrl,
   getNewMatchUrl,
+  getEditMatchUrl,
 } from "resolvers/matches.resolvers";
 
 async function matches() {
@@ -43,11 +44,21 @@ async function newMatch(data) {
   );
 }
 
+async function editMatch(data) {
+  const requestOptions = getRequestOptions("PUT", data);
+
+  return await fetch(getEditMatchUrl(), requestOptions).then(
+    handleResponse,
+    handleError,
+  );
+}
+
 const matchesService = {
   matches,
   matchDetails,
   matchDetailsHeadToHead,
   newMatch,
+  editMatch,
 };
 
 export default matchesService;

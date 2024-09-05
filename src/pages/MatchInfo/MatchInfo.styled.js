@@ -59,6 +59,17 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     borderRadius: 40,
   },
+  editResultWrapper: {
+    position: "absolute",
+    top: 5,
+    right: -30,
+
+    // width: 30,
+  },
+  editResultIcon: {
+    width: 25,
+    height: 25,
+  },
 });
 
 export default styles;

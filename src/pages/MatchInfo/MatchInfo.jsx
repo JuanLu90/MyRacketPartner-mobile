@@ -7,12 +7,14 @@ import { useRouter } from "expo-router";
 import Screen from "../Screen/Screen";
 import Score from "./components/Score/Score";
 import HeadToHead from "./components/HeadToHead/HeadToHead";
+import AddMatchModal from "components/Modals/AddMatchModal/AddMatchModal";
 
 // STYLES
 import styles from "./MatchInfo.styled";
 
 // IMAGES
 import UserDefaultImg from "images/user-default.png";
+import EditImg from "images/edit.png";
 
 // FUNCTION
 const MatchInfo = ({ matchDetails }) => {
@@ -20,6 +22,8 @@ const MatchInfo = ({ matchDetails }) => {
 
   const [currentOptionSelected, setCurrentOptionSelected] =
     useState("Marcador");
+
+  const [addMatchModalState, setAddMatchModalState] = useState(false);
 
   const { winnerID, user1, user2, totalSetsUser1, totalSetsUser2 } =
     matchDetails;
@@ -66,6 +70,12 @@ const MatchInfo = ({ matchDetails }) => {
             >
               {totalSetsUser2}
             </Text>
+            <Pressable
+              style={styles.editResultWrapper}
+              onPress={() => setAddMatchModalState(true)}
+            >
+              <Image source={EditImg} style={styles.editResultIcon} />
+            </Pressable>
           </View>
           <Pressable onPress={() => router.push(`/profile/${user2?.id}`)}>
             <View
@@ -125,6 +135,13 @@ const MatchInfo = ({ matchDetails }) => {
         </View>
         <View>{options[currentOptionSelected]}</View>
       </View>
+      {addMatchModalState && (
+        <AddMatchModal
+          isOpen={addMatchModalState}
+          closeModal={() => setAddMatchModalState(false)}
+          matchInfo={matchDetails}
+        />
+      )}
     </Screen>
   );
 };

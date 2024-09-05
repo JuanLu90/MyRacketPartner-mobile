@@ -1,17 +1,15 @@
 // DEPENDENCIES
 import { useEffect, useState, useMemo } from "react";
-const {
-  Text,
-  View,
-  StyleSheet,
-  Image,
-  Pressable,
-  TextInput,
-} = require("react-native");
+import { Text, View, Image, Pressable, TextInput } from "react-native";
 
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
-import { matchesAction, newMatchAction } from "store/slices/matchesSlice";
+import {
+  editMatchAction,
+  matchDetailsAction,
+  matchesAction,
+  newMatchAction,
+} from "store/slices/matchesSlice";
 
 // COMPONENTS
 import BottomSheetModal from "components/Modals/BottomSheetModal/BottomSheetModal";
@@ -34,31 +32,28 @@ import { colors } from "utils/stylesUtil";
 const AddMatchModal = (props) => {
   const dispatch = useDispatch();
 
-  const { isOpen, closeModal } = props;
+  const { isOpen, closeModal, matchInfo } = props;
 
   const {
     user: { id, profileImage, username },
   } = useSelector((state) => state.auth);
 
+  const isEditing = matchInfo?.user1?.id;
+
   const matchInfoInitialState = useMemo(
     () => ({
-      matchDate: "2023-09-05 00:00:00",
-      user1ID: id,
-      user2ID: null,
+      matchID: matchInfo?.id,
+      matchDate: matchInfo?.date ?? "2023-09-05 00:00:00",
+      user1ID: matchInfo?.user1?.id ?? id,
+      user2ID: matchInfo?.user2?.id,
       sets: [
-        {
-          winnerID: null,
-        },
-        {
-          winnerID: null,
-        },
-        {
-          winnerID: null,
-        },
+        { ...matchInfo?.sets[0] },
+        { ...matchInfo?.sets[1] },
+        { ...matchInfo?.sets[2] },
       ],
       tournamentID: null,
     }),
-    [id],
+    [id, matchInfo],
   );
 
   const [selectUserisActive, setSelectUserisActive] = useState(false);
@@ -70,8 +65,17 @@ const AddMatchModal = (props) => {
 
   const onSubmit = async () => {
     try {
-      await dispatch(newMatchAction(matchInfoState)).unwrap();
-      dispatch(matchesAction()).unwrap();
+      if (isEditing) {
+        await dispatch(editMatchAction(matchInfoState)).unwrap();
+      } else {
+        await dispatch(newMatchAction(matchInfoState)).unwrap();
+      }
+
+      if (isEditing) {
+        dispatch(matchDetailsAction(matchInfo?.id)).unwrap();
+      } else {
+        dispatch(matchesAction()).unwrap();
+      }
 
       closeModal();
     } catch (error) {
@@ -125,7 +129,7 @@ const AddMatchModal = (props) => {
 
   return (
     <BottomSheetModal
-      title="Add a result"
+      title={isEditing ? "Edit a result" : "Add a result"}
       isOpen={isOpen}
       closeModal={closeModal}
       onSubmit={onSubmit}
@@ -158,7 +162,7 @@ const AddMatchModal = (props) => {
               </Text>
             </View>
             <View style={styles.userStyled}>
-              {userSelected?.userID ? (
+              {userSelected?.userID || matchInfoState?.user2ID ? (
                 <>
                   <Image
                     source={
@@ -204,14 +208,14 @@ const AddMatchModal = (props) => {
                   onChangeText={(value) => handleChangeResult(value, 0, 1)}
                   placeholder="0"
                   placeholderTextColor={colors.greyLightSemiTransparent}
-                  // value={userState?.firstName}
+                  value={matchInfoState.sets[0]?.user1Score?.toString()}
                 />
                 <TextInput
                   style={styles.input}
                   onChangeText={(value) => handleChangeResult(value, 0, 2)}
                   placeholder="0"
                   placeholderTextColor={colors.greyLightSemiTransparent}
-                  // value={userState?.firstName}
+                  value={matchInfoState.sets[0]?.user2Score?.toString()}
                 />
               </View>
               <View style={styles.result}>
@@ -220,14 +224,14 @@ const AddMatchModal = (props) => {
                   onChangeText={(value) => handleChangeResult(value, 1, 1)}
                   placeholder="0"
                   placeholderTextColor={colors.greyLightSemiTransparent}
-                  // value={userState?.firstName}
+                  value={matchInfoState.sets[1]?.user1Score?.toString()}
                 />
                 <TextInput
                   style={styles.input}
                   onChangeText={(value) => handleChangeResult(value, 1, 2)}
                   placeholder="0"
                   placeholderTextColor={colors.greyLightSemiTransparent}
-                  // value={userState?.firstName}
+                  value={matchInfoState.sets[1]?.user2Score?.toString()}
                 />
               </View>
               <View style={styles.result}>
@@ -236,14 +240,14 @@ const AddMatchModal = (props) => {
                   onChangeText={(value) => handleChangeResult(value, 2, 1)}
                   placeholder="0"
                   placeholderTextColor={colors.greyLightSemiTransparent}
-                  // value={userState?.firstName}
+                  value={matchInfoState.sets[2]?.user1Score?.toString()}
                 />
                 <TextInput
                   style={styles.input}
                   onChangeText={(value) => handleChangeResult(value, 2, 2)}
                   placeholder="0"
                   placeholderTextColor={colors.greyLightSemiTransparent}
-                  // value={userState?.firstName}
+                  value={matchInfoState.sets[2]?.user2Score?.toString()}
                 />
               </View>
             </View>
