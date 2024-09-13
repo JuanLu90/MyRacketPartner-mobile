@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   textAreaInput: {
     width: "100%",
     height: 100,
-    marginVertical: 15,
+    marginBottom: 7,
     padding: 10,
     backgroundColor: "transparent",
     color: colors.white,
@@ -32,8 +32,7 @@ const styles = StyleSheet.create({
   },
   wrapperCheckBox: {
     flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 7,
+    marginTop: 30,
     marginBottom: 34,
   },
   checkboxLabel: {
@@ -51,6 +50,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: colors.primary,
+  },
+  errorLabel: {
+    fontSize: 17,
+    color: colors.orange,
   },
 });
 

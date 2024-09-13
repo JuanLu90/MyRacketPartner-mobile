@@ -9,8 +9,14 @@ import { useDispatch } from "react-redux";
 // REDUX
 import { sendSuggestionsAction } from "store/slices/usersSlice";
 
+// HOOKS
+import useFormValidation from "hooks/useFormValidation";
+
 // STYLES
 import styles from "./Suggestions.styled";
+
+// UTILS
+import { validateSuggestions } from "utils/validationUtil";
 
 // FUNCTION
 const Suggestions = () => {
@@ -22,49 +28,36 @@ const Suggestions = () => {
     shareSuggestion: 0,
   };
 
-  const [suggestionsState, setSuggestionsState] = useState(
-    initialSuggestionsState,
-  );
-  const [errorState, setErrorState] = useState({});
+  const { formState, setFormState, errors, handleChange, handleValidation } =
+    useFormValidation(initialSuggestionsState, validateSuggestions);
 
-  const validateSuggestions = () => {
-    const { suggestions } = suggestionsState;
-    const errors = {};
+  // const handleChange = (event) => {
+  //   const { name, value, type, checked } = event.target;
 
-    if (!suggestions) errors.suggestions = "Suggestions is required.";
-    else if (suggestions.length < 6 || suggestions.length > 3000)
-      errors.suggestions = "suggestions length between 6 and 3000 characters";
+  //   let finalValue = value;
 
-    setErrorState(errors);
-    return Object.keys(errors).length === 0;
-  };
+  //   if (type === "checkbox") {
+  //     finalValue = checked ? 1 : 0;
+  //   }
 
-  const handleChange = (event) => {
-    const { name, value, type, checked } = event.target;
-
-    let finalValue = value;
-
-    if (type === "checkbox") {
-      finalValue = checked ? 1 : 0;
-    }
-
-    setSuggestionsState((prevSuggestions) => {
-      return {
-        ...prevSuggestions,
-        [name]: finalValue,
-      };
-    });
-  };
+  //   setSuggestionsState((prevSuggestions) => {
+  //     return {
+  //       ...prevSuggestions,
+  //       [name]: finalValue,
+  //     };
+  //   });
+  // };
 
   const handleSendSuggestions = async () => {
-    if (!validateSuggestions()) return;
+    const isValid = handleValidation();
+    if (!isValid) return;
 
     try {
-      await dispatch(sendSuggestionsAction(suggestionsState)).unwrap();
+      await dispatch(sendSuggestionsAction(formState)).unwrap();
+      setFormState(initialSuggestionsState);
       // await dispatch(
       //   toastAction({ message: response, type: "SUCCESS" })
       // ).unwrap();
-      setSuggestionsState(initialSuggestionsState);
     } catch (error) {
       console.log(error);
       // await dispatch(
@@ -84,25 +77,24 @@ const Suggestions = () => {
       <TextInput
         style={[
           styles.textAreaInput,
-          errorState.suggestions && { borderColor: colors.orange },
+          errors.suggestions && { borderColor: colors.orange },
         ]}
         multiline
         numberOfLines={4}
-        value={suggestionsState.suggestions}
-        onChangeText={(text) =>
-          handleChange({ target: { name: "suggestions", value: text } })
-        }
+        value={formState.suggestions}
+        onChangeText={(value) => handleChange(value, "suggestions")}
         placeholder={t("Suggestions.PlaceholderTextArea")}
-        placeholderTextColor={colors.greyLight}
+        placeholderTextColor={colors.greyDark}
       />
+      {errors.suggestions && (
+        <Text style={styles.errorLabel}>{errors.suggestions}</Text>
+      )}
 
       <View style={[styles.wrapperCheckBox, { maxWidth: generalWidth }]}>
         <CheckBox
-          value={suggestionsState.shareSuggestion}
+          value={formState.shareSuggestion}
           onValueChange={(newValue) =>
-            handleChange({
-              target: { name: "shareSuggestion", value: newValue },
-            })
+            handleChange(newValue, "shareSuggestion")
           }
           onTintColor={colors.orange}
           onFillColor={colors.orange}
@@ -112,11 +104,11 @@ const Suggestions = () => {
           style={{ width: 20, height: 20 }}
         />
         <Pressable
-          onPress={(prevState) =>
-            setSuggestionsState({
+          onPress={() =>
+            setFormState((prevState) => ({
               ...prevState,
-              shareSuggestion: !suggestionsState.shareSuggestion,
-            })
+              shareSuggestion: prevState.shareSuggestion === 1 ? 0 : 1,
+            }))
           }
         >
           <Text style={styles.checkboxLabel}>

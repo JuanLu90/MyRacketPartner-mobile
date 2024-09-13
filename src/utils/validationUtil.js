@@ -68,17 +68,6 @@ export const validateRegister = (values, t) => {
   return errors;
 };
 
-export const validateSuggestions = (values) => {
-  const { suggestions } = values;
-  const errors = {};
-
-  if (!suggestions) errors.suggestions = "Suggestions is required.";
-  else if (suggestions.length < 6 || suggestions.length > 3000)
-    errors.suggestions = "suggestions length between 6 and 3000 characters";
-
-  return errors;
-};
-
 export const validateAddResult = (match, t) => {
   const errors = [];
 
@@ -146,6 +135,18 @@ export const validateAddResult = (match, t) => {
       message: t("AddResultModal.Validations.MaxSets"),
     });
   }
+
+  return errors;
+};
+
+export const validateSuggestions = (values, t) => {
+  const { suggestions } = values;
+  const errors = {};
+
+  if (!suggestions)
+    errors.suggestions = t("Suggestions.Validations.NoSuggestions");
+  else if (suggestions.length < 6 || suggestions.length > 300)
+    errors.suggestions = t("Suggestions.Validations.InvalidSuggestions");
 
   return errors;
 };

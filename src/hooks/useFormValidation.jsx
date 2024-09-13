@@ -12,8 +12,13 @@ const useFormValidation = (initialState, validate) => {
     let newValue = value;
 
     if (name === "height" || name === "weight") {
-      newValue = value.replace(/\D/g, "");
-      newValue = newValue === "" ? null : Number(newValue);
+      newValue = value.replace(/\D/g, ""); // Solo números
+      newValue = newValue === "" ? null : Number(newValue); // Convertir a número
+    }
+
+    // Manejo de checkbox
+    if (typeof value === "boolean") {
+      newValue = value ? 1 : 0;
     }
 
     setFormState((prevState) => ({
@@ -37,6 +42,7 @@ const useFormValidation = (initialState, validate) => {
 
   return {
     formState,
+    setFormState,
     errors,
     handleChange,
     handleChangeBirthdate,
