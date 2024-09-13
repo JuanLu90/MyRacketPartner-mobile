@@ -9,7 +9,7 @@
     "ForgotPassword": "I forgot my password",
     "SendButton": "Send",
     "NoRegisterYet": "Are you not registered yet?",
-    "Signin": "Log in",
+    "Signup": "Sign up",
     "Validations": {
       "NoEmail": "Email is required",
       "NoPassword": "Password is required",
@@ -22,14 +22,24 @@
     "Subtitle": "Insert your info",
     "Separator1": "Do it with",
     "Separator2": "or",
-    "Username": "Nombre de usuario",
+    "Username": "User name",
     "Email": "Email",
     "Password": "Password",
-    "ConfirmPassword": "Confirma contraseña",
+    "ConfirmPassword": "Confirm password",
     "ForgotPassword": "I forgot my password",
     "SendButton": "Send",
     "haveAccount": "Do you already have an account?",
-    "Signup": "Sign up"
+    "Signin": "Log in",
+    "Validations": {
+      "NoUsername": "Username is required",
+      "NoEmail": "Email is required",
+      "NoPassword": "Password is required",
+      "NoConfirmPassword": "Confirm the password",
+      "InvalidUsername": "The username must be between 3 characters and 20 characters",
+      "InvalidEmail": "Enter a valid email",
+      "InvalidPassword": "Password must contain at least one lowercase letter, one uppercase letter, one digit, and between 6 and 12 characters",
+      "InvalidConfirmPassword": "Passwords do not match"
+    }
   },
   "Board": {
     "Friendly": {
@@ -59,8 +69,8 @@
       "Lastname": "Lastname",
       "Birthdate": "Birthdate",
       "Gender": {
-        "Title": "Gender",
-        "Types": {
+        "title": "Gender",
+        "types": {
           "MALE": "Male",
           "FEMALE": "Female",
           "OTHER": "Other"
@@ -98,13 +108,51 @@
         }
       }
     },
-    "SendButton": "Send"
+    "SendButton": "Send",
+    "Validations": {
+      "NoFirstName": "Please enter your first name",
+      "NoLastName": "Please enter your last name",
+      "InvalidFirstName": "First name must be between 3 and 16 characters",
+      "InvalidLastName": "Last name must be between 6 and 30 characters",
+      "InvalidHeight": "Between 50 and 250 centimeters",
+      "InvalidWeight": "Between 2 and 300 kilograms"
+    }
   },
   "Suggestions": {
     "Title": "Suggestions",
     "Description": "What would you improve? If you need any functionality, let us know and we will try to add it, if it is added in future updates, we will mention it (if you give permission)",
     "PlaceholderTextArea": "Write the suggestions...",
     "CheckboxShare": "Check if you don't mind us sharing your username (In News section) if functionality is added.",
+    "SendButton": "Send",
+    "Validations": {
+      "NoSuggestions": "Suggestions are required",
+      "InvalidSuggestions": "Write suggestions between 6 and 300 characters"
+    }
+  },
+  "Footer": {
+    "Link1": "© 2023 MyRacketPartner",
+    "Link2": "Legal Notices",
+    "Link3": "Cookie Policy",
+    "Link4": "Privacy Policy",
+    "Info1": "MyRacketPartner is a completely free application. If you like it and want to support the project, you can do so through PayPal.",
+    "Info2": "All contributions are used to cover fixed costs such as hosting, domain, among others. Thank you!"
+  },
+  "BottomSheetModal": {
     "SendButton": "Send"
+  },
+  "AddResultModal": {
+    "TitleAdd": "Add a new result",
+    "TitleEdit": "Edit the result",
+    "MatchDate": "Match date",
+    "AddPlayer": "Add",
+    "SearchBy": "Search by username...",
+    "NoUsers": "No users found",
+    "Validations": {
+      "NoRival": "Select a rival",
+      "MoResult": "Insert a result",
+      "InvalidSet": "Invalid result in set {{index}}",
+      "InvalidSetsOrder": "Invalid order of sets",
+      "MaxSets": "Maximum two sets won"
+    }
   }
 }

@@ -11,10 +11,10 @@
     "NoRegisterYet": "¿Aún no estás registrado?",
     "Signup": "Registrate",
     "Validations": {
-      "NoEmail": "Introduza su correo electrónico",
+      "NoEmail": "introduzca su correo electrónico",
       "NoPassword": "Introduzca su contraseña",
       "InvalidEmail": "Introduzca un correo electrónico válido",
-      "InvalidPassword": "La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un dígito y entre 6 y 12 caracteres."
+      "InvalidPassword": "La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un dígito y entre 6 y 12 caracteres"
     }
   },
   "Register": {
@@ -29,7 +29,17 @@
     "ForgotPassword": "He olvidado mi contraseña",
     "SendButton": "Enviar",
     "haveAccount": "¿Tienes ya una cuenta?",
-    "Signin": "Inicia sesión"
+    "Signin": "Inicia sesión",
+    "Validations": {
+      "NoUsername": "introduzca su nombre de usuario",
+      "NoEmail": "introduzca su correo electrónico",
+      "NoPassword": "Introduzca su contraseña",
+      "NoConfirmPassword": "Confirme la contraseña",
+      "InvalidUsername": "El nombre de usuario debe tener entre 3 y 20 caracteres.",
+      "InvalidEmail": "Introduzca un correo electrónico válido",
+      "InvalidPassword": "La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un dígito y entre 6 y 12 caracteres.",
+      "InvalidConfirmPassword": "Las contraseñas no coinciden"
+    }
   },
   "Board": {
     "Friendly": {
@@ -59,8 +69,8 @@
       "Lastname": "Apellidos",
       "Birthdate": "Fecha de nacimiento",
       "Gender": {
-        "Title": "Género",
-        "Types": {
+        "title": "Género",
+        "types": {
           "MALE": "Masculino",
           "FEMALE": "Femenino",
           "OTHER": "Otro"
@@ -98,13 +108,51 @@
         }
       }
     },
-    "SendButton": "Enviar"
+    "SendButton": "Enviar",
+    "Validations": {
+      "NoFirstName": "Introduzca su nombre",
+      "NoLastName": "Introduzca sus apellidos",
+      "InvalidFirstName": "El nombre debe tener entre 3 y 16 caracteres",
+      "InvalidLastName": "Los apellidos deben tener entre 6 y 30 caracteres",
+      "InvalidHeight": "Entre 50 y 250 centímetros",
+      "InvalidWeight": "Entre 2 y 300 kilogramos"
+    }
   },
   "Suggestions": {
     "Title": "Sugerencias",
     "Description": "¿Qué mejorarías? Si necesitas alguna funcionalidad o arreglar un bug, háznoslo saber y trataremos de añadirlo lo antes posible. Si se agrega en futuras actualizaciones, te mencionaremos (si das permiso)",
     "PlaceholderTextArea": "Escribe las sugerencias...",
     "CheckboxShare": "Marque esta casilla si no le importa que compartamos su nombre de usuario (en la sección Novedades) si se agrega alguna funcionalidad.",
+    "SendButton": "Enviar",
+    "Validations": {
+      "NoSuggestions": "Introduzca alguna sugerencia",
+      "InvalidSuggestions": "Escribe sugerencias de entre 6 y 300 caracteres"
+    }
+  },
+  "Footer": {
+    "Link1": "© 2023 MyRacketPartner",
+    "Link2": "Avisos Legales",
+    "Link3": "Política de cookies",
+    "Link4": "Política de privacidad",
+    "Info1": "MyRacketPartner es una aplicación totalmente gratuita. Si te gusta y quieres apoyar el proyecto, puedes hacerlo mediante PayPal.",
+    "Info2": "Todas las contribuciones se destinan a cubrir gastos fijos como hosting, dominio, entre otros. ¡Gracias!"
+  },
+  "BottomSheetModal": {
     "SendButton": "Enviar"
+  },
+  "AddResultModal": {
+    "TitleAdd": "Añade un nuevo resultado",
+    "TitleEdit": "Edita el resultado",
+    "MatchDate": "Fecha del partido",
+    "AddPlayer": "Añadir",
+    "SearchBy": "Buscar nombre de usuario...",
+    "NoUsers": "No se encontraron usuarios",
+    "Validations": {
+      "NoRival": "Selecciona un rival",
+      "MoResult": "Introduce un resultado",
+      "InvalidSet": "El set {{index}} tiene un resultado inválido",
+      "InvalidSetsOrder": "El orden de los sets no es correcto",
+      "MaxSets": "Máximo dos sets ganados"
+    }
   }
 }

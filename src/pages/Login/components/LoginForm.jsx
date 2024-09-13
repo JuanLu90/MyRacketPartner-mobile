@@ -1,62 +1,42 @@
 // DEPENDENCIES
-import { useState } from "react";
-import { Link } from "expo-router";
-import { colors } from "utils/stylesUtil";
+import { Link, useNavigation } from "expo-router";
 import { Pressable, Text, View, TextInput, Dimensions } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 // REDUX
 import { loginAction } from "store/slices/authSlice";
 
-// UTILS
-import { validateEmail, validatePassword } from "utils/validationUtil";
+// HOOKS
+import useFormValidation from "hooks/useFormValidation";
 
 // STYLES
 import styles from "./LoginForm.styled";
 
+// UTILS
+import { colors } from "utils/stylesUtil";
+import { validateLogin } from "utils/validationUtil";
+
 // FUNCTION
 const LoginForm = () => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+
   const initialCredentials = {
     email: "",
     password: "",
   };
 
-  const [credentials, setCredentials] = useState(initialCredentials);
-  const [errorState, setErrorState] = useState({});
-
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const { t } = useTranslation();
-
-  const validateLogin = () => {
-    const { email, password } = credentials;
-    const errors = {};
-
-    if (!email) errors.email = t("Login.Validations.NoEmail");
-    else if (!validateEmail(email))
-      errors.email = t("Login.Validations.InvalidEmail");
-
-    if (!password) errors.password = t("Login.Validations.NoPassword");
-    else if (!validatePassword(password))
-      errors.password = t("Login.Validations.InvalidPassword");
-
-    setErrorState(errors);
-    return Object.keys(errors).length === 0;
-  };
-  const handleChange = (value, name) => {
-    setCredentials((prevUser) => ({
-      ...prevUser,
-      [name]: value,
-    }));
-  };
+  const { formState, errors, handleChange, handleValidation } =
+    useFormValidation(initialCredentials, validateLogin);
 
   const onSubmit = async () => {
-    if (!validateLogin()) return;
+    const isValid = handleValidation();
+    if (!isValid) return;
 
     try {
-      await dispatch(loginAction(credentials)).unwrap();
+      await dispatch(loginAction(formState)).unwrap();
       navigation.navigate("index");
     } catch (error) {
       console.log(error);
@@ -76,16 +56,16 @@ const LoginForm = () => {
             styles.input,
             {
               width: generalWidth,
-              borderColor: errorState.email ? colors.orange : colors.greyDark,
+              borderColor: errors.email ? colors.orange : colors.greyDark,
             },
           ]}
           onChangeText={(value) => handleChange(value, "email")}
-          value={credentials.email}
+          value={formState.email}
           placeholder={t("Login.Email")}
           placeholderTextColor={colors.greyDark}
         />
-        {errorState.email ? (
-          <Text style={styles.errorLabel}>{errorState.email}</Text>
+        {errors.email ? (
+          <Text style={styles.errorLabel}>{errors.email}</Text>
         ) : null}
       </View>
       <View style={{ marginTop: 20 }}>
@@ -94,19 +74,17 @@ const LoginForm = () => {
             styles.input,
             {
               width: generalWidth,
-              borderColor: errorState.password
-                ? colors.orange
-                : colors.greyDark,
+              borderColor: errors.password ? colors.orange : colors.greyDark,
             },
           ]}
           onChangeText={(value) => handleChange(value, "password")}
-          value={credentials.password}
+          value={formState.password}
           placeholder={t("Login.Password")}
           placeholderTextColor={colors.greyDark}
           secureTextEntry={true}
         />
-        {errorState.password ? (
-          <Text style={styles.errorLabel}>{errorState.password}</Text>
+        {errors.password ? (
+          <Text style={styles.errorLabel}>{errors.password}</Text>
         ) : null}
       </View>
       <Link href="/" style={styles.forgotPassword}>

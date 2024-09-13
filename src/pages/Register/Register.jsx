@@ -44,10 +44,7 @@ const Register = () => {
         <Text style={[styles.textColor, { fontSize: 18 }]}>
           {t("Register.haveAccount")}{" "}
           <Link href="/login" style={styles.forgotPassword}>
-            <Text style={{ color: colors.green }}>
-              {" "}
-              {t("Register.Signin")}{" "}
-            </Text>
+            <Text style={{ color: colors.green }}>{t("Register.Signin")}</Text>
           </Link>
         </Text>
       </View>

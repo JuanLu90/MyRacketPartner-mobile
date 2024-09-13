@@ -15,7 +15,7 @@ import {
 import BottomSheetModal from "components/Modals/BottomSheetModal/BottomSheetModal";
 
 // HOOKS
-import useSearchUsers from "hooks/getUsersHook";
+import useSearchUsers from "hooks/useFetchUsers";
 
 // STYLES
 import styles from "./AddMatchModal.styled";
