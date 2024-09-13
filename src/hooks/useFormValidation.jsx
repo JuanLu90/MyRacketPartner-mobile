@@ -10,13 +10,15 @@ const useFormValidation = (initialState, validate) => {
 
   const handleChange = (value, name) => {
     let newValue = value;
+
     if (name === "height" || name === "weight") {
-      newValue = value.replace(/\D/g, ""); // Solo números
+      newValue = value.replace(/\D/g, "");
+      newValue = newValue === "" ? null : Number(newValue);
     }
 
     setFormState((prevState) => ({
       ...prevState,
-      [name]: newValue === "" ? null : newValue,
+      [name]: newValue,
     }));
   };
 

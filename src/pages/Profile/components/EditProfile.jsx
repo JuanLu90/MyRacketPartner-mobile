@@ -1,5 +1,5 @@
 // DEPENDENCIES
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import {
   View,
   Text,
@@ -17,14 +17,14 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 // REDUX
 import { editUserInfoAction, userProfileAction } from "store/slices/usersSlice";
 
-// IMAGES
-import UserDefaultImg from "images/user-default.png";
+// HOOKS
+import useFormValidation from "hooks/useFormValidation";
 
 // STYLES
 import styles from "./EditProfile.styled";
 
 // UTILS
-import { formatDate, normalizeDate } from "utils/dateUtil";
+import { normalizeDate } from "utils/dateUtil";
 import {
   backhandOptions,
   dominantHandOptions,
@@ -32,6 +32,7 @@ import {
   translateOptions,
 } from "utils/typesUtil";
 import { countries } from "utils/countriesUtil";
+import { validateEditProfile } from "utils/validationUtil";
 
 // FUNCTION
 const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
@@ -55,27 +56,20 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
     [userInfo],
   );
 
-  const [userState, setUserState] = useState(initialState);
-
-  const handleChange = (value, name) => {
-    setUserState((prevUser) => ({
-      ...prevUser,
-      [name]: value === "" ? null : value,
-    }));
-  };
-
-  const handleChangeBirthdate = (_, date) => {
-    setUserState((prevState) => ({
-      ...prevState,
-      // birthdate: formatDateMySql(date),
-      birthdate: normalizeDate(date),
-    }));
-  };
+  const {
+    formState,
+    errors,
+    handleChange,
+    handleChangeBirthdate,
+    handleValidation,
+  } = useFormValidation(initialState, validateEditProfile);
 
   const onSubmit = async () => {
-    // if (!validateState()) return;
+    const isValid = handleValidation();
+    if (!isValid) return;
+
     try {
-      await dispatch(editUserInfoAction(userState)).unwrap();
+      await dispatch(editUserInfoAction(formState)).unwrap();
       await dispatch(userProfileAction(userId)).unwrap();
       closeEditProfile();
       // await dispatch(toastAction(response)).unwrap();
@@ -86,27 +80,15 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
     }
   };
 
-  const compareObj = JSON.stringify(initialState) === JSON.stringify(userState);
-
-  // const InfoItem = ({ label, value }) => (
-  //   <View style={styles.infoItem}>
-  //     <Text style={styles.infoLabel}>{label}</Text>
-  //     <Text style={styles.infoValue}>{value ?? "-"}</Text>
-  //   </View>
-  // );
+  const compareObj = JSON.stringify(initialState) === JSON.stringify(formState);
 
   const { width } = Dimensions.get("window");
 
   const generalWidth = width - 65;
 
-  // const [date, setDate] = useState(new Date(userState.birthdate));
-
-  // const onChange = (event, selectedDate) => {
-  //   const currentDate = selectedDate;
-  //   setDate(currentDate);
-  // };
   if (!isAdmin) return;
-
+  console.log(formState.height);
+  console.log(typeof formState.height);
   return (
     <ScrollView>
       <Text style={styles.sectionTitle}>{t("EditProfile.Personal.Title")}</Text>
@@ -118,8 +100,8 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
           backgroundColor: colors.greyDarkSemiTransparent,
         }}
       >
-        <View>
-          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+        <View style={{ marginBottom: 20 }}>
+          <Text style={{ color: colors.greyLight }}>
             {t("EditProfile.Personal.Email")}
           </Text>
           <TextInput
@@ -129,7 +111,6 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
                 width: generalWidth,
                 backgroundColor: colors.greyDark,
                 opacity: 0.5,
-                // borderColor: errorState.email ? colors.orange : colors.greyDark,
               },
             ]}
             onChangeText={(value) => handleChange(value, "email")}
@@ -137,8 +118,8 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
             editable={false}
           />
         </View>
-        <View>
-          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+        <View style={{ marginBottom: 20 }}>
+          <Text style={{ color: colors.greyLight }}>
             {t("EditProfile.Personal.Name")}
           </Text>
           <TextInput
@@ -146,15 +127,20 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
               styles.input,
               {
                 width: generalWidth,
-                // borderColor: errorState.email ? colors.orange : colors.greyDark,
+                borderColor: errors.firstName ? colors.orange : colors.greyDark,
               },
             ]}
             onChangeText={(value) => handleChange(value, "firstName")}
-            value={userState?.firstName}
+            value={formState?.firstName}
+            placeholder={t("EditProfile.Personal.Name")}
+            placeholderTextColor={colors.greyDark}
           />
+          {errors.firstName && (
+            <Text style={styles.errorLabel}>{errors.firstName}</Text>
+          )}
         </View>
-        <View>
-          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+        <View style={{ marginBottom: 20 }}>
+          <Text style={{ color: colors.greyLight }}>
             {t("EditProfile.Personal.Lastname")}
           </Text>
           <TextInput
@@ -162,46 +148,38 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
               styles.input,
               {
                 width: generalWidth,
-                // borderColor: errorState.email ? colors.orange : colors.greyDark,
+                borderColor: errors.lastName ? colors.orange : colors.greyDark,
               },
             ]}
             onChangeText={(value) => handleChange(value, "lastName")}
-            value={userState?.lastName}
+            value={formState?.lastName}
+            placeholder={t("EditProfile.Personal.Lastname")}
+            placeholderTextColor={colors.greyDark}
           />
+          {errors.lastName && (
+            <Text style={styles.errorLabel}>{errors.lastName}</Text>
+          )}
         </View>
-        <View>
-          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+        <View style={{ marginBottom: 20 }}>
+          <Text style={{ color: colors.greyLight }}>
             {t("EditProfile.Personal.Birthdate")}
           </Text>
           <DateTimePicker
             testID="dateTimePicker"
-            value={userState.birthdate}
+            value={formState.birthdate}
             mode="date"
             onChange={handleChangeBirthdate}
             display="default"
             style={{ ...styles.inputSelect, width: generalWidth }}
           />
-          {/* <TextInput
-            style={[
-              styles.input,
-              {
-                width: generalWidth,
-                // borderColor: errorState.email ? colors.orange : colors.greyDark,
-              },
-            ]}
-            onChangeText={(value) => handleChange(value, "birthdate")}
-            value={formatDate(userState?.birthdate)}
-            onPress={() => console.log("aaaaaa")}
-            editable={false}
-          /> */}
         </View>
-        <View>
-          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+        <View style={{ marginBottom: 20 }}>
+          <Text style={{ color: colors.greyLight }}>
             {t("EditProfile.Personal.Gender.Title")}
           </Text>
           <RNPickerSelect
             onValueChange={(value) => handleChange(value, "gender")}
-            value={userState.gender}
+            value={formState.gender}
             items={translateOptions(genderOptions, t)}
             style={{
               inputIOS: { ...styles.inputSelect, width: generalWidth },
@@ -211,8 +189,8 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
             doneText="OK"
           />
         </View>
-        <View>
-          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+        <View style={{ marginBottom: 20 }}>
+          <Text style={{ color: colors.greyLight }}>
             {t("EditProfile.Personal.Height")}
           </Text>
           <TextInput
@@ -220,15 +198,20 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
               styles.input,
               {
                 width: generalWidth,
-                // borderColor: errorState.email ? colors.orange : colors.greyDark,
+                borderColor: errors.height ? colors.orange : colors.greyDark,
               },
             ]}
             onChangeText={(value) => handleChange(value, "height")}
-            value={String(userState?.height)}
+            value={formState?.height && String(formState?.height)}
+            placeholder={t("EditProfile.Personal.Height")}
+            placeholderTextColor={colors.greyDark}
           />
+          {errors.height && (
+            <Text style={styles.errorLabel}>{errors.height}</Text>
+          )}
         </View>
-        <View>
-          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+        <View style={{ marginBottom: 20 }}>
+          <Text style={{ color: colors.greyLight }}>
             {t("EditProfile.Personal.Weight")}
           </Text>
           <TextInput
@@ -237,20 +220,25 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
               {
                 width: generalWidth,
 
-                // borderColor: errorState.email ? colors.orange : colors.greyDark,
+                borderColor: errors.weight ? colors.orange : colors.greyDark,
               },
             ]}
             onChangeText={(value) => handleChange(value, "weight")}
-            value={String(userState?.weight)}
+            value={formState?.weight && String(formState?.weight)}
+            placeholder={t("EditProfile.Personal.Weight")}
+            placeholderTextColor={colors.greyDark}
           />
+          {errors.weight && (
+            <Text style={styles.errorLabel}>{errors.weight}</Text>
+          )}
         </View>
-        <View>
-          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+        <View style={{ marginBottom: 20 }}>
+          <Text style={{ color: colors.greyLight }}>
             {t("Profile.Country")}
           </Text>
           <RNPickerSelect
             onValueChange={(value) => handleChange(value, "country")}
-            value={userState.country}
+            value={formState.country}
             items={countries}
             style={{
               inputIOS: { ...styles.inputSelect, width: generalWidth },
@@ -270,13 +258,13 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
           backgroundColor: colors.greyDarkSemiTransparent,
         }}
       >
-        <View>
-          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+        <View style={{ marginBottom: 20 }}>
+          <Text style={{ color: colors.greyLight }}>
             {t("EditProfile.Player.DominantHand.Title")}
           </Text>
           <RNPickerSelect
             onValueChange={(value) => handleChange(value, "dominantHand")}
-            value={userState.dominantHand}
+            value={formState.dominantHand}
             items={translateOptions(dominantHandOptions, t)}
             style={{
               inputIOS: { ...styles.inputSelect, width: generalWidth },
@@ -286,13 +274,13 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
             doneText="OK"
           />
         </View>
-        <View>
-          <Text style={{ color: colors.greyLight, marginBottom: 7 }}>
+        <View style={{ marginBottom: 20 }}>
+          <Text style={{ color: colors.greyLight }}>
             {t("EditProfile.Player.Backhand.Title")}
           </Text>
           <RNPickerSelect
             onValueChange={(value) => handleChange(value, "backhand")}
-            value={userState.backhand}
+            value={formState.backhand}
             items={translateOptions(backhandOptions, t)}
             style={{
               inputIOS: { ...styles.inputSelect, width: generalWidth },

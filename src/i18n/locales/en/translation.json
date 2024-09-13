@@ -69,8 +69,8 @@
       "Lastname": "Lastname",
       "Birthdate": "Birthdate",
       "Gender": {
-        "title": "Gender",
-        "types": {
+        "Title": "Gender",
+        "Types": {
           "MALE": "Male",
           "FEMALE": "Female",
           "OTHER": "Other"

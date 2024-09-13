@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 45,
-    marginBottom: 20,
+    marginTop: 7,
+    marginBottom: 5,
     paddingHorizontal: 10,
     color: colors.white,
     borderWidth: 1,
@@ -54,7 +55,6 @@ const styles = StyleSheet.create({
   },
   inputSelect: {
     height: 45,
-    marginBottom: 20,
     paddingHorizontal: 10,
     color: colors.white,
     borderWidth: 1,
@@ -62,6 +62,10 @@ const styles = StyleSheet.create({
   },
   wrapperSendButton: {
     marginBottom: 20,
+  },
+  errorLabel: {
+    fontSize: 17,
+    color: colors.orange,
   },
 });
 
