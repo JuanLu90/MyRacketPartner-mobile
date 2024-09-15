@@ -1,6 +1,7 @@
 // DEPENDENCIES
 import { useEffect, useState, useMemo } from "react";
 import { Text, View, Image, Pressable, TextInput } from "react-native";
+import { useTranslation } from "react-i18next";
 
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
@@ -24,13 +25,16 @@ import styles from "./AddMatchModal.styled";
 import UserDefaultImg from "images/user-default.png";
 import PlusIcon from "images/svg-components/PlusIcon";
 import MinusIcon from "images/svg-components/MinusIcon";
+import WarningIcon from "images/svg-components/WarningIcon";
 
 // UTILS
 import { colors } from "utils/stylesUtil";
+import { validateAddResult } from "utils/validationUtil";
 
 // FUNCTION
 const AddMatchModal = (props) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const { isOpen, closeModal, matchInfo } = props;
 
@@ -40,20 +44,22 @@ const AddMatchModal = (props) => {
 
   const isEditing = matchInfo?.user1?.id;
 
+  const sets = [
+    matchInfo?.sets[0] && { ...matchInfo?.sets[0] },
+    matchInfo?.sets[1] && { ...matchInfo?.sets[1] },
+    matchInfo?.sets[2] && { ...matchInfo?.sets[2] },
+  ].filter(Boolean);
+
   const matchInfoInitialState = useMemo(
     () => ({
       matchID: matchInfo?.id,
       matchDate: matchInfo?.date ?? "2023-09-05 00:00:00",
       user1ID: matchInfo?.user1?.id ?? id,
       user2ID: matchInfo?.user2?.id,
-      sets: [
-        { ...matchInfo?.sets[0] },
-        { ...matchInfo?.sets[1] },
-        { ...matchInfo?.sets[2] },
-      ],
+      sets: [...sets],
       tournamentID: null,
     }),
-    [id, matchInfo],
+    [id, matchInfo, sets],
   );
 
   const [selectUserisActive, setSelectUserisActive] = useState(false);
@@ -61,9 +67,19 @@ const AddMatchModal = (props) => {
   const [matchInfoState, setMatchInfoState] = useState(matchInfoInitialState);
 
   const [query, setQuery] = useState("");
+  const [errors, setErrors] = useState([]);
   const { users, loading, error } = useSearchUsers(query);
 
+  const handleChange = (value) => {
+    setQuery(value);
+  };
+
   const onSubmit = async () => {
+    const validationErrors = validateAddResult(matchInfoState, t);
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length !== 0) return;
+
     try {
       if (isEditing) {
         await dispatch(editMatchAction(matchInfoState)).unwrap();
@@ -85,11 +101,8 @@ const AddMatchModal = (props) => {
     }
   };
 
-  const handleChange = (value) => {
-    setQuery(value);
-  };
-
   const handleChangeResult = (value, name, playerOrder) => {
+    setErrors([]);
     setMatchInfoState((prevState) => {
       const newSets = [...prevState.sets];
       newSets[name] = {
@@ -99,8 +112,6 @@ const AddMatchModal = (props) => {
 
       return {
         ...prevState,
-        // player1ID: user.id,
-        // player2ID: playerSelected.playerID,
         sets: newSets,
       };
     });
@@ -113,6 +124,7 @@ const AddMatchModal = (props) => {
       user2ID: user.userID,
     }));
     setSelectUserisActive(false);
+    setErrors([]);
   };
 
   useEffect(() => {
@@ -129,7 +141,17 @@ const AddMatchModal = (props) => {
 
   const textInputGeneral = (value1, value2) => (
     <TextInput
-      style={styles.input}
+      style={[
+        styles.input,
+        (errors[0]?.code === value1 ||
+          errors[0]?.code === 5 ||
+          errors[0]?.code === 6 ||
+          errors[0]?.code === 7) && {
+          borderBottomWidth: 2,
+          borderColor: colors.orange,
+          color: colors.orange,
+        },
+      ]}
       onChangeText={(value) => handleChangeResult(value, value1, value2)}
       placeholder="0"
       placeholderTextColor={colors.greyLightSemiTransparent}
@@ -138,7 +160,9 @@ const AddMatchModal = (props) => {
   );
   return (
     <BottomSheetModal
-      title={isEditing ? "Edit a result" : "Add a result"}
+      title={
+        isEditing ? t("AddResultModal.TitleEdit") : t("AddResultModal.TitleAdd")
+      }
       isOpen={isOpen}
       closeModal={closeModal}
       onSubmit={onSubmit}
@@ -194,9 +218,16 @@ const AddMatchModal = (props) => {
               ) : (
                 <Pressable
                   onPress={() => setSelectUserisActive(!selectUserisActive)}
-                  style={styles.notSelectedUser}
+                  style={[
+                    styles.notSelectedUser,
+                    errors[0]?.code === 4 && { borderColor: colors.orange },
+                  ]}
                 >
-                  <PlusIcon pathFill={colors.white} />
+                  <PlusIcon
+                    pathFill={
+                      errors[0]?.code === 4 ? colors.orange : colors.white
+                    }
+                  />
                 </Pressable>
               )}
               <Text
@@ -204,7 +235,9 @@ const AddMatchModal = (props) => {
                 numberOfLines={1}
                 ellipsizeMode="tail"
               >
-                {userSelected?.userName ?? "Add player"}
+                {matchInfo?.user2?.name ??
+                  userSelected?.userName ??
+                  t("AddResultModal.AddPlayer")}
               </Text>
             </View>
           </View>
@@ -229,7 +262,7 @@ const AddMatchModal = (props) => {
               <TextInput
                 style={styles.inputSearchUser}
                 onChangeText={handleChange}
-                placeholder="Search by username..."
+                placeholder={t("AddResultModal.SearchBy")}
                 placeholderTextColor={colors.greyLight}
               />
               <View style={{ marginTop: 18 }}>
@@ -265,13 +298,26 @@ const AddMatchModal = (props) => {
                   ))}
                 {(!users.length || !query) && (
                   <Text style={{ color: colors.white, fontSize: 18 }}>
-                    No users found
+                    {t("AddResultModal.NoUsers")}
                   </Text>
                 )}
               </View>
             </View>
           )}
         </View>
+      </View>
+      <View style={{ height: 20, marginTop: 10 }}>
+        {errors.length > 0 && (
+          <View style={styles.wrapperErrorMessage}>
+            <WarningIcon
+              width={25}
+              height={25}
+              marginRight={10}
+              pathFill={colors.orange}
+            />
+            <Text style={styles.textErrorMessage}>{errors[0]?.message}</Text>
+          </View>
+        )}
       </View>
     </BottomSheetModal>
   );

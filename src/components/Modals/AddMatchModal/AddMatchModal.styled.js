@@ -93,6 +93,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     gap: 7,
   },
+  wrapperErrorMessage: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  textErrorMessage: {
+    color: colors.orange,
+    fontWeight: "500",
+    fontSize: 18,
+  },
 });
 
 export default styles;
