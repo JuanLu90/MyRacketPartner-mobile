@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 
 // COMPONENTS
 import RegisterForm from "./components/RegisterForm";
-import GoogleAuthButton from "components/GoogleAuthButton/GoogleAuthButton";
+// import GoogleAuthButton from "components/GoogleAuthButton/GoogleAuthButton";
 
 // STYLES
 import styles from "./Register.styled";
@@ -30,16 +30,16 @@ const Register = () => {
         <Text style={[styles.textColor, styles.title]}>
           {t("Register.Title")}
         </Text>
-        <Text style={[styles.textColor, styles.subtitle]}>
+        <Text style={[styles.textColor, styles.subtitle, { marginBottom: 40 }]}>
           {t("Register.Subtitle")}
         </Text>
-        <Text style={[styles.textColor, styles.Register]}>
+        {/* <Text style={[styles.textColor, styles.Register]}>
           {t("Register.Separator1")}
-        </Text>
-        <GoogleAuthButton />
-        <Text style={[styles.textColor, styles.Register]}>
+        </Text> */}
+        {/* <GoogleAuthButton /> */}
+        {/* <Text style={[styles.textColor, styles.Register]}>
           {t("Register.Separator2")}
-        </Text>
+        </Text> */}
         <RegisterForm />
         <Text style={[styles.textColor, { fontSize: 18 }]}>
           {t("Register.haveAccount")}{" "}

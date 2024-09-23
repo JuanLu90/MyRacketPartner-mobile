@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 
 // COMPONENTS
 import LoginForm from "./components/LoginForm";
-import GoogleAuthButton from "components/GoogleAuthButton/GoogleAuthButton";
+// import GoogleAuthButton from "components/GoogleAuthButton/GoogleAuthButton";
 
 // STYLES
 import styles from "./Login.styled";
@@ -28,16 +28,16 @@ const Login = () => {
       />
       <View style={styles.wrapper}>
         <Text style={[styles.textColor, styles.title]}>{t("Login.Title")}</Text>
-        <Text style={[styles.textColor, styles.subtitle]}>
+        <Text style={[styles.textColor, styles.subtitle, { marginBottom: 40 }]}>
           {t("Login.Subtitle")}
         </Text>
-        <Text style={[styles.textColor, styles.LogIn]}>
+        {/* <Text style={[styles.textColor, styles.LogIn]}>
           {t("Login.Separator1")}
-        </Text>
-        <GoogleAuthButton />
-        <Text style={[styles.textColor, styles.LogIn]}>
+        </Text> */}
+        {/* <GoogleAuthButton /> */}
+        {/* <Text style={[styles.textColor, styles.LogIn]}>
           {t("Login.Separator2")}
-        </Text>
+        </Text> */}
         <LoginForm />
         <Text style={[styles.textColor, { fontSize: 18 }]}>
           {t("Login.NoRegisterYet")}

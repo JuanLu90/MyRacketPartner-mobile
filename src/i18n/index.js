@@ -14,7 +14,13 @@ const initI18n = async () => {
   let savedLanguage = await AsyncStorage.getItem("language");
 
   if (!savedLanguage) {
-    savedLanguage = Localization.getLocales();
+    // Localization.getLocales() devuelve un array, toma el primer elemento y extrae el código de idioma
+    const locales = Localization.getLocales();
+    if (locales && locales.length > 0) {
+      savedLanguage = locales[0].languageCode; // Puedes cambiar a `languageTag` si prefieres "en-US"
+    } else {
+      savedLanguage = "en"; // Idioma por defecto
+    }
   }
 
   i18n.use(initReactI18next).init({
@@ -27,7 +33,6 @@ const initI18n = async () => {
     },
   });
 };
-
 initI18n();
 
 export default i18n;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getUsersSearch } from "resolvers/users.resolvers";
+import { getUsersSearch } from "../resolvers/users.resolvers";
 
 const useSearchUsers = (query) => {
   const [users, setUsers] = useState([]);

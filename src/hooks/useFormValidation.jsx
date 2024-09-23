@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { normalizeDate } from "utils/dateUtil";
+import { normalizeDate } from "../utils/dateUtil";
 import { useTranslation } from "react-i18next";
 
 const useFormValidation = (initialState, validate) => {

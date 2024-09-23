@@ -87,8 +87,7 @@ const EditProfile = ({ isAdmin, closeEditProfile, userId }) => {
   const generalWidth = width - 65;
 
   if (!isAdmin) return;
-  console.log(formState.height);
-  console.log(typeof formState.height);
+
   return (
     <ScrollView>
       <Text style={styles.sectionTitle}>{t("EditProfile.Personal.Title")}</Text>

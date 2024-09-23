@@ -14,19 +14,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.erjuanlu90.myracketpartnermobile"
+      "bundleIdentifier": "com.myracketpartnermobile"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adapti+6352ve-icon.png",
-        "backgroundColor": "#ffffff",
-        "infoPlist": {
-          "NSAppTransportSecurity": {
-            "NSAllowsArbitraryLoads": true
-          }
-        }
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
       },
-      "package": "com.erjuanlu90.myracketpartnermobile"
+      "package": "com.myracketpartnermobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -40,6 +35,11 @@
         }
       ],
       "expo-localization"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "89fd5e5e-bcd7-4482-8a3f-5276ad99a2e2"
+      }
+    }
   }
 }
